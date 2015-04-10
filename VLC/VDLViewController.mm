@@ -25,7 +25,6 @@
 
 #import "VDLViewController.h"
 
-
 #if !__has_feature(objc_arc)
 #error VDLViewController.m is ARC only. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
@@ -286,8 +285,10 @@ CGRect rectRorientation(CGRect r)
     
     
     
+    //hi.tan: 修改一个接口
+    //bool isLandscape = UIDeviceOrientationIsLandscape(self.interfaceOrientation);
+    bool isLandscape = UIInterfaceOrientationIsLandscape(self.interfaceOrientation);
     
-    bool isLandscape = UIDeviceOrientationIsLandscape(self.interfaceOrientation);
     bool isLandscapeLeft = self.interfaceOrientation == UIDeviceOrientationLandscapeLeft;
 
     if(isLandscape){
