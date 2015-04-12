@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D130a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rv6-HC-U5w">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rv6-HC-U5w">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -18,26 +18,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scF-pu-Bnl">
-                                <rect key="frame" x="306" y="139" width="81" height="55"/>
-                                <state key="normal" image="music.png">
+                                <rect key="frame" x="387" y="224" width="162" height="97"/>
+                                <state key="normal" image="icon_music_nor.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="hUQ-Pq-Tmo" kind="show" id="aPH-oi-QN3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3To-M4-QIz">
-                                <rect key="frame" x="123" y="316" width="83" height="53"/>
-                                <state key="normal" image="photo_icon.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="UE2-7r-Cep" kind="show" id="3CK-4t-APZ"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbh-jb-lIP">
-                                <rect key="frame" x="306" y="316" width="87" height="51"/>
-                                <state key="normal" image="file.png">
+                                <rect key="frame" x="406" y="404" width="125" height="102"/>
+                                <state key="normal" image="icon_ebooks_nor.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -45,13 +36,34 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5R-Fl-s5g">
-                                <rect key="frame" x="157" y="124" width="62" height="61"/>
-                                <state key="normal" image="video.png">
+                                <rect key="frame" x="239" y="224" width="111" height="97"/>
+                                <state key="normal" image="icon_video_nor.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="Rxy-lm-jGF" kind="show" id="OgO-NR-WIV"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3To-M4-QIz">
+                                <rect key="frame" x="239" y="404" width="111" height="94"/>
+                                <state key="normal" image="icon_photos_nor.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="UE2-7r-Cep" kind="show" id="3CK-4t-APZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30Q-8G-xag">
+                                <rect key="frame" x="239" y="563" width="111" height="94"/>
+                                <state key="normal" image="icon_internet_nor.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fks-vC-nhc">
+                                <rect key="frame" x="413" y="563" width="111" height="94"/>
+                                <state key="normal" image="icon_android_nor.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -184,9 +196,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="file.png" width="32" height="32"/>
-        <image name="music.png" width="32" height="32"/>
-        <image name="photo_icon.png" width="33" height="33"/>
-        <image name="video.png" width="32" height="32"/>
+        <image name="icon_android_nor.png" width="111" height="100"/>
+        <image name="icon_ebooks_nor.png" width="111" height="99"/>
+        <image name="icon_internet_nor.png" width="232" height="99"/>
+        <image name="icon_music_nor.png" width="111" height="100"/>
+        <image name="icon_photos_nor.png" width="111" height="99"/>
+        <image name="icon_video_nor.png" width="234" height="100"/>
     </resources>
 </document>
