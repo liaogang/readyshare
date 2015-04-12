@@ -104,8 +104,30 @@
 }
 
 
+#pragma mark - new Add
+
+- (instancetype)initAsHeadWithMediaType:(enum MediaType)type
+{
+    if((self = [self init])) {
+        self.navigationItem.title = @"Remote";
+        self.mediaType = type;
+        self.isSub = false;
+    }
+    return self;
+}
 
 
+-(instancetype)initSubWithMediaType:(enum MediaType)type
+{
+    self = [super init];
+    if (self) {
+        
+        self.title = @"";
+        self.isSub = TRUE;
+        self.mediaType = type;
+    }
+    return self;
+}
 
 - (void)loadView
 {
