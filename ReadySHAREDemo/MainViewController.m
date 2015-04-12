@@ -10,20 +10,8 @@
 #import "UIAlertViewBlock.h"
 #import "ipTool.h"
 #import "sheetTableViewController.h"
+#import "RootData.h"
 
-@implementation RootData
-
-+(instancetype)shared
-{
-    static RootData * r = nil;
-    if (r == nil) {
-        r = [[RootData alloc]init];
-    }
-    
-    return r;
-}
-
-@end
 
 
 @interface MainViewController ()
@@ -96,7 +84,7 @@
     }
     else
     {
-        
+        UIAlertView *alert = [UIAlertView alloc];
         
         
     }

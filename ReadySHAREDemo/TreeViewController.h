@@ -33,6 +33,9 @@
 
 
 #import <UIKit/UIKit.h>
+
+#import "RootData.h"
+
 @class  LocalViewController,ReadyshareHomeViewController;
 @interface TreeViewController : UITableViewController <UIAlertViewDelegate>
 - (id)initAsHeadViewController;
@@ -40,6 +43,11 @@
 -(void) reloadPath:(NSString*)ipAdress;
 @property (readwrite, nonatomic, strong) NSString *path;
 
+
+
+- (instancetype)initAsHeadWithMediaType:(enum MediaType)type;
+-(instancetype)initSubWithMediaType:(enum MediaType)type;
+@property (nonatomic) enum MediaType mediaType;
 @end
 
 

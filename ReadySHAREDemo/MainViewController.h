@@ -13,10 +13,4 @@
 @end
 
 
-@interface RootData : NSObject
-+(instancetype)shared;
 
-@property (nonatomic,strong) NSString * path;
-@property (nonatomic,strong) NSString *userName,*passWord,*group;
-
-@end
