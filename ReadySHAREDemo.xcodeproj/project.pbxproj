@@ -118,6 +118,7 @@
 		1ED794791ACE54CF0080FCA8 /* UIPopoverControllerBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED794781ACE54CF0080FCA8 /* UIPopoverControllerBlock.m */; };
 		1ED7947C1ACE552C0080FCA8 /* UIAlertViewBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7947B1ACE552C0080FCA8 /* UIAlertViewBlock.m */; };
 		1ED7947F1ACE553C0080FCA8 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7947E1ACE553C0080FCA8 /* FileViewController.m */; };
+		1EFEC0CB1ADA78E700478346 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEC0CA1ADA78E700478346 /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -291,6 +292,8 @@
 		1ED7947D1ACE553C0080FCA8 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewController.h; sourceTree = "<group>"; };
 		1ED7947E1ACE553C0080FCA8 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileViewController.m; sourceTree = "<group>"; };
 		1ED794811ACE60370080FCA8 /* constStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constStrings.h; sourceTree = "<group>"; };
+		1EFEC0C91ADA78E700478346 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		1EFEC0CA1ADA78E700478346 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,6 +565,8 @@
 				1E4707181ACD44470052D2EF /* ViewController.h */,
 				1E4707191ACD44470052D2EF /* ViewController.m */,
 				1E47071B1ACD44470052D2EF /* Main.storyboard */,
+				1EFEC0C91ADA78E700478346 /* MainViewController.h */,
+				1EFEC0CA1ADA78E700478346 /* MainViewController.m */,
 				1E47071E1ACD44470052D2EF /* Images.xcassets */,
 				1E4707201ACD44470052D2EF /* LaunchScreen.xib */,
 				1E4707111ACD44470052D2EF /* Supporting Files */,
@@ -778,6 +783,7 @@
 				1E39774F1ACD4B910049E391 /* SDWebImageDownloaderOperation+SMB.m in Sources */,
 				1E3977511ACD4B910049E391 /* SDWebImageManager+SMB.m in Sources */,
 				1ED794711ACE44AA0080FCA8 /* sheetTableViewController.m in Sources */,
+				1EFEC0CB1ADA78E700478346 /* MainViewController.m in Sources */,
 				1E4707171ACD44470052D2EF /* AppDelegate.m in Sources */,
 				1E4707391ACD46190052D2EF /* KxSMBProvider.m in Sources */,
 				1E39775B1ACD4BAB0049E391 /* UIImage+Alpha.m in Sources */,

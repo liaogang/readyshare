@@ -201,9 +201,12 @@
     }
     else
     {
+        
+        /*
         UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"设置IP" style:UIBarButtonItemStyleDone target:self action:@selector(actionReloadPath)];
         
         self.navigationItem.rightBarButtonItem = rightBtn;
+        */
         
         
 //        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:[RSHelper shared] action:@selector(requestNewPath)];
