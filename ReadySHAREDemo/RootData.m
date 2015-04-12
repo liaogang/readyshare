@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "RootData.h"
+#import "constStrings.h"
+
+
 
 @implementation RootData
 
@@ -23,12 +26,27 @@
 
 @end
 
-BOOL fliterPathByMediaType(NSString *path ,enum MediaType type)
+BOOL filterPathByMediaType(NSString *path ,enum MediaType type)
 {
-    if (path) {
+    NSString *pathExtension = path.pathExtension.lowercaseString;
+    
+    if (type == MediaTypeMovie)
+    {
+        NSRange r = [kSupportedFileExtensions rangeOfString:pathExtension];
         
-        
-        return YES;
+        return  r.location != NSNotFound;
+    }
+    else if ( type == MediaTypeMusic)
+    {
+       return  [arrayMusicTypes containsObject:pathExtension];
+    }
+    else if ( type == MediaTypePhoto)
+    {
+        return  [arrayPictureTypes containsObject:pathExtension];
+    }
+    else if ( type == MediaTypeBook)
+    {
+        return  [arrayBookTypes containsObject:pathExtension];
     }
     
     return NO;

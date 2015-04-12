@@ -11,7 +11,7 @@
 #import "ipTool.h"
 #import "sheetTableViewController.h"
 #import "RootData.h"
-
+#import "TreeViewController.h"
 
 
 @interface MainViewController ()
@@ -28,6 +28,15 @@
     UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"设置IP" style:UIBarButtonItemStyleDone target:self action:@selector(actionSetPath)];
     
     self.navigationItem.rightBarButtonItem = rightBtn;
+    
+    
+    
+     NSString *path = [RootData shared].path;
+    if ( path == nil || path.length == 0) {
+        [self performSelector:@selector(actionSetPath) withObject:nil afterDelay:0.3];
+    }
+    
+    
 }
 
 -(void)actionSetPath
@@ -69,6 +78,8 @@
     NSArray *datas=@[@"group",@"userName",@"password"];
     NSArray *placeH=@[@"workgroup",@"name",@"password"];
    
+    
+    // iPad 版本
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
     {
         sheetTableViewController *sheet=[[sheetTableViewController alloc]initWithTitle:@"认证信息" detailTitle:@"" cancelBtn:@"Cancel" okBtn:@"OK" datas:datas images:nil placeHolders:placeH dismissed:^(NSArray *arrTableData) {
@@ -82,6 +93,7 @@
         }];
         [sheet show];
     }
+    // iPhone,iPod 版本
     else
     {
         UIAlertView *alert = [UIAlertView alloc];
@@ -95,14 +107,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ( [sender isKindOfClass: [UIButton class]] )
+    {
+        UIButton *btn = sender;
+        TreeViewController *t = [segue destinationViewController];
+        t.mediaType = btn.tag;
+        t.path = [RootData shared].path;
+    }
+    
 }
-*/
+
 
 @end
