@@ -5,17 +5,6 @@
 //  Created by liaogang on 15/4/12.
 //  Copyright (c) 2015年 com.uPlayer. All rights reserved.
 //
-
-
-@interface RootData : NSObject
-+(instancetype)shared;
-
-@property (nonatomic,strong) NSString * path;
-@property (nonatomic,strong) NSString *userName,*passWord,*group;
-
-@end
-
-
 enum MediaType
 {
     MediaTypeMovie,
@@ -24,6 +13,19 @@ enum MediaType
     MediaTypeBook
 };
 
-BOOL fliterPathByMediaType(NSString *path ,enum MediaType type);
+
+
+@interface RootData : NSObject
++(instancetype)shared;
+
+@property (nonatomic,strong) NSString * path;
+@property (nonatomic,strong) NSString *userName,*passWord,*group;
+
+@property (nonatomic) enum MediaType currMediaType;
+
+@end
+
+
+BOOL filterPathByMediaType(NSString *path ,enum MediaType type);
 
 

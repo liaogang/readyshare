@@ -22,7 +22,7 @@
 @property (nonatomic, strong) NSString *_urlLocalFileToUpload;
 
 
-@property (nonatomic,strong) NSString *userName,*passWord,*group;
+//@property (nonatomic,strong) NSString *userName,*passWord,*group;
 
 @property (nonatomic) BOOL isSub;
 
@@ -48,7 +48,8 @@
 - (KxSMBAuth *) smbAuthForServer: (NSString *) server
                        withShare: (NSString *) share
 {
-    return [KxSMBAuth smbAuthWorkgroup:self.group username:self.userName password:self.passWord];
+    RootData *s =    [RootData shared];
+    return [KxSMBAuth smbAuthWorkgroup:s.group username:s.userName password:s.passWord];
 }
 
 -(void) connectSucceed:(NSString*)serverAddr
@@ -112,6 +113,7 @@
         self.navigationItem.title = @"Remote";
         self.mediaType = type;
         self.isSub = false;
+        self.path = [RootData shared].path;
     }
     return self;
 }
@@ -155,64 +157,15 @@
 }
 */
 
--(void)s
-{
-    NSArray *datas=@[@"group",@"userName",@"password"];
-    NSArray *placeH=@[@"workgroup",@"name",@"password"];
-    
-    sheetTableViewController *sheet=[[sheetTableViewController alloc]initWithTitle:@"认证信息" detailTitle:@"" cancelBtn:@"Cancel" okBtn:@"OK" datas:datas images:nil placeHolders:placeH dismissed:^(NSArray *arrTableData) {
-        NSLog(@"%@",arrTableData);
-        if(arrTableData)
-        {
-            self.group = arrTableData[0];
-            self.userName = arrTableData[1];
-            self.passWord = arrTableData[2];
-        }
-        
-        [self reloadPath];
-        
-    }];
-    [sheet show];
-}
 
--(void)actionReloadPath
-{
-    UIAlertViewBlock *alert =    [[UIAlertViewBlock alloc] initWithTitle:@"设置IP" message:nil cancelButtonTitle:@"取消" cancelledBlock:nil okButtonTitles:@"设置" okBlock:^(UIAlertViewBlock *alert) {
-       
-        _path = [alert textFieldAtIndex:0].text;
-        
-        _path = [NSString stringWithFormat:@"smb://%@",_path];
-        
-        [self performSelector:@selector(s) withObject:nil afterDelay: 1];
-    }];
-    
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    
-    
-    NSString *ipLocal = ipLocalHost();
-    
-    
-    char ip[20] ;
-    
-    strcpy( ip,  ipLocal.UTF8String );
-    
-    char *p = strrchr(ip, '.');
-    
-    strcpy( p + 1 , "1");
-    
-    ipLocal = [NSString stringWithUTF8String: ip];
-    
-    [alert textFieldAtIndex:0].placeholder = ipLocal ;
-    [alert textFieldAtIndex:0].text = ipLocal ;
-    
-    [alert show];
-}
+
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-
+    
     
 //    _moreButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"burger"] landscapeImagePhone:[UIImage imageNamed:@"burger@2x"] style:UIBarButtonItemStylePlain target:self action:@selector(showMenu:)];
     
@@ -461,15 +414,44 @@
         
         if ([result isKindOfClass:[NSArray class]])
         {
+            NSArray *arr = (NSArray*)result;
+            
+            NSMutableArray *filter = [ NSMutableArray array];
+            
+            for (id item in arr) {
+                NSLog(@"%@",item);
+                if ([item isKindOfClass:[KxSMBItemFile class]]) {
+                    KxSMBItem *it = (KxSMBItem*)item;
+                    if(filterPathByMediaType(it.path, self.mediaType) )
+                    {
+                        [filter addObject: it];
+                    }
+                }
+                else // tree
+                {
+                    [filter addObject: item];
+                }
+            }
+            
             if(_items)
-                _items = [_items arrayByAddingObjectsFromArray:result];
+                _items = [_items arrayByAddingObjectsFromArray:filter];
             else
-                _items = result ;
+                _items = filter ;
         } else if ([result isKindOfClass:[KxSMBItem class]]) {
             if(_items)
-                _items = [_items arrayByAddingObjectsFromArray:@[result]];
+            {
+                KxSMBItem *item = (KxSMBItem*)result;
+                if (filterPathByMediaType(item.path, self.mediaType))
+                {
+                    _items = [_items arrayByAddingObjectsFromArray:@[result]];
+                }
+            }
             else
+            {
+                // todo
+                assert(false);
                 _items = @[result] ;
+            }
         }
         
         if(_items.count == 0)
@@ -783,7 +765,9 @@
         vc =[[TreeViewController alloc] initSub ];
         
         vc.path = item.path;
-
+        
+        vc.mediaType = self.mediaType;
+        
 //        [RSHelper shared].currRemote=vc;
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([item isKindOfClass:[KxSMBItemFile class]]) {
