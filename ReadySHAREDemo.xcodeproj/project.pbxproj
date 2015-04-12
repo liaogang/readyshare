@@ -937,6 +937,7 @@
 					"-lMobileVLCKit",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -971,6 +972,7 @@
 					"-lMobileVLCKit",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
