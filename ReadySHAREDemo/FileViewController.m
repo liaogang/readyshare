@@ -487,19 +487,6 @@
                 [_fileHandle writeData:data];
                 [_fileHandle synchronizeFile];
                 
-                
-                //kSupportedFileExtensions
-                if( !NSEqualRanges([kSupportedFileExtensions rangeOfString:[_smbFile.path.pathExtension lowercaseString]] , NSMakeRange(NSNotFound, 0)))
-                //if([arrayMovieTypes containsObject:[[_smbFile.path pathExtension] lowercaseString]])
-                {
-                    //大于20或%20，播放预览
-                    if( _downloadedBytes > 10*1024*1024 || _downloadProgress.progress *100 > 10 )
-                    //if( _downloadedBytes > 20*1024*1024 || _downloadProgress.progress *100 > 25 )
-                        //if(_downloadedBytes == _smbFile.stat.size)
-                        [self playVideo];
-                }
-                
-                
                 //下载 完毕
                 if(_downloadedBytes == _smbFile.stat.size) {
                     
@@ -554,6 +541,11 @@
    
     //is a video? played in vlc.
     if(!httpfileUrl){
+        if([arrayMovieTypes containsObject:[[_smbFile.path pathExtension] lowercaseString]])
+        {
+            [self playVideo];
+        }
+        else
         //Picture
         if(  [arrayPictureTypes containsObject:[[_smbFile.path pathExtension] lowercaseString]] )
         {
