@@ -13,7 +13,7 @@
 // Get IP Address
 NSString *ipLocalHost()
 {
-    NSString *address = @"error";
+    NSString *address = nil;
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
     int success = 0;

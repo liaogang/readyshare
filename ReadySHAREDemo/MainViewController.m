@@ -12,32 +12,120 @@
 #import "sheetTableViewController.h"
 #import "RootData.h"
 #import "TreeViewController.h"
-
+#import "KxSMBProvider.h"
 
 @interface MainViewController ()
+<KxSMBProviderDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *btnMovie;
+@property (weak, nonatomic) IBOutlet UIButton *btnMusic;
+@property (weak, nonatomic) IBOutlet UIButton *btnPhoto;
+@property (weak, nonatomic) IBOutlet UIButton *btnBook;
 
 @end
 
 
 @implementation MainViewController
+#pragma mark - KxSMBProviderDelegate
+
+- (KxSMBAuth *) smbAuthForServer: (NSString *) server
+                       withShare: (NSString *) share
+{
+    RootData *s = [RootData shared];
+    return [KxSMBAuth smbAuthWorkgroup:s.group username:s.userName password:s.passWord];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"设置IP" style:UIBarButtonItemStyleDone target:self action:@selector(actionSetPath)];
+    ((KxSMBProvider*)[KxSMBProvider sharedSmbProvider]).delegate = self;
     
-    self.navigationItem.rightBarButtonItem = rightBtn;
+//    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"设置IP" style:UIBarButtonItemStyleDone target:self action:@selector(actionSetPath)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(figureOutRootPath)];
+    
+
+    
+    [self figureOutRootPath];
     
     
-    
-     NSString *path = [RootData shared].path;
+    /*
+    NSString *path = [RootData shared].path;
     if ( path == nil || path.length == 0) {
         [self performSelector:@selector(actionSetPath) withObject:nil afterDelay:0.3];
     }
-    
-    
+    */
 }
+
+-(void)updateBtnState
+{
+    self.btnMovie.enabled=
+    self.btnMusic.enabled=
+    self.btnPhoto.enabled=
+    self.btnBook.enabled=
+    [self hasIpAddress];
+}
+
+-(bool)hasIpAddress
+{
+    return [RootData shared].path != nil;
+}
+
+-(void)figureOutRootPath
+{
+    [self updateBtnState];
+    
+    NSString *ipLocal = ipLocalHost();
+    
+    if (ipLocal)
+    {
+        char ip[20] ;
+        
+        strcpy( ip,  ipLocal.UTF8String );
+        
+        char *p = strrchr(ip, '.');
+        
+        strcpy( p + 1 , "1");
+        
+        ipLocal = [NSString stringWithUTF8String: ip];
+        
+        
+        // get the root path.  192.168.x.x/xxx/Public
+        
+        NSString *rootPath = [NSString stringWithFormat:@"smb://%@",ipLocal];
+        
+        id result = [[KxSMBProvider sharedSmbProvider] fetchAtPath:rootPath];
+        
+        if([result isKindOfClass:[NSArray class]] && [result count] > 0 )
+        {
+            NSArray *arr = result;
+            
+            KxSMBItemTree *tree = arr.lastObject;
+            
+            // stringByAppendingPathComponent will remove a '/' in "//"
+            rootPath = [ipLocal stringByAppendingPathComponent: tree.path.lastPathComponent];
+            
+            rootPath = [rootPath stringByAppendingPathComponent:@"Public"];
+            
+            rootPath = [NSString stringWithFormat:@"smb://%@",rootPath];
+            // save
+            [RootData shared].path = rootPath;
+        }
+        
+        if ([result isKindOfClass:[NSError class]])
+        {
+            [self popupAuth];
+        }
+    }
+    else
+    {
+        [[[UIAlertView alloc]initWithTitle:@"No ip address" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+    }
+    
+    [self updateBtnState];
+}
+
 
 -(void)actionSetPath
 {
@@ -56,21 +144,28 @@
     
     NSString *ipLocal = ipLocalHost();
     
+    if (ipLocal)
+    {
+        char ip[20] ;
+        
+        strcpy( ip,  ipLocal.UTF8String );
+        
+        char *p = strrchr(ip, '.');
+        
+        strcpy( p + 1 , "1");
+        
+        ipLocal = [NSString stringWithUTF8String: ip];
+        
+        [alert textFieldAtIndex:0].placeholder = ipLocal ;
+        [alert textFieldAtIndex:0].text = ipLocal ;
+        
+        [alert show];
+    }
+    else
+    {
+        [[[UIAlertView alloc]initWithTitle:@"No ip address" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+    }
     
-    char ip[20] ;
-    
-    strcpy( ip,  ipLocal.UTF8String );
-    
-    char *p = strrchr(ip, '.');
-    
-    strcpy( p + 1 , "1");
-    
-    ipLocal = [NSString stringWithUTF8String: ip];
-    
-    [alert textFieldAtIndex:0].placeholder = ipLocal ;
-    [alert textFieldAtIndex:0].text = ipLocal ;
-    
-    [alert show];
 }
 
 -(void)popupAuth
@@ -118,6 +213,7 @@
         TreeViewController *t = [segue destinationViewController];
         t.mediaType = btn.tag;
         t.path = [RootData shared].path;
+        
     }
     
 }

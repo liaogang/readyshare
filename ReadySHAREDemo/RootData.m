@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "RootData.h"
 #import "constStrings.h"
+#import "KxSMBProvider.h"
 
-
+@interface RootData ()
+@end
 
 @implementation RootData
 
@@ -23,6 +25,8 @@
     
     return r;
 }
+
+
 
 @end
 

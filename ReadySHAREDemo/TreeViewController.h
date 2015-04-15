@@ -48,6 +48,8 @@
 - (instancetype)initAsHeadWithMediaType:(enum MediaType)type;
 -(instancetype)initSubWithMediaType:(enum MediaType)type;
 @property (nonatomic) enum MediaType mediaType;
+
+
 @end
 
 
