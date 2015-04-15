@@ -138,6 +138,7 @@ typedef void (^KxSMBBlockProgress)(KxSMBItem *item, unsigned long transferred);
 @protocol KxSMBProviderDelegate <NSObject>
 - (KxSMBAuth *) smbAuthForServer: (NSString *) server
                        withShare: (NSString *) share;
+@optional
 -(void) connectSucceed:(NSString*)serverAddr;
 -(void) connectFailed:(NSString*)serverAddr;
 @end

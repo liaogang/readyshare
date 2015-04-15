@@ -17,7 +17,7 @@
 
 
 
-@interface TreeViewController () <UITableViewDataSource, UITableViewDelegate , KxSMBProviderDelegate>
+@interface TreeViewController () <UITableViewDataSource, UITableViewDelegate  >
 @property (nonatomic) BOOL bSelectUpload;
 @property (nonatomic, strong) NSString *_urlLocalFileToUpload;
 
@@ -43,24 +43,7 @@
 }
 
 
-#pragma mark - KxSMBProviderDelegate
 
-- (KxSMBAuth *) smbAuthForServer: (NSString *) server
-                       withShare: (NSString *) share
-{
-    RootData *s =    [RootData shared];
-    return [KxSMBAuth smbAuthWorkgroup:s.group username:s.userName password:s.passWord];
-}
-
--(void) connectSucceed:(NSString*)serverAddr
-{
-    
-}
-
--(void) connectFailed:(NSString*)serverAddr
-{
-    
-}
 
 #pragma mark - 
 
