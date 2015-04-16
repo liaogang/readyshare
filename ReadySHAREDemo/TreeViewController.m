@@ -2,30 +2,26 @@
 #import "TreeViewController.h"
 #import "FileViewController.h"
 #import "KxSMBProvider.h"
-//#import "SDWebImageManager+SMB.h"
+#import "SDWebImageManager+SMB.h"
 
 //#import "UIImage+UIImageExt.h"
 #import "UIAlertViewBlock.h"
-//#import "smbCollectionView.h"
-//#import "UIImage+Resize.h"
-//#import "UIImage+UIImageExt.h"
+#import "smbCollectionView.h"
+#import "UIImage+Resize.h"
+#import "UIImage+UIImageExt.h"
 
-//#import "constStrings.h"
+#import "constStrings.h"
 #import "UIPopoverControllerBlock.h"
 #import "sheetTableViewController.h"
 #import "ipTool.h"
-
+#import "smbCollectionView.h"
 
 
 @interface TreeViewController () <UITableViewDataSource, UITableViewDelegate  >
 @property (nonatomic) BOOL bSelectUpload;
 @property (nonatomic, strong) NSString *_urlLocalFileToUpload;
-
-
-//@property (nonatomic,strong) NSString *userName,*passWord,*group;
-
+@property (nonatomic,strong) smbCollectionViewController *collectionView;
 @property (nonatomic) BOOL isSub;
-
 @end
 
 @implementation TreeViewController {
@@ -251,33 +247,37 @@
     NSAssert([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0, @"need ios 6.0");
     
     
-    NSMutableArray *imageArray=[[NSMutableArray alloc]init];
+    NSMutableArray *imageArray = _items;//= [[NSMutableArray alloc]init];
     
-//    for (KxSMBItem *smbItem in _items)
-//    {
-//        if( [arrayPictureTypes containsObject:[[smbItem.path pathExtension] lowercaseString]] )
-//        {
-//            if(smbItem.stat.size > 0  && smbItem.stat.size < 3145728)
-//            {
-//                [imageArray addObject:smbItem];
-//                
-//            }
-//        }
-//    }
+    /*
+    for (KxSMBItem *smbItem in _items)
+    {
+        if( [arrayPictureTypes containsObject:[[smbItem.path pathExtension] lowercaseString]] )
+        {
+            if(smbItem.stat.size > 0  && smbItem.stat.size < 3145728)
+            {
+                [imageArray addObject:smbItem];
+                
+            }
+        }
+    }
+     */
     
     if([imageArray count] == 0)
         return;
     
     //弹出模态相册浏览器
-    /*
-    UINavigationController *navgationCtlr;
-    smbCollectionViewController *collectionView = [[smbCollectionViewController alloc]init];
-    navgationCtlr=[[UINavigationController alloc]initWithRootViewController:collectionView];
+    self.collectionView = [[smbCollectionViewController alloc]init];
     
-    [collectionView setPhotoImages:imageArray];
+//    [self.collectionView.view setFrame:self.view.bounds];
+    UINavigationController *navgationCtlr;
+    navgationCtlr=[[UINavigationController alloc]initWithRootViewController:self.collectionView];
+    
+    [self.collectionView setPhotoImages:imageArray];
     
     [self.navigationController presentViewController:navgationCtlr animated:YES completion:nil];
-    */
+    
+//    [self.view addSubview: self.collectionView.view];
 }
 
 
@@ -378,8 +378,6 @@
     __weak typeof(self) weakSelf = self ;
     KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
     
-    provider.delegate = self;
-    
     [provider fetchAtPath:_path block:^(id result) {
         [weakSelf ParseFetchResult:result];
     }];
@@ -459,6 +457,11 @@
     
     _isLoading = FALSE;
 
+    
+    if( self.mediaType == MediaTypePhoto)
+    {
+        [self ShowPhotoBroswer];
+    }
 }
 
 
@@ -583,7 +586,6 @@
 
 -(void)updateCellImage:(UITableViewCell *)cell Row:(int)row
 {
-    /*
     if(_isMemoryLow)
         return;
     
@@ -613,7 +615,6 @@
                 }
             } needRefresh:NO];
         }}
-     */
 }
 
 #pragma mark - Table view data source
@@ -682,7 +683,6 @@
         detailTextLabel.text=[NSString stringWithFormat:@"%.1f%@",value,unit];
         
         //If is a image file , show it in cell's left .
-        /*
         if([arrayPictureTypes containsObject:[[smbFile.path pathExtension] lowercaseString]]
            && smbFile.stat.size < 1.2 * 1024 * 1024)
             //小于3M才加载
@@ -714,8 +714,6 @@
         {
             imageView.image = [UIImage imageNamed:@"video.png"];
         }
-        */
-        //else
         {
             imageView.image = _fileImage;
         }
