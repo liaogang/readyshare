@@ -28,8 +28,8 @@ NSString *kCellID = @"cellID";
 CGSize szNormalIpad = {220.0, 266.0};//{199.0, 266.0};
 CGSize szNormalIphone ={138.0, 120.0};
 
-
-CGSize szCoverIpad ={420.,430.};
+CGSize szCoverIpad ={393. , 537.};
+//CGSize szCoverIpad ={420.,430.};
 CGSize szCoverIphone ={260.,300.};
 
 
@@ -67,26 +67,6 @@ CGSize szCoverIphone ={260.,300.};
     [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Photo browser is quited",nil) message:NSLocalizedString(@"Current app received memory warning",nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil),nil] show];
 }
 
--(void)dealloc
-{
-    
-#ifdef DEBUG
-    NSLog(@"照片浏览器 dealloc");
-#endif
-    
-    photos = nil;
-    _rightBarSave = nil;
-    _rightBarChange = nil;
-    _smbItemFiles = nil ;
-    scaledImages = nil;
-    
-    _layoutCover= nil;
-    _layoutNormal= nil;
-    
-    _collectViewNormal= nil;
-    _collectViewCover= nil;
-    _collectViewCurr= nil;
-}
 
 
 -(id)init
@@ -100,15 +80,10 @@ CGSize szCoverIphone ={260.,300.};
 
 
 
-
-
-
-
 -(void)changeFlow
 {
     BOOL isCover = _collectViewCurr == _collectViewCover;
     _collectViewCurr = isCover ? _collectViewNormal : _collectViewCover;
-    
 
     
     [UIView beginAnimations:@"animationID" context:nil];
@@ -135,44 +110,48 @@ CGSize szCoverIphone ={260.,300.};
     
     _indexSelected= -1;
     
-    
     self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self.navigationController action:@selector(dismissModalViewControllerAnimated:)];
 
     
+    bool isIPad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+    
+    CGRect rc = self.view.bounds;
+    
+    if(_enableCoverFlow)
+    {
+        _layoutCover =[[CCoverflowCollectionViewLayout alloc]init];
+        if( isIPad )
+            _layoutCover.cellSize = szCoverIpad;
+        else
+            _layoutCover.cellSize = szCoverIphone;
+        
+        _collectViewCover =  [[UICollectionViewController alloc]initWithCollectionViewLayout:_layoutCover];
+        [_collectViewCover.collectionView registerNib:[UINib nibWithNibName:@"cover_cell2_iPad" bundle:nil] forCellWithReuseIdentifier:kCellID];
+        _collectViewCover.collectionView.delegate =self ;
+        _collectViewCover.collectionView.dataSource=self;
+        [_collectViewCover.view setFrame: rc];
+        _collectViewCover.view.autoresizingMask = ~0 & ~UIViewAutoresizingFlexibleBottomMargin;
+        
+        [self.view addSubview:_collectViewCover.view];
+        
+        _rightBarChange = [[UIBarButtonItem alloc]initWithTitle:@"Change" style:UIBarButtonItemStylePlain target:self action:@selector(changeFlow)];
+        self.navigationItem.rightBarButtonItem = _rightBarChange;
+    }
+    
     NSString * cellxibname;
-    NSString * cellxibnameIpadCover;
-    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
-    {
-        cellxibname = @"cell2";
-        cellxibnameIpadCover = @"cover_cell2_iPad";
-        _layoutCover.cellSize = szCoverIphone;
-    }
-    else
-    {
-        cellxibname = @"cell2_iPad";
-        cellxibnameIpadCover = @"cover_cell2_iPad";
-        _layoutCover.cellSize = szCoverIpad;
-    }
-    
-    if(_enableCoverFlow){
-    _layoutCover =[[CCoverflowCollectionViewLayout alloc]init];
 
-    _collectViewCover =  [[UICollectionViewController alloc]initWithCollectionViewLayout:_layoutCover];
-    [_collectViewCover.collectionView registerNib:[UINib nibWithNibName:cellxibnameIpadCover bundle:nil] forCellWithReuseIdentifier:kCellID];
-    _collectViewCover.collectionView.delegate =self ;
-    _collectViewCover.collectionView.dataSource=self;
-    [_collectViewCover.view setFrame:self.view.frame];
-    [self.view addSubview:_collectViewCover.view];
-    }
     
-    
+    if( isIPad )
+        cellxibname = @"cell2_iPad";
+    else
+        cellxibname = @"cell2";
     
     _layoutNormal=[[UICollectionViewFlowLayout alloc]init];
     _collectViewNormal = [[UICollectionViewController alloc]initWithCollectionViewLayout:_layoutNormal];
     [_collectViewNormal.collectionView registerNib:[UINib nibWithNibName:cellxibname bundle:nil] forCellWithReuseIdentifier:kCellID];
     _collectViewNormal.collectionView.delegate =self ;
     _collectViewNormal.collectionView.dataSource=self;
-    [_collectViewNormal.view setFrame:self.view.frame];
+    [_collectViewNormal.view setFrame: rc];
     [self.view addSubview:_collectViewNormal.view];
 
     
@@ -233,7 +212,9 @@ CGSize szCoverIphone ={260.,300.};
             if (image)
             {
                 NSLog(@"%@",image);
-//                image = [image  resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:_weakCell.imageV.bounds.size interpolationQuality:kCGInterpolationMedium];
+                
+                image = [image  resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:_weakCell.imageV.bounds.size interpolationQuality:kCGInterpolationMedium];
+                
                 if (image)
                 {
                     //image = [image imageByScalingAndCroppingForSize:_weakCell.imageV.bounds.size];
@@ -265,8 +246,6 @@ CGSize szCoverIphone ={260.,300.};
     else
         return szNormalIpad;
 #endif
-
-
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -290,6 +269,7 @@ CGSize szCoverIphone ={260.,300.};
     
     NSIndexPath *selectedIndexPath = [[collectionView indexPathsForSelectedItems] objectAtIndex:0];
 
+    
     
     //点击没有选中的项，选中项目，显示菜单
     //点击已选中的项才弹出全屏相册
@@ -379,7 +359,8 @@ CGSize szCoverIphone ={260.,300.};
     {
         _rightBarSave = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(Save2Local)];
     
-        _rightBarChange = [[UIBarButtonItem alloc]initWithTitle:@"Change" style:UIBarButtonItemStylePlain target:self action:@selector(changeFlow)];
+        if(!_rightBarChange)
+            _rightBarChange = [[UIBarButtonItem alloc]initWithTitle:@"Change" style:UIBarButtonItemStylePlain target:self action:@selector(changeFlow)];
     }
     
     if(_enableCoverFlow)

@@ -23,6 +23,8 @@
         CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
         self.selectedBackgroundView = backgroundView;
         self.imageV.contentMode= UIViewContentModeScaleAspectFit;
+        
+        self.autoresizingMask = ~0;
     }
     return self;
 }
