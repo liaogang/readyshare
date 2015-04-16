@@ -168,6 +168,8 @@
     }
 
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"photo_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(ShowPhotoBroswer)];
+    self.navigationItem.rightBarButtonItem.enabled = false;
     
 }
 
@@ -268,16 +270,19 @@
     
     //弹出模态相册浏览器
     self.collectionView = [[smbCollectionViewController alloc]init];
+    self.collectionView.enableCoverFlow = true;
     
-//    [self.collectionView.view setFrame:self.view.bounds];
     UINavigationController *navgationCtlr;
     navgationCtlr=[[UINavigationController alloc]initWithRootViewController:self.collectionView];
     
+    navgationCtlr.navigationBar.translucent = NO;
+    
     [self.collectionView setPhotoImages:imageArray];
+    
+    self.collectionView.view.autoresizingMask = ~0;
     
     [self.navigationController presentViewController:navgationCtlr animated:YES completion:nil];
     
-//    [self.view addSubview: self.collectionView.view];
 }
 
 
@@ -460,7 +465,7 @@
     
     if( self.mediaType == MediaTypePhoto)
     {
-        [self ShowPhotoBroswer];
+        self.navigationItem.rightBarButtonItem.enabled = true;
     }
 }
 
@@ -714,6 +719,7 @@
         {
             imageView.image = [UIImage imageNamed:@"video.png"];
         }
+        else
         {
             imageView.image = _fileImage;
         }
