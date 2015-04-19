@@ -324,6 +324,9 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oper_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-HZ-PPL">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <variation key="widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="31" y="-3" width="355" height="541"/>
+                                        </variation>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkO-Mm-LSw">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -356,7 +359,7 @@
                                         <state key="normal" image="mode_order_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" image="mode_order_sel.png"/>
+                                        <state key="highlighted" image="mode_order_nor.png"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="Hx2-pX-tVr"/>
@@ -387,6 +390,9 @@
                                         <state key="normal" image="volume_icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <variation key="widthClass=regular" fixedFrame="YES">
+                                            <rect key="frame" x="101" y="348" width="24" height="22"/>
+                                        </variation>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NM4-MG-Tco">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -395,49 +401,13 @@
                                         </state>
                                         <state key="selected" image="oper_pause_sel.png"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YH4-si-2JR">
-                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="tyE-hQ-hUd">
-                                                <variation key="widthClass=regular" constant="86"/>
-                                            </constraint>
-                                        </constraints>
-                                        <state key="normal" image="oper_previous_nor.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="tyE-hQ-hUd"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="tyE-hQ-hUd"/>
-                                            </mask>
-                                        </variation>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="red-qg-gcO">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                         <state key="normal" image="oper_next_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="oper_next_sel.png"/>
                                     </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="volume_level_00.png" maximumValueImage="volume_level_07.png" translatesAutoresizingMaskIntoConstraints="NO" id="JXh-G2-REI">
-                                        <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="114" id="bub-YA-lyT"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="bub-YA-lyT"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="bub-YA-lyT"/>
-                                            </mask>
-                                        </variation>
-                                    </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBG-LZ-9PN">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <constraints>
@@ -479,6 +449,35 @@
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="taH-10-wTB">
                                         <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
                                     </slider>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dw4-bf-TiW">
+                                        <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
+                                        <variation key="widthClass=regular" fixedFrame="YES">
+                                            <rect key="frame" x="179" y="344" width="118" height="31"/>
+                                        </variation>
+                                    </slider>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YH4-si-2JR">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="tyE-hQ-hUd">
+                                                <variation key="widthClass=regular" constant="86"/>
+                                            </constraint>
+                                        </constraints>
+                                        <state key="normal" image="oper_previous_nor.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="oper_pause_sel.png"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="tyE-hQ-hUd"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="70" y="416" width="86" height="86"/>
+                                            <mask key="constraints">
+                                                <include reference="tyE-hQ-hUd"/>
+                                            </mask>
+                                        </variation>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -502,7 +501,6 @@
                                     <constraint firstItem="IhG-Yw-FP8" firstAttribute="top" secondItem="tkO-Mm-LSw" secondAttribute="bottom" constant="14" id="GnY-nq-xYu">
                                         <variation key="widthClass=regular" constant="13"/>
                                     </constraint>
-                                    <constraint firstItem="JXh-G2-REI" firstAttribute="top" secondItem="unR-ob-1Z5" secondAttribute="bottom" constant="8" symbolic="YES" id="KQe-Ms-sbR"/>
                                     <constraint firstItem="caJ-HZ-PPL" firstAttribute="top" secondItem="8sF-2Z-ynA" secondAttribute="top" constant="21" id="Kyc-YK-uoC">
                                         <variation key="widthClass=regular" constant="-3"/>
                                     </constraint>
@@ -512,7 +510,6 @@
                                     <constraint firstItem="pBG-LZ-9PN" firstAttribute="top" secondItem="3Gb-L0-bJ1" secondAttribute="bottom" constant="62" id="TBQ-L7-Yu6">
                                         <variation key="widthClass=regular" constant="56"/>
                                     </constraint>
-                                    <constraint firstItem="JXh-G2-REI" firstAttribute="centerX" secondItem="IhG-Yw-FP8" secondAttribute="centerX" id="UoW-hi-w5k"/>
                                     <constraint firstItem="caJ-HZ-PPL" firstAttribute="leading" secondItem="8sF-2Z-ynA" secondAttribute="leading" constant="31" id="YMJ-eX-45o"/>
                                     <constraint firstItem="YH4-si-2JR" firstAttribute="leading" secondItem="8sF-2Z-ynA" secondAttribute="leading" constant="87" id="ZBy-Zm-jPL">
                                         <variation key="widthClass=regular" constant="69"/>
@@ -542,9 +539,6 @@
                                     <constraint firstItem="sYE-qE-PR6" firstAttribute="leading" secondItem="taH-10-wTB" secondAttribute="trailing" constant="26" id="waC-7x-jrF">
                                         <variation key="widthClass=regular" constant="24"/>
                                     </constraint>
-                                    <constraint firstItem="JXh-G2-REI" firstAttribute="leading" secondItem="85U-Xk-W3j" secondAttribute="trailing" constant="26" id="waN-8j-8CY"/>
-                                    <constraint firstItem="JXh-G2-REI" firstAttribute="centerX" secondItem="caJ-HZ-PPL" secondAttribute="centerX" id="xHJ-qf-qgF"/>
-                                    <constraint firstItem="JXh-G2-REI" firstAttribute="bottom" secondItem="85U-Xk-W3j" secondAttribute="bottom" id="zBo-v1-Toj"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
@@ -556,12 +550,12 @@
                                         <exclude reference="unR-ob-1Z5"/>
                                         <exclude reference="85U-Xk-W3j"/>
                                         <exclude reference="NM4-MG-Tco"/>
-                                        <exclude reference="YH4-si-2JR"/>
                                         <exclude reference="red-qg-gcO"/>
-                                        <exclude reference="JXh-G2-REI"/>
                                         <exclude reference="pBG-LZ-9PN"/>
                                         <exclude reference="sYE-qE-PR6"/>
                                         <exclude reference="taH-10-wTB"/>
+                                        <exclude reference="dw4-bf-TiW"/>
+                                        <exclude reference="YH4-si-2JR"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="Kyc-YK-uoC"/>
@@ -579,11 +573,6 @@
                                         <exclude reference="e9D-ze-y6x"/>
                                         <exclude reference="aNC-qm-qnc"/>
                                         <exclude reference="bcG-aA-bMj"/>
-                                        <exclude reference="KQe-Ms-sbR"/>
-                                        <exclude reference="UoW-hi-w5k"/>
-                                        <exclude reference="waN-8j-8CY"/>
-                                        <exclude reference="xHJ-qf-qgF"/>
-                                        <exclude reference="zBo-v1-Toj"/>
                                         <exclude reference="3OC-ug-rWq"/>
                                         <exclude reference="TBQ-L7-Yu6"/>
                                         <exclude reference="vcU-cx-i7h"/>
@@ -611,12 +600,12 @@
                                         <include reference="unR-ob-1Z5"/>
                                         <include reference="85U-Xk-W3j"/>
                                         <include reference="NM4-MG-Tco"/>
-                                        <include reference="YH4-si-2JR"/>
                                         <include reference="red-qg-gcO"/>
-                                        <include reference="JXh-G2-REI"/>
                                         <include reference="pBG-LZ-9PN"/>
                                         <include reference="sYE-qE-PR6"/>
                                         <include reference="taH-10-wTB"/>
+                                        <include reference="dw4-bf-TiW"/>
+                                        <include reference="YH4-si-2JR"/>
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="Kyc-YK-uoC"/>
@@ -634,11 +623,6 @@
                                         <include reference="e9D-ze-y6x"/>
                                         <include reference="aNC-qm-qnc"/>
                                         <include reference="bcG-aA-bMj"/>
-                                        <include reference="KQe-Ms-sbR"/>
-                                        <include reference="UoW-hi-w5k"/>
-                                        <include reference="waN-8j-8CY"/>
-                                        <include reference="xHJ-qf-qgF"/>
-                                        <include reference="zBo-v1-Toj"/>
                                         <include reference="3OC-ug-rWq"/>
                                         <include reference="TBQ-L7-Yu6"/>
                                         <include reference="vcU-cx-i7h"/>
@@ -728,7 +712,6 @@
                     </view>
                     <connections>
                         <outlet property="sliderProgress" destination="taH-10-wTB" id="IN5-z7-eEh"/>
-                        <outlet property="sliderVolumn" destination="JXh-G2-REI" id="rFl-OY-oTg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZh-aj-veB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -788,7 +771,6 @@
         <image name="icon_photos_nor.png" width="111" height="99"/>
         <image name="icon_video_nor.png" width="234" height="100"/>
         <image name="mode_order_nor.png" width="24" height="18"/>
-        <image name="mode_order_sel.png" width="24" height="18"/>
         <image name="mode_random_nor.png" width="24" height="18"/>
         <image name="mode_random_sel.png" width="24" height="18"/>
         <image name="mode_single_nor.png" width="24" height="24"/>
@@ -796,12 +778,11 @@
         <image name="music_bg.png" width="800" height="480"/>
         <image name="oper_bg.png" width="325" height="410"/>
         <image name="oper_next_nor.png" width="86" height="86"/>
+        <image name="oper_next_sel.png" width="86" height="86"/>
         <image name="oper_pause_nor.png" width="86" height="86"/>
         <image name="oper_pause_sel.png" width="86" height="86"/>
         <image name="oper_previous_nor.png" width="86" height="86"/>
         <image name="volume_icon.png" width="24" height="20"/>
-        <image name="volume_level_00.png" width="88" height="23"/>
-        <image name="volume_level_07.png" width="88" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qYm-AH-sxD"/>
