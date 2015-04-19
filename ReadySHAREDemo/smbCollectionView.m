@@ -224,6 +224,10 @@ CGSize szCoverIphone ={260.,300.};
                     [_weakCell.imageV setImage:image];
                     [_weakCell.imageV setNeedsLayout];
                 }
+                else
+                {
+                    NSLog(@"ResizedImageWithContentMode failed.");
+                }
             }
         }
     } needRefresh:NO];
