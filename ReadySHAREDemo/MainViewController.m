@@ -35,6 +35,10 @@
     return [KxSMBAuth smbAuthWorkgroup:s.group username:s.userName password:s.passWord];
 }
 
+-(void)awakeFromNib
+{
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -211,8 +215,11 @@
     {
         UIButton *btn = sender;
         TreeViewController *t = [segue destinationViewController];
-        t.mediaType = btn.tag;
-        t.path = [RootData shared].path;
+        if ([t isKindOfClass:[TreeViewController class]]) {
+            t.mediaType = btn.tag;
+            t.path = [RootData shared].path;
+        }
+
         
     }
     
