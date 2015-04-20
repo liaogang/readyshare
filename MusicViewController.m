@@ -24,7 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+    self.tableView.backgroundColor=[UIColor clearColor];
+    self.tableView.rowHeight = 42;
+    self.tableView.layer.cornerRadius = 8;
+    self.tableView.layer.masksToBounds = YES;
     
     RootData *r = [RootData shared];
     [r reload:^{
@@ -63,7 +66,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"musicTableCell";
+//    static NSString *cellIdentifier = @"musicTableCell";
     
     musicTableViewCell *cell ;//= [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -74,11 +77,21 @@
 
     KxSMBItemFile *file = arr[indexPath.row];
     
-    cell.textNumber.text = @(indexPath.row).stringValue;
+    cell.textNumber.text = @(indexPath.row + 1).stringValue;
     
     cell.textName.text = file.path.lastPathComponent;
     
+//    UIView *backView = [[UIView alloc] initWithFrame:CGRectZero];
+//    
+//    backView.backgroundColor = [UIColor clearColor];
+//    
+//    cell.backgroundView = backView;
+    
     return cell;
+}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+      [cell setBackgroundColor:[UIColor clearColor]];
 }
 
 

@@ -21,6 +21,8 @@
     self = [super init];
     if (self) {
         self = [[NSBundle mainBundle]loadNibNamed:@"musicTableViewCell" owner:self options:nil][0];
+        
+
     }
     return self;
 }

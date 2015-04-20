@@ -17,6 +17,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+//    [[UITableViewCell appearance] setBackgroundView:     [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"list_bg"]] ];
+    
     return YES;
 }
 
