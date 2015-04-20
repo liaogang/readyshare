@@ -8,6 +8,8 @@
 
 #import "MusicViewController.h"
 #import "RootData.h"
+#import "musicTableViewCell.h"
+#import "KxSMBProvider.h"
 
 @interface MusicViewController ()
 <UITableViewDataSource,UITableViewDelegate>
@@ -24,9 +26,17 @@
     
 
     
-    
-    
-    
+    RootData *r = [RootData shared];
+    [r reload:^{
+        if (r.error)
+        {
+            
+        }
+        else
+        {
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,13 +58,25 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
+    static NSString *cellIdentifier = @"musicTableCell";
     
+    musicTableViewCell *cell ;//= [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if(!cell)
+        cell = [[musicTableViewCell alloc]initWithNib];
+    
+    NSArray *arr = [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered];
+
+    KxSMBItemFile *file = arr[indexPath.row];
+    
+    cell.textNumber.text = @(indexPath.row).stringValue;
+    
+    cell.textName.text = file.path.lastPathComponent;
     
     return cell;
 }
@@ -63,13 +85,12 @@
 #pragma mark - Custom view for table header
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 48;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view;
-    
+    UIView *view= [[NSBundle mainBundle]loadNibNamed:@"musicTableHeader" owner:self options:nil][0];
     return view;
 }
 

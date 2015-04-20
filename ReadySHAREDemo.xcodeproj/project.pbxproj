@@ -134,6 +134,9 @@
 		1E47072E1ACD44470052D2EF /* ReadySHAREDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E47072D1ACD44470052D2EF /* ReadySHAREDemoTests.m */; };
 		1E4707391ACD46190052D2EF /* KxSMBProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4707381ACD46190052D2EF /* KxSMBProvider.m */; };
 		1E4707601ACD473A0052D2EF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E47075F1ACD473A0052D2EF /* libz.dylib */; };
+		1E6B81EF1AE4E5340078C52B /* musicTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B81EE1AE4E5340078C52B /* musicTableHeader.xib */; };
+		1E6B81F31AE4E8120078C52B /* musicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */; };
+		1E6B81F41AE4E8120078C52B /* musicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */; };
 		1E98F04A1ADB72320021C1C7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E98F04C1ADB72320021C1C7 /* Localizable.strings */; };
 		1EADC74C1AE39F94001E562F /* MusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EADC74B1AE39F94001E562F /* MusicViewController.m */; };
 		1ED794711ACE44AA0080FCA8 /* sheetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED794701ACE44AA0080FCA8 /* sheetTableViewController.m */; };
@@ -407,6 +410,10 @@
 		1E4707371ACD46190052D2EF /* KxSMBProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxSMBProvider.h; sourceTree = "<group>"; };
 		1E4707381ACD46190052D2EF /* KxSMBProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxSMBProvider.m; sourceTree = "<group>"; };
 		1E47075F1ACD473A0052D2EF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		1E6B81EE1AE4E5340078C52B /* musicTableHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = musicTableHeader.xib; sourceTree = "<group>"; };
+		1E6B81F01AE4E8120078C52B /* musicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = musicTableViewCell.h; sourceTree = "<group>"; };
+		1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = musicTableViewCell.m; sourceTree = "<group>"; };
+		1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = musicTableViewCell.xib; sourceTree = "<group>"; };
 		1E98F04B1ADB72320021C1C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1E98F04E1ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		1E98F04F1ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -866,6 +873,10 @@
 			children = (
 				1EADC74A1AE39F94001E562F /* MusicViewController.h */,
 				1EADC74B1AE39F94001E562F /* MusicViewController.m */,
+				1E6B81F01AE4E8120078C52B /* musicTableViewCell.h */,
+				1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */,
+				1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */,
+				1E6B81EE1AE4E5340078C52B /* musicTableHeader.xib */,
 			);
 			name = MUSIC;
 			path = ..;
@@ -1038,6 +1049,7 @@
 				9A1D66B91ADA6B2D00A84B41 /* line.png in Resources */,
 				1E3977C11ACD4C4C0049E391 /* ratioButton.png in Resources */,
 				9A1D66B21ADA6B2D00A84B41 /* ios要求.doc in Resources */,
+				1E6B81EF1AE4E5340078C52B /* musicTableHeader.xib in Resources */,
 				9A1D669F1ADA6B2D00A84B41 /* cd_bg.png in Resources */,
 				1E3977D11ACD4C4C0049E391 /* slidermaxValue.png in Resources */,
 				9A1D66A51ADA6B2D00A84B41 /* format_picture.jpg in Resources */,
@@ -1140,6 +1152,7 @@
 				9A1D66A11ADA6B2D00A84B41 /* default_book_cover_nor.png in Resources */,
 				9A1D66BD1ADA6B2D00A84B41 /* main_bg_02.png in Resources */,
 				1E3AF1EB1ADF9CC0004AA408 /* cell2.xib in Resources */,
+				1E6B81F41AE4E8120078C52B /* musicTableViewCell.xib in Resources */,
 				1E3977B21ACD4C4C0049E391 /* forwardIcon@2x.png in Resources */,
 				1E3977C51ACD4C4C0049E391 /* ratioIcon.png in Resources */,
 				9A1D66C51ADA6B2D00A84B41 /* music_bg.png in Resources */,
@@ -1224,6 +1237,7 @@
 				1ED794741ACE4A8F0080FCA8 /* ipTool.m in Sources */,
 				1E39775E1ACD4BAB0049E391 /* UIImage+UIImageExt.m in Sources */,
 				1E3AF20B1ADF9D55004AA408 /* MBProgressHUD+Add.m in Sources */,
+				1E6B81F31AE4E8120078C52B /* musicTableViewCell.m in Sources */,
 				1E4707141ACD44470052D2EF /* main.m in Sources */,
 				1E3AF21E1ADF9E63004AA408 /* CBetterCollectionViewCell.m in Sources */,
 				1E39773D1ACD4B7F0049E391 /* SDImageCache.m in Sources */,

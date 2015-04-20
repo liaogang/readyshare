@@ -209,13 +209,18 @@
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     
     if ( [sender isKindOfClass: [UIButton class]] )
     {
         UIButton *btn = sender;
+        
+        [RootData shared].currMediaType = btn.tag;
+        
         TreeViewController *t = [segue destinationViewController];
-        if ([t isKindOfClass:[TreeViewController class]]) {
+        if ([t isKindOfClass:[TreeViewController class]])
+        {
             t.mediaType = btn.tag;
             t.path = [RootData shared].path;
         }

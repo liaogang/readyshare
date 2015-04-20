@@ -11,10 +11,12 @@
 #import "constStrings.h"
 #import "KxSMBProvider.h"
 
+
+
+
 @interface RootData ()
 @property (nonatomic,strong) NSMutableArray *items;
 
-@property (nonatomic,strong) NSError *error;
 
 @property (nonatomic,strong) NSMutableArray *itemsMovie,*itemsMusic,*itemsPhoto,*itemsBook;
 @end
@@ -54,20 +56,21 @@
     return r;
 }
 
--(void)reload
+-(void)reload:(reloadFinished)callback
 {
-    [self reset];
-    
     KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
     
     [provider fetchAtPath:_path block:^(id result) {
         [self ParseFetchResult:result];
+        callback();
     }];
 }
 
 
 -(void)ParseFetchResult:(id)result
 {
+    [self reset];
+
     if ([result isKindOfClass:[NSError class]])
     {
         _error = result;
@@ -77,7 +80,7 @@
         if ([result isKindOfClass:[NSArray class]])
         {
             NSArray *arr = (NSArray*)result;
-            [_items addObject: arr];
+            [_items addObjectsFromArray: arr];
             
         } else if ([result isKindOfClass:[KxSMBItem class]])
         {
