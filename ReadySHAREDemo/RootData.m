@@ -12,9 +12,37 @@
 #import "KxSMBProvider.h"
 
 @interface RootData ()
+@property (nonatomic,strong) NSMutableArray *items;
+
+@property (nonatomic,strong) NSError *error;
+
+@property (nonatomic,strong) NSMutableArray *itemsMovie,*itemsMusic,*itemsPhoto,*itemsBook;
 @end
 
+
 @implementation RootData
+
+-(void)reset
+{
+    _items = [NSMutableArray array];
+    
+    _error = nil;
+    
+    _itemsMovie = [NSMutableArray array];
+    _itemsMusic = [NSMutableArray array];
+    _itemsPhoto = [NSMutableArray array];
+    _itemsBook = [NSMutableArray array];
+}
+
+-(instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self reset];
+    }
+    
+    return self;
+}
 
 +(instancetype)shared
 {
@@ -24,6 +52,77 @@
     }
     
     return r;
+}
+
+-(void)reload
+{
+    [self reset];
+    
+    KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
+    
+    [provider fetchAtPath:_path block:^(id result) {
+        [self ParseFetchResult:result];
+    }];
+}
+
+
+-(void)ParseFetchResult:(id)result
+{
+    if ([result isKindOfClass:[NSError class]])
+    {
+        _error = result;
+    }
+    else
+    {
+        if ([result isKindOfClass:[NSArray class]])
+        {
+            NSArray *arr = (NSArray*)result;
+            [_items addObject: arr];
+            
+        } else if ([result isKindOfClass:[KxSMBItem class]])
+        {
+            KxSMBItem *item = (KxSMBItem*)result;
+            [_items addObject:item];
+        }
+    }
+    
+}
+
+-(NSMutableArray*)getDataOfCurrMediaType
+{
+    switch (self.currMediaType)
+    {
+        case MediaTypeMovie:
+            return _itemsMovie;
+        case MediaTypeMusic:
+            return _itemsMusic;
+        case MediaTypePhoto:
+            return _itemsPhoto;
+        case MediaTypeBook:
+            return _itemsBook;
+    }
+}
+
+
+-(NSArray*)getDataOfCurrMediaTypeVerifyFiltered
+{
+    NSMutableArray *arr = [self getDataOfCurrMediaType];
+   
+    if (arr.count == 0)
+    {
+        for (id item in _items)
+        {
+            if ([item isKindOfClass:[KxSMBItemFile class]])
+            {
+                KxSMBItem *it = (KxSMBItem*)item;
+                if(filterPathByMediaType(it.path, self.currMediaType) )
+                    [arr addObject: it];
+            }
+        }
+    }
+    
+    
+    return arr;
 }
 
 

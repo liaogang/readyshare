@@ -7,10 +7,13 @@
 //
 
 #import "MusicViewController.h"
+#import "RootData.h"
 
 @interface MusicViewController ()
+<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UISlider *sliderVolumn;
 @property (weak, nonatomic) IBOutlet UISlider *sliderProgress;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -18,7 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+
+    
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,5 +43,34 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - UITableViewDataSource
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    
+    
+    return cell;
+}
+
+
+#pragma mark - Custom view for table header
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view;
+    
+    return view;
+}
 
 @end
