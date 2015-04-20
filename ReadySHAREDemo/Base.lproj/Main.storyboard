@@ -383,7 +383,7 @@
                                         <state key="selected" image="oper_pause_sel.png"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYI-64-M5P">
-                                        <rect key="frame" x="185" y="428" width="86" height="86"/>
+                                        <rect key="frame" x="201" y="428" width="86" height="86"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="86" id="FMq-Ve-72h"/>
                                             <constraint firstAttribute="height" constant="86" id="lhk-fn-PdE"/>
@@ -501,7 +501,7 @@
                                     <constraint firstItem="oZu-Ed-2JU" firstAttribute="leading" secondItem="gvc-nP-LJv" secondAttribute="leading" constant="14" id="In7-Lt-sD0"/>
                                     <constraint firstItem="9k6-i0-k5v" firstAttribute="leading" secondItem="iHo-zU-boM" secondAttribute="trailing" constant="21" id="O0a-Yz-4dt"/>
                                     <constraint firstAttribute="trailing" secondItem="pR0-h6-8AF" secondAttribute="trailing" id="O0r-kH-JG6"/>
-                                    <constraint firstItem="rYI-64-M5P" firstAttribute="leading" secondItem="oid-nZ-MaI" secondAttribute="trailing" constant="-8" id="PHT-mB-9Ci"/>
+                                    <constraint firstItem="rYI-64-M5P" firstAttribute="leading" secondItem="oid-nZ-MaI" secondAttribute="trailing" constant="8" id="PHT-mB-9Ci"/>
                                     <constraint firstItem="oZu-Ed-2JU" firstAttribute="top" secondItem="ULz-KL-l8L" secondAttribute="bottom" constant="50" id="PqP-sg-k8f">
                                         <variation key="heightClass=regular" constant="100"/>
                                         <variation key="widthClass=regular" constant="200"/>
