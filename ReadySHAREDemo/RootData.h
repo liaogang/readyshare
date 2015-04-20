@@ -5,6 +5,11 @@
 //  Created by liaogang on 15/4/12.
 //  Copyright (c) 2015年 com.uPlayer. All rights reserved.
 //
+
+
+typedef void (^reloadFinished)();
+
+
 enum MediaType
 {
     MediaTypeMovie,
@@ -23,8 +28,11 @@ enum MediaType
 
 @property (nonatomic) enum MediaType currMediaType;
 
+/// check error first. and then getDataOfCurrMediaTypeVerifyFiltered
+-(void)reload:(reloadFinished)callback;
 
--(void)reload;
+@property (nonatomic,strong) NSError *error;
+
 -(NSArray*)getDataOfCurrMediaTypeVerifyFiltered;
 
 @end
