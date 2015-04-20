@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="Bds-Gg-jyP" customClass="musicTableViewCell">
+        <view contentMode="scaleToFill" id="Bds-Gg-jyP">
             <rect key="frame" x="0.0" y="0.0" width="328" height="48"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -25,7 +25,7 @@
             </subviews>
             <color key="backgroundColor" red="0.18431372549019609" green="0.42745098039215684" blue="0.65490196078431373" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="500" y="107"/>
+            <point key="canvasLocation" x="539" y="154"/>
         </view>
     </objects>
     <resources>
