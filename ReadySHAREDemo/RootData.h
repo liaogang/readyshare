@@ -10,7 +10,7 @@ enum MediaType
     MediaTypeMovie,
     MediaTypeMusic,
     MediaTypePhoto,
-    MediaTypeBook
+    MediaTypeBook,
 };
 
 
@@ -22,6 +22,10 @@ enum MediaType
 @property (nonatomic,strong) NSString *userName,*passWord,*group;
 
 @property (nonatomic) enum MediaType currMediaType;
+
+
+-(void)reload;
+-(NSArray*)getDataOfCurrMediaTypeVerifyFiltered;
 
 @end
 

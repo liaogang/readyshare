@@ -763,8 +763,7 @@
 		1E4707051ACD44460052D2EF = {
 			isa = PBXGroup;
 			children = (
-				1EADC74A1AE39F94001E562F /* MusicViewController.h */,
-				1EADC74B1AE39F94001E562F /* MusicViewController.m */,
+				1E4707101ACD44470052D2EF /* ReadySHAREDemo */,
 				1E3AF2111ADF9E63004AA408 /* Coverflow */,
 				1E3AF2051ADF9D55004AA408 /* MBProgressHUD */,
 				1E3AF1F01ADF9D04004AA408 /* MJPhotoBrowser */,
@@ -782,7 +781,6 @@
 				1E3977521ACD4BAB0049E391 /* UIImage-categories */,
 				1E3977481ACD4B910049E391 /* WebImage+SMB */,
 				1E3977221ACD4B7F0049E391 /* SDWebImage */,
-				1E4707101ACD44470052D2EF /* ReadySHAREDemo */,
 				1E47072A1ACD44470052D2EF /* ReadySHAREDemoTests */,
 				1E3977FD1ACD56410049E391 /* Frameworks */,
 				1E47070F1ACD44470052D2EF /* Products */,
@@ -801,6 +799,7 @@
 		1E4707101ACD44470052D2EF /* ReadySHAREDemo */ = {
 			isa = PBXGroup;
 			children = (
+				1E6B81E81AE4C19B0078C52B /* MUSIC */,
 				1E3AF1E51ADF82FD004AA408 /* smbCollectionView.h */,
 				1E3AF1E61ADF82FD004AA408 /* smbCollectionView.m */,
 				1E3AF2261ADFA395004AA408 /* cell2_iPad.xib */,
@@ -860,6 +859,16 @@
 				1E47072C1ACD44470052D2EF /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1E6B81E81AE4C19B0078C52B /* MUSIC */ = {
+			isa = PBXGroup;
+			children = (
+				1EADC74A1AE39F94001E562F /* MusicViewController.h */,
+				1EADC74B1AE39F94001E562F /* MusicViewController.m */,
+			);
+			name = MUSIC;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		9A1D665C1ADA6AE000A84B41 /* Resource */ = {

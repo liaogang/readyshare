@@ -279,6 +279,11 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
+                                        <sections/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Ie2-Wa-UGq" id="Djf-ef-X3l"/>
+                                            <outlet property="delegate" destination="Ie2-Wa-UGq" id="yz4-E6-gIZ"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -563,6 +568,9 @@
                             <constraint firstItem="gvc-nP-LJv" firstAttribute="top" secondItem="KQD-hd-JlP" secondAttribute="bottom" id="oFq-TO-41Y"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="M9e-rk-fUF" id="ZVk-xn-tHy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZh-aj-veB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
