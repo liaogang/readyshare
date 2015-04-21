@@ -10,6 +10,8 @@
 #import "RootData.h"
 #import "musicTableViewCell.h"
 #import "KxSMBProvider.h"
+#import "PlayerEngine.h"
+
 
 @interface MusicViewController ()
 <UITableViewDataSource,UITableViewDelegate>
@@ -105,6 +107,49 @@
 {
     UIView *view= [[NSBundle mainBundle]loadNibNamed:@"musicTableHeader" owner:self options:nil][0];
     return view;
+}
+
+#pragma mark - delegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *arr = [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered];
+    
+    KxSMBItemFile *file = arr[indexPath.row];
+    
+    [file readDataToEndOfFile:^(id result)
+    {
+        if ([result isKindOfClass:[NSData class]]) {
+            NSData *data = result;
+            
+            
+            NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                    NSUserDomainMask,
+                                                                    YES) lastObject];
+            folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
+            
+            NSString *filename = file.path.lastPathComponent;
+            
+            
+            NSString *path2 = [folder stringByAppendingPathComponent:filename];
+            
+            NSFileManager *fm =[[NSFileManager alloc]init];
+            
+            [fm createDirectoryAtURL:[NSURL fileURLWithPath:folder]
+         withIntermediateDirectories:YES attributes:nil error:nil ];
+            
+            
+            [data writeToFile:path2 atomically:YES];
+            
+            PlayerEngine *engine = [[PlayerEngine alloc]init];
+            [engine playURL: [NSURL fileURLWithPath:path2]];
+            
+            
+            
+        }
+        
+    }];
+    
 }
 
 @end

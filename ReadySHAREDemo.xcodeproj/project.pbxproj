@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E0739901AE5F477000DCB9E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E07398F1AE5F477000DCB9E /* CoreMedia.framework */; };
 		1E3977111ACD47ED0049E391 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977101ACD47ED0049E391 /* libiconv.dylib */; };
 		1E3977131ACD47F50049E391 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977121ACD47F50049E391 /* libresolv.dylib */; };
 		1E3977171ACD49A30049E391 /* TreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3977151ACD49A30049E391 /* TreeViewController.m */; };
@@ -223,6 +224,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E07398F1AE5F477000DCB9E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		1E3977101ACD47ED0049E391 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		1E3977121ACD47F50049E391 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		1E3977141ACD49A30049E391 /* TreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeViewController.h; path = ReadySHAREDemo/TreeViewController.h; sourceTree = SOURCE_ROOT; };
@@ -506,6 +508,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E0739901AE5F477000DCB9E /* CoreMedia.framework in Frameworks */,
 				1E3977FC1ACD520D0049E391 /* CoreGraphics.framework in Frameworks */,
 				1E3977FA1ACD52050049E391 /* CoreText.framework in Frameworks */,
 				1E3977F81ACD51FB0049E391 /* Security.framework in Frameworks */,
@@ -697,6 +700,7 @@
 		1E3977FD1ACD56410049E391 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E07398F1AE5F477000DCB9E /* CoreMedia.framework */,
 				1E3977121ACD47F50049E391 /* libresolv.dylib */,
 				1E3977101ACD47ED0049E391 /* libiconv.dylib */,
 				1E47075F1ACD473A0052D2EF /* libz.dylib */,
@@ -806,7 +810,9 @@
 		1E4707101ACD44470052D2EF /* ReadySHAREDemo */ = {
 			isa = PBXGroup;
 			children = (
-				1E6B81E81AE4C19B0078C52B /* MUSIC */,
+				1EFEC0CE1ADA7F2900478346 /* RootData.h */,
+				1EFEC0CC1ADA7F1D00478346 /* RootData.m */,
+				1E6B81E81AE4C19B0078C52B /* MusicView */,
 				1E3AF1E51ADF82FD004AA408 /* smbCollectionView.h */,
 				1E3AF1E61ADF82FD004AA408 /* smbCollectionView.m */,
 				1E3AF2261ADFA395004AA408 /* cell2_iPad.xib */,
@@ -832,8 +838,6 @@
 				1E47071B1ACD44470052D2EF /* Main.storyboard */,
 				1EFEC0C91ADA78E700478346 /* MainViewController.h */,
 				1EFEC0CA1ADA78E700478346 /* MainViewController.m */,
-				1EFEC0CE1ADA7F2900478346 /* RootData.h */,
-				1EFEC0CC1ADA7F1D00478346 /* RootData.m */,
 				1E47071E1ACD44470052D2EF /* Images.xcassets */,
 				1E4707201ACD44470052D2EF /* LaunchScreen.xib */,
 				1E4707111ACD44470052D2EF /* Supporting Files */,
@@ -868,7 +872,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1E6B81E81AE4C19B0078C52B /* MUSIC */ = {
+		1E6B81E81AE4C19B0078C52B /* MusicView */ = {
 			isa = PBXGroup;
 			children = (
 				1EADC74A1AE39F94001E562F /* MusicViewController.h */,
@@ -878,7 +882,7 @@
 				1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */,
 				1E6B81EE1AE4E5340078C52B /* musicTableHeader.xib */,
 			);
-			name = MUSIC;
+			name = MusicView;
 			path = ..;
 			sourceTree = "<group>";
 		};
