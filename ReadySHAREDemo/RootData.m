@@ -42,6 +42,7 @@
         [self reset];
         self.idReloadDate = 0;
         self.idLastReload = -1;
+        self.playingIndex = -1;
     }
     
     return self;
