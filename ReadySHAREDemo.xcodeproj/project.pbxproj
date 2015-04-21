@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1E0739901AE5F477000DCB9E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E07398F1AE5F477000DCB9E /* CoreMedia.framework */; };
+		1E0739A61AE609AB000DCB9E /* PlayerEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E0739A21AE609AB000DCB9E /* PlayerEngine.mm */; };
+		1E0739A71AE609AB000DCB9E /* PlayerMessage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E0739A41AE609AB000DCB9E /* PlayerMessage.mm */; };
+		1E0739AB1AE609CD000DCB9E /* MAAssert.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0739AA1AE609CD000DCB9E /* MAAssert.m */; };
 		1E3977111ACD47ED0049E391 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977101ACD47ED0049E391 /* libiconv.dylib */; };
 		1E3977131ACD47F50049E391 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977121ACD47F50049E391 /* libresolv.dylib */; };
 		1E3977171ACD49A30049E391 /* TreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3977151ACD49A30049E391 /* TreeViewController.m */; };
@@ -139,7 +142,7 @@
 		1E6B81F31AE4E8120078C52B /* musicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */; };
 		1E6B81F41AE4E8120078C52B /* musicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */; };
 		1E98F04A1ADB72320021C1C7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E98F04C1ADB72320021C1C7 /* Localizable.strings */; };
-		1EADC74C1AE39F94001E562F /* MusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EADC74B1AE39F94001E562F /* MusicViewController.m */; };
+		1EADC74C1AE39F94001E562F /* MusicViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EADC74B1AE39F94001E562F /* MusicViewController.mm */; };
 		1ED794711ACE44AA0080FCA8 /* sheetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED794701ACE44AA0080FCA8 /* sheetTableViewController.m */; };
 		1ED794741ACE4A8F0080FCA8 /* ipTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED794731ACE4A8F0080FCA8 /* ipTool.m */; };
 		1ED794761ACE50640080FCA8 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED794751ACE50640080FCA8 /* folder.png */; };
@@ -225,6 +228,13 @@
 
 /* Begin PBXFileReference section */
 		1E07398F1AE5F477000DCB9E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		1E0739A11AE609AB000DCB9E /* PlayerEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerEngine.h; sourceTree = "<group>"; };
+		1E0739A21AE609AB000DCB9E /* PlayerEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayerEngine.mm; sourceTree = "<group>"; };
+		1E0739A31AE609AB000DCB9E /* PlayerMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerMessage.h; sourceTree = "<group>"; };
+		1E0739A41AE609AB000DCB9E /* PlayerMessage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayerMessage.mm; sourceTree = "<group>"; };
+		1E0739A51AE609AB000DCB9E /* PlayerTypeDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerTypeDefines.h; sourceTree = "<group>"; };
+		1E0739A91AE609CD000DCB9E /* MAAssert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAssert.h; sourceTree = "<group>"; };
+		1E0739AA1AE609CD000DCB9E /* MAAssert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAssert.m; sourceTree = "<group>"; };
 		1E3977101ACD47ED0049E391 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		1E3977121ACD47F50049E391 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		1E3977141ACD49A30049E391 /* TreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeViewController.h; path = ReadySHAREDemo/TreeViewController.h; sourceTree = SOURCE_ROOT; };
@@ -421,7 +431,7 @@
 		1E98F04F1ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		1E98F0501ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1EADC74A1AE39F94001E562F /* MusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicViewController.h; sourceTree = "<group>"; };
-		1EADC74B1AE39F94001E562F /* MusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicViewController.m; sourceTree = "<group>"; };
+		1EADC74B1AE39F94001E562F /* MusicViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MusicViewController.mm; sourceTree = "<group>"; };
 		1ED7946F1ACE44AA0080FCA8 /* sheetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sheetTableViewController.h; sourceTree = "<group>"; };
 		1ED794701ACE44AA0080FCA8 /* sheetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sheetTableViewController.m; sourceTree = "<group>"; };
 		1ED794721ACE4A8F0080FCA8 /* ipTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ipTool.h; sourceTree = "<group>"; };
@@ -536,6 +546,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E0739A01AE609AB000DCB9E /* uPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				1E0739A11AE609AB000DCB9E /* PlayerEngine.h */,
+				1E0739A21AE609AB000DCB9E /* PlayerEngine.mm */,
+				1E0739A31AE609AB000DCB9E /* PlayerMessage.h */,
+				1E0739A41AE609AB000DCB9E /* PlayerMessage.mm */,
+				1E0739A51AE609AB000DCB9E /* PlayerTypeDefines.h */,
+			);
+			path = uPlayer;
+			sourceTree = SOURCE_ROOT;
+		};
+		1E0739A81AE609CD000DCB9E /* MAAssert */ = {
+			isa = PBXGroup;
+			children = (
+				1E0739A91AE609CD000DCB9E /* MAAssert.h */,
+				1E0739AA1AE609CD000DCB9E /* MAAssert.m */,
+			);
+			path = MAAssert;
+			sourceTree = "<group>";
+		};
 		1E3977221ACD4B7F0049E391 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,6 +843,8 @@
 			children = (
 				1EFEC0CE1ADA7F2900478346 /* RootData.h */,
 				1EFEC0CC1ADA7F1D00478346 /* RootData.m */,
+				1E0739A81AE609CD000DCB9E /* MAAssert */,
+				1E0739A01AE609AB000DCB9E /* uPlayer */,
 				1E6B81E81AE4C19B0078C52B /* MusicView */,
 				1E3AF1E51ADF82FD004AA408 /* smbCollectionView.h */,
 				1E3AF1E61ADF82FD004AA408 /* smbCollectionView.m */,
@@ -876,7 +909,7 @@
 			isa = PBXGroup;
 			children = (
 				1EADC74A1AE39F94001E562F /* MusicViewController.h */,
-				1EADC74B1AE39F94001E562F /* MusicViewController.m */,
+				1EADC74B1AE39F94001E562F /* MusicViewController.mm */,
 				1E6B81F01AE4E8120078C52B /* musicTableViewCell.h */,
 				1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */,
 				1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */,
@@ -1202,7 +1235,8 @@
 				1E39773E1ACD4B7F0049E391 /* SDWebImageCompat.mm in Sources */,
 				1E3AF2211ADF9E63004AA408 /* CInterpolator.mm in Sources */,
 				1E3977471ACD4B7F0049E391 /* UIImageView+WebCache.m in Sources */,
-				1EADC74C1AE39F94001E562F /* MusicViewController.m in Sources */,
+				1E0739A61AE609AB000DCB9E /* PlayerEngine.mm in Sources */,
+				1EADC74C1AE39F94001E562F /* MusicViewController.mm in Sources */,
 				1E3977441ACD4B7F0049E391 /* UIButton+WebCache.m in Sources */,
 				1E3977461ACD4B7F0049E391 /* UIImage+MultiFormat.m in Sources */,
 				1E3977431ACD4B7F0049E391 /* SDWebImagePrefetcher.m in Sources */,
@@ -1222,10 +1256,12 @@
 				1E39773F1ACD4B7F0049E391 /* SDWebImageDecoder.m in Sources */,
 				1E3AF20D1ADF9D55004AA408 /* MBProgressHUD.m in Sources */,
 				1E3AF2031ADF9D04004AA408 /* MJPhotoToolbar.m in Sources */,
+				1E0739AB1AE609CD000DCB9E /* MAAssert.m in Sources */,
 				1E39773C1ACD4B7F0049E391 /* NSData+ImageContentType.m in Sources */,
 				1E3AF21F1ADF9E63004AA408 /* CBetterCollectionViewLayoutAttributes.m in Sources */,
 				1E3977E01ACD4C4C0049E391 /* VDLViewController.mm in Sources */,
 				1E3977401ACD4B7F0049E391 /* SDWebImageDownloader.m in Sources */,
+				1E0739A71AE609AB000DCB9E /* PlayerMessage.mm in Sources */,
 				1E3AF2001ADF9D04004AA408 /* MJPhotoBrowser.m in Sources */,
 				1E39774F1ACD4B910049E391 /* SDWebImageDownloaderOperation+SMB.m in Sources */,
 				1E3977511ACD4B910049E391 /* SDWebImageManager+SMB.m in Sources */,

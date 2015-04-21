@@ -32,14 +32,25 @@ enum MediaType
 -(void)reload:(reloadFinished)callback;
 
 /// will refresh at every each reload.
-@property (nonatomic,strong) NSNumber *idReloadDate;
+@property (nonatomic) int idReloadDate,idLastReload;
 @property (nonatomic,strong) NSError *error;
 
 -(NSArray*)getDataOfCurrMediaTypeVerifyFiltered;
+
+
+-(NSString*)generateTempFolder;
+
+/** test a temp file is exsit in temp folder.
+ @return file's full path.
+*/
+-(NSString*)tempFileExsit:(NSString*)fileName :(BOOL*)exsit;
 
 @end
 
 
 BOOL filterPathByMediaType(NSString *path ,enum MediaType type);
 
+NSString * generateTempFolderNameByID(int _id);
+
+NSError* clearTempFolderByID(int _id);
 

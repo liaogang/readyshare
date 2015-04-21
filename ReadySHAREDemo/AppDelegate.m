@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PlayerMessage.h"
 
 @interface AppDelegate ()
 
@@ -16,9 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
 
-//    [[UITableViewCell appearance] setBackgroundView:     [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"list_bg"]] ];
+    initPlayerMessage();
+    
     
     return YES;
 }
