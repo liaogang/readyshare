@@ -140,7 +140,7 @@
     
     BOOL exsit = false;
     
-    NSString *fullFileName = [[RootData shared] tempFileExsit:file.path.lastPathComponent :&exsit];
+    NSString *fullFileName = [[RootData shared] smbFileExistsAtCache:file :&exsit];
     
     if (exsit)
     {
@@ -160,6 +160,11 @@
                  self.playingIndex = index;
                  [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
              }
+             else if([result isKindOfClass:[NSError class]])
+             {
+                 NSError *error = result;
+                 NSLog(@"download smb file error: %@",error);
+             }
          }];
     }
     
@@ -170,7 +175,11 @@
 {
     int next = getNext(self.order, self.playingIndex, 0, [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered].count );
     
-    [self playItemAtIndex: next ];
+    if (next != -1)
+    {
+        [self playItemAtIndex: next ];
+    }
+    
 }
 
 @end
