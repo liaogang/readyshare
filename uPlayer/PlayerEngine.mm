@@ -25,6 +25,15 @@
 
 @implementation PlayerEngine
 
++(instancetype)shared
+{
+    static PlayerEngine *e = nil;
+    if (!e) {
+        e = [[PlayerEngine alloc]init];
+    }
+    
+    return e;
+}
 
 -(instancetype)init
 {
@@ -69,7 +78,7 @@
                     info.current =  [self currentTime];
                     info.total = CMTimeGetSeconds( _player.currentItem.duration );
                     
-                    //postEvent(EventID_track_progress_changed, info);
+                    postEvent(EventID_track_progress_changed, info);
                 }
         });
         

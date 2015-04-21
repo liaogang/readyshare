@@ -12,6 +12,8 @@
 
 @interface PlayerEngine : NSObject
 
++(instancetype)shared;
+
 ///Whether or not the Player is playing not paused.
 @property (nonatomic, readonly) BOOL isPlaying;
 

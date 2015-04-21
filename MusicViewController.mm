@@ -16,19 +16,58 @@
 #import "PlayerMessage.h"
 
 #import "UIAlertViewBlock.h"
+
+#import "fileTypes.h"
+
 @interface MusicViewController ()
 <UITableViewDataSource,UITableViewDelegate>
+
+
+@property (weak, nonatomic) IBOutlet UILabel *labelTitle;
+@property (weak, nonatomic) IBOutlet UIImageView *imageAlbum;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnOrder;
+@property (weak, nonatomic) IBOutlet UIButton *btnSingle;
+@property (weak, nonatomic) IBOutlet UIButton *btnRandom;
+
 @property (weak, nonatomic) IBOutlet UISlider *sliderVolumn;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelLeft;
+
 @property (weak, nonatomic) IBOutlet UISlider *sliderProgress;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelRight;
+
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic) int playingIndex;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnPrev;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnPause;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnPlay;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnNext;
+
+
+
+
+
 @property (nonatomic) enum PlayOrder order;
 @property (nonatomic,strong) PlayerEngine *engine;
-@property (nonatomic) int idDownload;
+
+@property (nonatomic) int playingIndex;
+@property (nonatomic,strong) NSString *playingFilePath;
+
 @end
 
 @implementation MusicViewController
+
+-(void)dealloc
+{
+    removeObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,13 +80,16 @@
     self.playingIndex = -1;
     self.order = playorder_default;
     
-    self.engine = [[PlayerEngine alloc]init];
+    self.engine = [PlayerEngine shared];
+    
     addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
+    addObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
+    addObserverForEvent(self , @selector(updateUI), EventID_track_state_changed);
+    addObserverForEvent(self, @selector(updateProgressInfo:), EventID_track_progress_changed);
+    
     
     RootData *r = [RootData shared];
     [r reload:^{
-        
-        self.idDownload = r.idReloadDate;
         
         if (r.error)
         {
@@ -141,6 +183,7 @@
     BOOL exsit = false;
     
     NSString *fullFileName = [[RootData shared] smbFileExistsAtCache:file :&exsit];
+    self.playingFilePath = fullFileName;
     
     if (exsit)
     {
@@ -149,8 +192,6 @@
     }
     else
     {
-        [_engine stop];
-        
         [file readDataToEndOfFile:^(id result)
          {
              if ([result isKindOfClass:[NSData class]])
@@ -184,6 +225,92 @@
         [self playItemAtIndex: next ];
     }
     
+}
+
+-(void)updateUI
+{
+    if ([self.engine isPlaying])
+    {
+        self.btnPause.hidden = FALSE;
+        self.btnPlay.hidden = YES;
+    }
+    else
+    {
+        self.btnPause.hidden = YES;
+        self.btnPlay.hidden = FALSE;
+    }
+    
+}
+
+-(void)updateProgressInfo:(NSNotification*)n
+{
+    if (!self.sliderProgress.highlighted)
+    {
+        ProgressInfo *info = n.object;
+        
+        NSAssert([info isKindOfClass:[ProgressInfo class]], nil);
+        
+        [self.sliderProgress setMaximumValue: info.total];
+        [self.sliderProgress setValue: info.current];
+    }
+    
+}
+
+-(void)trackStarted:(NSNotification*)n
+{
+    ProgressInfo *info = n.object;
+    NSAssert([info isKindOfClass:[ProgressInfo class]], nil);
+    [self.sliderProgress setMaximumValue: info.total];
+    [self.sliderProgress setValue: 0];
+    
+    NSMutableString *album = [ NSMutableString string];
+    NSMutableString *artist = [ NSMutableString string];
+    NSMutableString *title = [ NSMutableString string];
+    
+   
+    UIImage *image = getId3FromAudio( [NSURL fileURLWithPath: self.playingFilePath] , album, artist, title);
+    
+    self.imageAlbum.image = image;
+    
+    self.labelTitle.text = title;
+    
+}
+
+#pragma mark - Controls Action
+
+- (IBAction)actionOrder:(id)sender {
+    self.order = playorder_repeat_list;
+}
+
+- (IBAction)actionSingle:(id)sender {
+    self.order = playorder_repeat_single;
+}
+
+- (IBAction)actionShuffle:(id)sender {
+    self.order = playorder_shuffle;
+}
+
+- (IBAction)actionVolumn:(id)sender {
+    [self.engine setVolume: self.sliderVolumn.value];
+}
+
+- (IBAction)actionProgress:(id)sender {
+    [self.engine seekToTime:self.sliderProgress.value];
+}
+
+- (IBAction)actionPrev:(id)sender {
+}
+
+- (IBAction)actionPause:(id)sender {
+    [self.engine playPause];
+}
+
+- (IBAction)actionPlay:(id)sender {
+    [self.engine playPause];
+}
+
+- (IBAction)actionNext:(id)sender {
+    postEvent(EventID_to_play_next, nil);
 }
 
 @end

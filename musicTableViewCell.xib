@@ -19,19 +19,19 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list_bg.png" id="w7v-yX-2VS">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list_bg2.png" id="w7v-yX-2VS">
                         <rect key="frame" x="0.0" y="0.0" width="360" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="序号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ntr-me-Cn7">
-                        <rect key="frame" x="18" y="4" width="48" height="36"/>
+                        <rect key="frame" x="21" y="4" width="48" height="36"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歌曲名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QUF-FY-x0f">
-                        <rect key="frame" x="118" y="8" width="217" height="27"/>
+                        <rect key="frame" x="96" y="8" width="249" height="27"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,11 +45,11 @@
                 <outlet property="textName" destination="QUF-FY-x0f" id="75f-Xv-7Bm"/>
                 <outlet property="textNumber" destination="ntr-me-Cn7" id="sfO-fL-izW"/>
             </connections>
-            <point key="canvasLocation" x="1105" y="376"/>
+            <point key="canvasLocation" x="1249" y="424"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="list_bg.png" width="325" height="410"/>
+        <image name="list_bg2.png" width="8" height="389"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
