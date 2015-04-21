@@ -15,7 +15,7 @@
 #import "PlayerEngine.h"
 #import "PlayerMessage.h"
 
-
+#import "UIAlertViewBlock.h"
 @interface MusicViewController ()
 <UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UISlider *sliderVolumn;
@@ -166,6 +166,8 @@
              {
                  NSError *error = result;
                  NSLog(@"download smb file error: %@",error);
+                 
+                 [[[UIAlertViewBlock alloc]initWithTitle:NSLocalizedString(@"Error downloading smb file", nil) message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
              }
          }];
     }
