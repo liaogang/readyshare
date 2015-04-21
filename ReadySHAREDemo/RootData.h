@@ -5,9 +5,10 @@
 //  Created by liaogang on 15/4/12.
 //  Copyright (c) 2015年 com.uPlayer. All rights reserved.
 //
+#import "KxSMBProvider.h"
 
-
-typedef void (^reloadFinished)();
+typedef void (^Finished)();
+typedef void (^FinishedWithResult)(id result);
 
 
 enum MediaType
@@ -29,7 +30,7 @@ enum MediaType
 @property (nonatomic) enum MediaType currMediaType;
 
 /// check error first. and then getDataOfCurrMediaTypeVerifyFiltered
--(void)reload:(reloadFinished)callback;
+-(void)reload:(Finished)callback;
 
 /// will refresh at every each reload.
 @property (nonatomic) int idReloadDate,idLastReload;
@@ -40,17 +41,19 @@ enum MediaType
 
 -(NSString*)generateTempFolder;
 
-/** test a temp file is exsit in temp folder.
+/** Test if a temp file is exsited and cached in temp folder.
  @return file's full path.
 */
--(NSString*)tempFileExsit:(NSString*)fileName :(BOOL*)exsit;
+-(NSString*)smbFileExistsAtCache:(KxSMBItemFile*)file :(BOOL*)exsit;
+
+-(void)getSmbFileCached:(FinishedWithResult)callback;
 
 @end
 
 
 BOOL filterPathByMediaType(NSString *path ,enum MediaType type);
 
-NSString * generateTempFolderNameByID(int _id);
 
-NSError* clearTempFolderByID(int _id);
+NSString * generateTempFolderName();
 
+NSError* clearTempFolder();

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "RootData.h"
 #import "constStrings.h"
-#import "KxSMBProvider.h"
 
 
 
@@ -63,7 +62,7 @@
     self.idReloadDate++;
 }
 
--(void)reload:(reloadFinished)callback
+-(void)reload:(Finished)callback
 {
     KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
     
@@ -138,14 +137,13 @@
 
 -(NSString*)generateTempFolder
 {
-    if (self.idLastReload >= 0)
-        clearTempFolderByID(self.idLastReload);
-    
-    return  generateTempFolderNameByID(self.idReloadDate);
+    return  generateTempFolderName();
 }
 
--(NSString*)tempFileExsit:(NSString*)fileName :(BOOL*)exsit
+-(NSString*)smbFileExistsAtCache:(KxSMBItemFile*)file :(BOOL*)exsit
 {
+    NSString *fileName = [@(file.stat.lastModified.timeIntervalSince1970).stringValue  stringByAppendingFormat:@"-%@",file.path.lastPathComponent];
+    
     NSString *folder = [self generateTempFolder];
     
     NSString *result = [folder stringByAppendingPathComponent:fileName];
@@ -153,6 +151,11 @@
     *exsit = [[NSFileManager defaultManager] fileExistsAtPath:result isDirectory: 0];
     
     return result;
+}
+
+-(void)getSmbFileCached:(FinishedWithResult)callback
+{
+    
 }
 
 @end
@@ -184,51 +187,41 @@ BOOL filterPathByMediaType(NSString *path ,enum MediaType type)
 }
 
 
-NSString * generateTempFolderNameByID(int _id)
+NSString * generateTempFolderName()
 {
-    static NSString *lastFolderName = nil;
-    static int lastID = -1;
-    
-    if (_id == lastID )
-    {
-        return lastFolderName;
-    }
-    else
-    {
-        NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                NSUserDomainMask,
-                                                                YES) lastObject];
-        
-        
-        folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
-        folder = [folder stringByAppendingPathComponent:@(_id).stringValue];
-        
-        [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:folder]
-                                 withIntermediateDirectories:YES attributes:nil error:nil ];
-        
-        lastID = _id;
-        lastFolderName = folder;
-        
-        return folder;
-    }
-}
-
-NSError* clearTempFolderByID(int _id)
-{
-    NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+    NSString *folder = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
                                                             NSUserDomainMask,
                                                             YES) lastObject];
     
     
     folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
-    folder = [folder stringByAppendingPathComponent:@(_id).stringValue];
+    
+    [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:folder]
+                             withIntermediateDirectories:YES attributes:nil error:nil ];
+    
+    return folder;
+}
+
+NSError* clearTempFolder()
+{
+    NSString *folder = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
+                                                            NSUserDomainMask,
+                                                            YES) lastObject];
+    
+    
+    folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
     
     NSError *error;
     
     [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:folder] error:&error];
     
-    if (error) {
-        NSLog(@"%@",error);
+    if (error)
+    {
+        NSLog(@"Remove folder error: %@",error);
+    }
+    else
+    {
+        NSLog(@"Folder removed: %@",folder);
     }
     
     return error;
