@@ -41,7 +41,8 @@
     self = [super init];
     if (self) {
         [self reset];
-        self.idReloadDate = @(0);
+        self.idReloadDate = 0;
+        self.idLastReload = -1;
     }
     
     return self;
@@ -59,7 +60,7 @@
 
 -(void)generateNewID
 {
-    self.idReloadDate=@(_idReloadDate.integerValue+1);
+    self.idReloadDate++;
 }
 
 -(void)reload:(reloadFinished)callback
@@ -135,7 +136,24 @@
     return arr;
 }
 
+-(NSString*)generateTempFolder
+{
+    if (self.idLastReload >= 0)
+        clearTempFolderByID(self.idLastReload);
+    
+    return  generateTempFolderNameByID(self.idReloadDate);
+}
 
+-(NSString*)tempFileExsit:(NSString*)fileName :(BOOL*)exsit
+{
+    NSString *folder = [self generateTempFolder];
+    
+    NSString *result = [folder stringByAppendingPathComponent:fileName];
+    
+    *exsit = [[NSFileManager defaultManager] fileExistsAtPath:result isDirectory: 0];
+    
+    return result;
+}
 
 @end
 
@@ -163,5 +181,56 @@ BOOL filterPathByMediaType(NSString *path ,enum MediaType type)
     }
     
     return NO;
+}
+
+
+NSString * generateTempFolderNameByID(int _id)
+{
+    static NSString *lastFolderName = nil;
+    static int lastID = -1;
+    
+    if (_id == lastID )
+    {
+        return lastFolderName;
+    }
+    else
+    {
+        NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                NSUserDomainMask,
+                                                                YES) lastObject];
+        
+        
+        folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
+        folder = [folder stringByAppendingPathComponent:@(_id).stringValue];
+        
+        [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:folder]
+                                 withIntermediateDirectories:YES attributes:nil error:nil ];
+        
+        lastID = _id;
+        lastFolderName = folder;
+        
+        return folder;
+    }
+}
+
+NSError* clearTempFolderByID(int _id)
+{
+    NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                            NSUserDomainMask,
+                                                            YES) lastObject];
+    
+    
+    folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
+    folder = [folder stringByAppendingPathComponent:@(_id).stringValue];
+    
+    NSError *error;
+    
+    [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:folder] error:&error];
+    
+    if (error) {
+        NSLog(@"%@",error);
+    }
+    
+    return error;
 }
 

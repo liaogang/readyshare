@@ -10,7 +10,10 @@
 #import "RootData.h"
 #import "musicTableViewCell.h"
 #import "KxSMBProvider.h"
+
+#import "PlayerTypeDefines.h"
 #import "PlayerEngine.h"
+#import "PlayerMessage.h"
 
 
 @interface MusicViewController ()
@@ -19,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UISlider *sliderProgress;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (nonatomic) int playingIndex;
+@property (nonatomic) enum PlayOrder order;
+@property (nonatomic,strong) PlayerEngine *engine;
+@property (nonatomic) int idDownload;
 @end
 
 @implementation MusicViewController
@@ -31,8 +38,17 @@
     self.tableView.layer.cornerRadius = 8;
     self.tableView.layer.masksToBounds = YES;
     
+    self.playingIndex = -1;
+    self.order = playorder_default;
+    
+    self.engine = [[PlayerEngine alloc]init];
+    addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
+    
     RootData *r = [RootData shared];
     [r reload:^{
+        
+        self.idDownload = r.idReloadDate;
+        
         if (r.error)
         {
             
@@ -113,43 +129,48 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self playItemAtIndex:indexPath.row];
+}
+
+-(void)playItemAtIndex:(int)index
+{
     NSArray *arr = [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered];
     
-    KxSMBItemFile *file = arr[indexPath.row];
+    KxSMBItemFile *file = arr[index];
     
-    [file readDataToEndOfFile:^(id result)
+    BOOL exsit = false;
+    
+    NSString *fullFileName = [[RootData shared] tempFileExsit:file.path.lastPathComponent :&exsit];
+    
+    if (exsit)
     {
-        if ([result isKindOfClass:[NSData class]]) {
-            NSData *data = result;
-            
-            
-            NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                    NSUserDomainMask,
-                                                                    YES) lastObject];
-            folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
-            
-            NSString *filename = file.path.lastPathComponent;
-            
-            
-            NSString *path2 = [folder stringByAppendingPathComponent:filename];
-            
-            NSFileManager *fm =[[NSFileManager alloc]init];
-            
-            [fm createDirectoryAtURL:[NSURL fileURLWithPath:folder]
-         withIntermediateDirectories:YES attributes:nil error:nil ];
-            
-            
-            [data writeToFile:path2 atomically:YES];
-            
-            PlayerEngine *engine = [[PlayerEngine alloc]init];
-            [engine playURL: [NSURL fileURLWithPath:path2]];
-            
-            
-            
-        }
-        
-    }];
+        self.playingIndex = index;
+        [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
+    }
+    else
+    {
+        [file readDataToEndOfFile:^(id result)
+         {
+             if ([result isKindOfClass:[NSData class]])
+             {
+                 NSData *data = result;
+                 [data writeToFile:fullFileName atomically:YES];
+ 
+                 
+                 self.playingIndex = index;
+                 [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
+             }
+         }];
+    }
     
+}
+
+
+-(void)playNext
+{
+    int next = getNext(self.order, self.playingIndex, 0, [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered].count );
+    
+    [self playItemAtIndex: next ];
 }
 
 @end
