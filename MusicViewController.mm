@@ -65,7 +65,6 @@ void valueToMinSec(double d, int *m , int *s)
 @property (nonatomic) enum PlayOrder order;
 @property (nonatomic,strong) PlayerEngine *engine;
 
-
 @end
 
 @implementation MusicViewController
@@ -82,10 +81,36 @@ void valueToMinSec(double d, int *m , int *s)
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Add a place holder view.
+    CGFloat width2 = self.imageAlbum.bounds.size.width / 2.;
+    CGFloat radius = 52. / 2.;
+    CGFloat radius2x = 52. ;
+    
+    UIImageView *placeHolder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius2x, radius2x)];
+    placeHolder.image = [UIImage imageNamed:@"cd_bg"];
+    placeHolder.layer.cornerRadius = radius;
+    placeHolder.layer.masksToBounds = YES;
+    placeHolder.autoresizingMask =  ~0;
+    [self.imageAlbum addSubview:placeHolder];
+    placeHolder.center=CGPointMake(width2, width2);
+    
+    
+    // imageAlbum
+    self.imageAlbum.layer.cornerRadius = width2;
+    self.imageAlbum.layer.masksToBounds = YES;
+    
+    
+    
+    
+    
+    // tableView
     self.tableView.backgroundColor=[UIColor clearColor];
     self.tableView.rowHeight = 42;
     self.tableView.layer.cornerRadius = 8;
     self.tableView.layer.masksToBounds = YES;
+    
+    
+    
     
     self.order = playorder_default;
     
@@ -97,6 +122,9 @@ void valueToMinSec(double d, int *m , int *s)
     [self.sliderProgress setThumbImage:[UIImage imageNamed:@"seek_thumb"] forState:UIControlStateNormal];
     
     self.sliderVolumn.value = self.engine.volume;
+ 
+    
+    
     
     
     addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
@@ -124,8 +152,8 @@ void valueToMinSec(double d, int *m , int *s)
         [self.sliderProgress setValue: 0];
         [self setTitleAndAlbumImage];
     }
-
-
+    
+    [self updateUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -356,6 +384,13 @@ void valueToMinSec(double d, int *m , int *s)
 
 - (IBAction)actionNext:(id)sender {
     postEvent(EventID_to_play_next, nil);
+}
+
+
+- (IBAction)actionImageTouched:(UITapGestureRecognizer *)sender {
+    UIImageView *imageView = self.imageAlbum.subviews.firstObject;
+    imageView.hidden = !imageView.hidden;
+    
 }
 
 @end

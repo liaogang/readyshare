@@ -333,8 +333,9 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cd_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Y5A-bd-irI">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cd_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Y5A-bd-irI">
                                         <rect key="frame" x="60" y="46" width="180" height="180"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="230" id="I6i-1q-6MA"/>
                                             <constraint firstAttribute="height" constant="180" id="aKy-Cg-Ls6"/>
@@ -345,6 +346,9 @@
                                                 <exclude reference="I6i-1q-6MA"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="MmB-f4-Ldz" appends="YES" id="rhV-d4-fM7"/>
+                                        </connections>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULz-KL-l8L">
                                         <rect key="frame" x="16" y="271" width="24" height="24"/>
@@ -479,8 +483,8 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="kvl-lL-PKM">
-                                        <rect key="frame" x="59" y="341" width="182" height="31"/>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="kvl-lL-PKM">
+                                        <rect key="frame" x="61" y="341" width="168" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="IVh-lH-Wsq"/>
                                         </constraints>
@@ -527,7 +531,7 @@
                                             <action selector="actionPlay:" destination="Ie2-Wa-UGq" eventType="touchUpInside" id="MQK-Wi-20J"/>
                                         </connections>
                                     </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="VKk-zJ-B4B">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="VKk-zJ-B4B">
                                         <rect key="frame" x="155" y="271" width="127" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="114" id="9bI-Jd-pzn"/>
@@ -652,6 +656,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZh-aj-veB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="MmB-f4-Ldz">
+                    <connections>
+                        <action selector="actionImageTouched:" destination="Ie2-Wa-UGq" id="NPQ-HH-ECe"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-138" y="-1772"/>
         </scene>
