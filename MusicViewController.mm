@@ -19,6 +19,14 @@
 
 #import "fileTypes.h"
 
+
+void valueToMinSec(double d, int *m , int *s)
+{
+    *m = d / 60;
+    *s = (int)d % 60;
+}
+
+
 @interface MusicViewController ()
 <UITableViewDataSource,UITableViewDelegate>
 
@@ -57,8 +65,6 @@
 @property (nonatomic) enum PlayOrder order;
 @property (nonatomic,strong) PlayerEngine *engine;
 
-@property (nonatomic) int playingIndex;
-@property (nonatomic,strong) NSString *playingFilePath;
 
 @end
 
@@ -67,6 +73,10 @@
 -(void)dealloc
 {
     removeObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
+    removeObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
+    removeObserverForEvent(self , @selector(updateUI), EventID_track_state_changed);
+    removeObserverForEvent(self, @selector(updateProgressInfo:), EventID_track_progress_changed);
+    removeObserverForEvent(self, @selector(playNext), EventID_to_play_next);
 }
 
 - (void)viewDidLoad {
@@ -77,15 +87,23 @@
     self.tableView.layer.cornerRadius = 8;
     self.tableView.layer.masksToBounds = YES;
     
-    self.playingIndex = -1;
     self.order = playorder_default;
     
     self.engine = [PlayerEngine shared];
+    
+    
+    
+    [self.sliderVolumn setThumbImage:[UIImage imageNamed:@"seek_thumb"] forState:UIControlStateNormal];
+    [self.sliderProgress setThumbImage:[UIImage imageNamed:@"seek_thumb"] forState:UIControlStateNormal];
+    
+    self.sliderVolumn.value = self.engine.volume;
+    
     
     addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
     addObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
     addObserverForEvent(self , @selector(updateUI), EventID_track_state_changed);
     addObserverForEvent(self, @selector(updateProgressInfo:), EventID_track_progress_changed);
+    addObserverForEvent(self, @selector(playNext), EventID_to_play_next);
     
     
     RootData *r = [RootData shared];
@@ -100,6 +118,10 @@
             [self.tableView reloadData];
         }
     }];
+    
+    [self.sliderProgress setMaximumValue: self.engine.totalTime];
+    [self.sliderProgress setValue: 0];
+    [self setTitleAndAlbumImage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -176,18 +198,19 @@
 
 -(void)playItemAtIndex:(int)index
 {
-    NSArray *arr = [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered];
+    RootData *r= [RootData shared];
+    NSArray *arr = [r getDataOfCurrMediaTypeVerifyFiltered];
     
     KxSMBItemFile *file = arr[index];
     
     BOOL exsit = false;
     
     NSString *fullFileName = [[RootData shared] smbFileExistsAtCache:file :&exsit];
-    self.playingFilePath = fullFileName;
+    r.playingFilePath = fullFileName;
     
     if (exsit)
     {
-        self.playingIndex = index;
+        [RootData shared].playingIndex = index;
         [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
     }
     else
@@ -200,7 +223,7 @@
                  [data writeToFile:fullFileName atomically:YES];
  
                  
-                 self.playingIndex = index;
+                 [RootData shared].playingIndex = index;
                  [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
              }
              else if([result isKindOfClass:[NSError class]])
@@ -218,7 +241,7 @@
 
 -(void)playNext
 {
-    int next = getNext(self.order, self.playingIndex, 0, [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered].count );
+    int next = getNext(self.order, [RootData shared].playingIndex, 0, [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered].count );
     
     if (next != -1)
     {
@@ -252,9 +275,34 @@
         
         [self.sliderProgress setMaximumValue: info.total];
         [self.sliderProgress setValue: info.current];
+        
+        
+        int min , sec;
+        
+        valueToMinSec(info.current, &min, &sec);
+        self.labelLeft.text = [NSString stringWithFormat:@"%02d:%02d",min,sec];
+        
+        valueToMinSec(info.total, &min, &sec);
+        self.labelRight.text = [NSString stringWithFormat:@"%02d:%02d",min,sec];
     }
     
 }
+
+-(void)setTitleAndAlbumImage
+{
+    NSMutableString *album = [ NSMutableString string];
+    NSMutableString *artist = [ NSMutableString string];
+    NSMutableString *title = [ NSMutableString string];
+    
+    RootData *r= [RootData shared];
+    
+    UIImage *image = getId3FromAudio( [NSURL fileURLWithPath: r.playingFilePath] , album, artist, title);
+    
+    self.imageAlbum.image = image;
+    
+    self.labelTitle.text = title;
+}
+
 
 -(void)trackStarted:(NSNotification*)n
 {
@@ -263,31 +311,24 @@
     [self.sliderProgress setMaximumValue: info.total];
     [self.sliderProgress setValue: 0];
     
-    NSMutableString *album = [ NSMutableString string];
-    NSMutableString *artist = [ NSMutableString string];
-    NSMutableString *title = [ NSMutableString string];
-    
-   
-    UIImage *image = getId3FromAudio( [NSURL fileURLWithPath: self.playingFilePath] , album, artist, title);
-    
-    self.imageAlbum.image = image;
-    
-    self.labelTitle.text = title;
-    
+    [self setTitleAndAlbumImage];
 }
 
 #pragma mark - Controls Action
 
 - (IBAction)actionOrder:(id)sender {
     self.order = playorder_repeat_list;
+    self.btnOrder.selected = !self.btnOrder.selected;
 }
 
 - (IBAction)actionSingle:(id)sender {
     self.order = playorder_repeat_single;
+    self.btnSingle.selected = !self.btnSingle.selected;
 }
 
 - (IBAction)actionShuffle:(id)sender {
     self.order = playorder_shuffle;
+    self.btnRandom.selected = !self.btnRandom.selected;
 }
 
 - (IBAction)actionVolumn:(id)sender {
