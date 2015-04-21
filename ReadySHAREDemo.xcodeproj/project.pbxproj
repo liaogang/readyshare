@@ -11,6 +11,8 @@
 		1E0739A61AE609AB000DCB9E /* PlayerEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E0739A21AE609AB000DCB9E /* PlayerEngine.mm */; };
 		1E0739A71AE609AB000DCB9E /* PlayerMessage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E0739A41AE609AB000DCB9E /* PlayerMessage.mm */; };
 		1E0739AB1AE609CD000DCB9E /* MAAssert.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0739AA1AE609CD000DCB9E /* MAAssert.m */; };
+		1E0739B01AE63E59000DCB9E /* list_bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E0739AF1AE63E59000DCB9E /* list_bg2.png */; };
+		1E0739B31AE6405D000DCB9E /* fileTypes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E0739B21AE6405D000DCB9E /* fileTypes.mm */; };
 		1E3977111ACD47ED0049E391 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977101ACD47ED0049E391 /* libiconv.dylib */; };
 		1E3977131ACD47F50049E391 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977121ACD47F50049E391 /* libresolv.dylib */; };
 		1E3977171ACD49A30049E391 /* TreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3977151ACD49A30049E391 /* TreeViewController.m */; };
@@ -235,6 +237,9 @@
 		1E0739A51AE609AB000DCB9E /* PlayerTypeDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerTypeDefines.h; sourceTree = "<group>"; };
 		1E0739A91AE609CD000DCB9E /* MAAssert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAssert.h; sourceTree = "<group>"; };
 		1E0739AA1AE609CD000DCB9E /* MAAssert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAssert.m; sourceTree = "<group>"; };
+		1E0739AF1AE63E59000DCB9E /* list_bg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = list_bg2.png; path = Resource/list_bg2.png; sourceTree = "<group>"; };
+		1E0739B11AE6405D000DCB9E /* fileTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileTypes.h; sourceTree = "<group>"; };
+		1E0739B21AE6405D000DCB9E /* fileTypes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = fileTypes.mm; sourceTree = "<group>"; };
 		1E3977101ACD47ED0049E391 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		1E3977121ACD47F50049E391 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		1E3977141ACD49A30049E391 /* TreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeViewController.h; path = ReadySHAREDemo/TreeViewController.h; sourceTree = SOURCE_ROOT; };
@@ -843,6 +848,8 @@
 			children = (
 				1EFEC0CE1ADA7F2900478346 /* RootData.h */,
 				1EFEC0CC1ADA7F1D00478346 /* RootData.m */,
+				1E0739B11AE6405D000DCB9E /* fileTypes.h */,
+				1E0739B21AE6405D000DCB9E /* fileTypes.mm */,
 				1E0739A81AE609CD000DCB9E /* MAAssert */,
 				1E0739A01AE609AB000DCB9E /* uPlayer */,
 				1E6B81E81AE4C19B0078C52B /* MusicView */,
@@ -922,6 +929,7 @@
 		9A1D665C1ADA6AE000A84B41 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				1E0739AF1AE63E59000DCB9E /* list_bg2.png */,
 				9A1D665F1ADA6B2D00A84B41 /* book_background.png */,
 				9A1D66601ADA6B2D00A84B41 /* cd_bg.png */,
 				9A1D66611ADA6B2D00A84B41 /* cd_icon.png */,
@@ -1176,6 +1184,7 @@
 				1E3977DA1ACD4C4C0049E391 /* subtitleIcon@2x.png in Resources */,
 				1E3977E11ACD4C4C0049E391 /* VDLViewController.xib in Resources */,
 				9A1D66A01ADA6B2D00A84B41 /* cd_icon.png in Resources */,
+				1E0739B01AE63E59000DCB9E /* list_bg2.png in Resources */,
 				1E3977CD1ACD4C4C0049E391 /* seekbarBg.png in Resources */,
 				1E3977DE1ACD4C4C0049E391 /* volumeballslider@2x.png in Resources */,
 				1E3977181ACD49A30049E391 /* TreeViewControllerCell.xib in Resources */,
@@ -1266,6 +1275,7 @@
 				1E39774F1ACD4B910049E391 /* SDWebImageDownloaderOperation+SMB.m in Sources */,
 				1E3977511ACD4B910049E391 /* SDWebImageManager+SMB.m in Sources */,
 				1ED794711ACE44AA0080FCA8 /* sheetTableViewController.m in Sources */,
+				1E0739B31AE6405D000DCB9E /* fileTypes.mm in Sources */,
 				1EFEC0CB1ADA78E700478346 /* MainViewController.m in Sources */,
 				1E3AF1E71ADF82FD004AA408 /* smbCollectionView.m in Sources */,
 				1E4707171ACD44470052D2EF /* AppDelegate.m in Sources */,
