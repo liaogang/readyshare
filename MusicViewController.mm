@@ -125,6 +125,7 @@ void valueToMinSec(double d, int *m , int *s)
         [self setTitleAndAlbumImage];
     }
 
+
 }
 
 - (void)didReceiveMemoryWarning {
