@@ -149,6 +149,8 @@
     }
     else
     {
+        [_engine stop];
+        
         [file readDataToEndOfFile:^(id result)
          {
              if ([result isKindOfClass:[NSData class]])
