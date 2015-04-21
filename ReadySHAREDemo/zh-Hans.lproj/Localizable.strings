@@ -10,3 +10,6 @@
 
 "VLC can't recognize the input's format" = "VLC 不能识别输入源的格式";
 
+"Error downloading smb file" ;
+
+"OK";
