@@ -48,6 +48,8 @@ enum MediaType
 
 -(void)getSmbFileCached:(FinishedWithResult)callback;
 
+@property (nonatomic) int playingIndex;
+@property (nonatomic,strong) NSString *playingFilePath;
 @end
 
 
