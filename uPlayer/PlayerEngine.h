@@ -39,6 +39,8 @@
 
 -(NSTimeInterval)currentTime;
 
+-(NSTimeInterval)totalTime;
+
 -(void)stop;
 
 /// save info and stop.

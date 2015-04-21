@@ -270,6 +270,11 @@
     return CMTimeGetSeconds(time);
 }
 
+-(NSTimeInterval)totalTime
+{
+    return CMTimeGetSeconds(_player.currentItem.duration);
+}
+
 -(BOOL)playURL:(NSURL *)url pauseAfterInit:(BOOL)pfi
 {
     AVURLAsset *asset = [AVURLAsset assetWithURL: url];
