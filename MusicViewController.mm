@@ -33,6 +33,7 @@ void valueToMinSec(double d, int *m , int *s)
 
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *imageAlbum;
+@property (nonatomic) bool imageAlbumHighlighted;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnOrder;
 @property (weak, nonatomic) IBOutlet UIButton *btnSingle;
@@ -132,7 +133,7 @@ void valueToMinSec(double d, int *m , int *s)
     addObserverForEvent(self , @selector(updateUI), EventID_track_state_changed);
     addObserverForEvent(self, @selector(updateProgressInfo:), EventID_track_progress_changed);
     addObserverForEvent(self, @selector(playNext), EventID_to_play_next);
-    
+
     
     RootData *r = [RootData shared];
     [r reload:^{
@@ -288,11 +289,15 @@ void valueToMinSec(double d, int *m , int *s)
     {
         self.btnPause.hidden = FALSE;
         self.btnPlay.hidden = YES;
+        
+        [self startAlbumRotation];
     }
     else
     {
         self.btnPause.hidden = YES;
         self.btnPlay.hidden = FALSE;
+        
+        [self stopAlbumRotation];
     }
     
 }
@@ -316,9 +321,43 @@ void valueToMinSec(double d, int *m , int *s)
         
         valueToMinSec(info.total, &min, &sec);
         self.labelRight.text = [NSString stringWithFormat:@"%02d:%02d",min,sec];
+        
+        
+    }
+    
+    
+    if (!self.imageAlbumHighlighted &&[self.engine isPlaying] )
+    {
+    
+    }
+}
+
+-(void)stopAlbumRotation
+{
+    [self.imageAlbum.layer removeAllAnimations];
+}
+
+
+-(void)startAlbumRotation
+{
+    if(![self.imageAlbum.layer animationForKey:@"rotationAnimation"] )
+    {
+        CFTimeInterval duration = 100 * 10 * 60 ;
+        CABasicAnimation* rotationAnimation;
+        rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * 0.2  * duration ];
+        rotationAnimation.duration = duration;
+        rotationAnimation.cumulative = YES;
+        rotationAnimation.repeatCount = 1;
+        
+        [self.imageAlbum.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+        
+        
+        
     }
     
 }
+
 
 -(void)setTitleAndAlbumImage
 {
@@ -388,9 +427,16 @@ void valueToMinSec(double d, int *m , int *s)
 
 
 - (IBAction)actionImageTouched:(UITapGestureRecognizer *)sender {
+    
+    if (sender.state == UIGestureRecognizerStateEnded)
+        self.imageAlbumHighlighted = NO;
+    else
+        self.imageAlbumHighlighted = YES;
+    
     UIImageView *imageView = self.imageAlbum.subviews.firstObject;
     imageView.hidden = !imageView.hidden;
     
+
 }
 
 @end
