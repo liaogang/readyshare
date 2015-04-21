@@ -41,6 +41,7 @@
     self = [super init];
     if (self) {
         [self reset];
+        self.idReloadDate = @(0);
     }
     
     return self;
@@ -56,11 +57,17 @@
     return r;
 }
 
+-(void)generateNewID
+{
+    self.idReloadDate=@(_idReloadDate.integerValue+1);
+}
+
 -(void)reload:(reloadFinished)callback
 {
     KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
     
     [provider fetchAtPath:_path block:^(id result) {
+        
         [self ParseFetchResult:result];
         callback();
     }];

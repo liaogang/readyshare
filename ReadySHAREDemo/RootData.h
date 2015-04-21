@@ -31,6 +31,8 @@ enum MediaType
 /// check error first. and then getDataOfCurrMediaTypeVerifyFiltered
 -(void)reload:(reloadFinished)callback;
 
+/// will refresh at every each reload.
+@property (nonatomic,strong) NSNumber *idReloadDate;
 @property (nonatomic,strong) NSError *error;
 
 -(NSArray*)getDataOfCurrMediaTypeVerifyFiltered;
