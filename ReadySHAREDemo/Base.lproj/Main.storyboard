@@ -346,9 +346,6 @@
                                                 <exclude reference="I6i-1q-6MA"/>
                                             </mask>
                                         </variation>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="MmB-f4-Ldz" appends="YES" id="rhV-d4-fM7"/>
-                                        </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cd_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="eiL-0K-RIE">
                                         <rect key="frame" x="60" y="46" width="180" height="180"/>
@@ -674,11 +671,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZh-aj-veB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="MmB-f4-Ldz">
-                    <connections>
-                        <action selector="actionImageTouched:" destination="Ie2-Wa-UGq" id="NPQ-HH-ECe"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-138" y="-1772"/>
         </scene>
