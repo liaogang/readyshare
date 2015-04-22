@@ -27,13 +27,38 @@ void valueToMinSec(double d, int *m , int *s)
 }
 
 
+#pragma mark - UISlider (hideThumbWhenDisable)
+@interface UISlider (hideThumbWhenDisable)
+-(void)setSliderEnabled:(BOOL)e;
+@end
+
+@implementation UISlider (hideThumbWhenDisable)
+-(void)setSliderEnabled:(BOOL)e
+{
+    self.enabled=e;
+    if (e == FALSE)
+    {
+        [self setThumbImage:[UIImage imageNamed:@"clear_thumb"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self setThumbImage:[UIImage imageNamed:@"seek_thumb"] forState:UIControlStateNormal];
+    }
+}
+
+@end
+
+
 @interface MusicViewController ()
 <UITableViewDataSource,UITableViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *imageAlbum;
+@property (weak, nonatomic) IBOutlet UIImageView *imageAlbumItem;
 @property (nonatomic) bool imageAlbumHighlighted;
+
+@property (nonatomic,strong) UIImageView *albumImage;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnOrder;
 @property (weak, nonatomic) IBOutlet UIButton *btnSingle;
@@ -72,18 +97,15 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)dealloc
 {
-    removeObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
-    removeObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
-    removeObserverForEvent(self , @selector(updateUI), EventID_track_state_changed);
-    removeObserverForEvent(self, @selector(updateProgressInfo:), EventID_track_progress_changed);
-    removeObserverForEvent(self, @selector(playNext), EventID_to_play_next);
+    removeObserver(self);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Add a place holder view.
-    CGFloat width2 = self.imageAlbum.bounds.size.width / 2.;
+//    CGFloat width2 = self.imageAlbum.bounds.size.width / 2.;
+    /*
     CGFloat radius = 52. / 2.;
     CGFloat radius2x = 52. ;
     
@@ -94,9 +116,82 @@ void valueToMinSec(double d, int *m , int *s)
     placeHolder.autoresizingMask =  ~0;
     [self.imageAlbum addSubview:placeHolder];
     placeHolder.center=CGPointMake(width2, width2);
+    */
+    
+    /*
+    CGFloat radius = width2 ;
+    CGFloat radius2x = width2*2. ;
+    UIImageView *placeHolder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius2x, radius2x)];
+    placeHolder.image = [UIImage imageNamed:@"cd_bg"];
+    placeHolder.layer.cornerRadius = radius;
+    placeHolder.layer.masksToBounds = YES;
+    placeHolder.autoresizingMask =  ~0;
+    [self.imageAlbum addSubview:placeHolder];
+    placeHolder.center=CGPointMake(width2, width2);
+    [self.imageAlbum sendSubviewToBack:placeHolder];
+    */
+    
+    
+    CGFloat width2 = self.imageAlbum.bounds.size.width / 2.;
+    
+    
+    {
+        /*
+        self.albumImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius2x, radius2x)];
+        _albumImage.layer.cornerRadius = radius;
+        _albumImage.layer.masksToBounds = YES;
+        _albumImage.autoresizingMask =  ~0;
+        [self.imageAlbum addSubview:_albumImage];
+        _albumImage.center=CGPointMake(width2, width2);
+        */
+    }
+    
+    
+    {
+        /*
+        CGFloat radius = 152. / 2.;
+        CGFloat radius2x = 152. ;
+        
+        self.albumImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius2x, radius2x)];
+        _albumImage.layer.cornerRadius = radius;
+        _albumImage.layer.masksToBounds = YES;
+        _albumImage.autoresizingMask =  ~0;
+        [self.imageAlbum addSubview:_albumImage];
+        _albumImage.center=CGPointMake(width2, width2);
+         */
+    }
+    
+    {
+        /*
+        CGFloat radius = 52.;
+        
+        UIImageView *placeHolder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius, radius)];
+        placeHolder.image = [UIImage imageNamed:@"cd3"];
+        placeHolder.layer.cornerRadius = radius / 2.;
+        placeHolder.layer.masksToBounds = YES;
+        placeHolder.autoresizingMask =  ~0;
+        [self.imageAlbum addSubview:placeHolder];
+        placeHolder.center=CGPointMake(width2, width2);
+         */
+    }
+    
+    
+
+    
+    
+    
+    self.imageAlbumItem.layer.cornerRadius = width2;
+    self.imageAlbumItem.layer.masksToBounds = YES;
+    
+    
+//    self.imageAlbumItem.hidden = true;
+    
+    
+    
     
     
     // imageAlbum
+    
     self.imageAlbum.layer.cornerRadius = width2;
     self.imageAlbum.layer.masksToBounds = YES;
     
@@ -125,9 +220,6 @@ void valueToMinSec(double d, int *m , int *s)
     self.sliderVolumn.value = self.engine.volume;
  
     
-    
-    
-    
     addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
     addObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
     addObserverForEvent(self , @selector(updateUI), EventID_track_state_changed);
@@ -148,6 +240,7 @@ void valueToMinSec(double d, int *m , int *s)
         }
     }];
     
+    
     if ([self.engine isPlaying]) {
         [self.sliderProgress setMaximumValue: self.engine.totalTime];
         [self.sliderProgress setValue: 0];
@@ -155,6 +248,29 @@ void valueToMinSec(double d, int *m , int *s)
     }
     
     [self updateUI];
+}
+
+
+
+- (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage {
+    
+    CGImageRef maskRef = maskImage.CGImage;
+    
+    CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+                                        CGImageGetHeight(maskRef),
+                                        CGImageGetBitsPerComponent(maskRef),
+                                        CGImageGetBitsPerPixel(maskRef),
+                                        CGImageGetBytesPerRow(maskRef),
+                                        CGImageGetDataProvider(maskRef), NULL, false);
+    
+    CGImageRef maskedImageRef = CGImageCreateWithMask([image CGImage], mask);
+    UIImage *maskedImage = [UIImage imageWithCGImage:maskedImageRef];
+    
+    CGImageRelease(mask);
+    CGImageRelease(maskedImageRef);
+    
+    // returns new image with mask applied
+    return maskedImage;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -285,21 +401,38 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)updateUI
 {
-    if ([self.engine isPlaying])
+    if ([self.engine isStopped])
     {
-        self.btnPause.hidden = FALSE;
-        self.btnPlay.hidden = YES;
+        [self.sliderProgress setSliderEnabled: false];
         
-        [self startAlbumRotation];
-    }
-    else
-    {
+        self.sliderProgress.value = 0.;
+        [self.sliderProgress setSliderEnabled: false];
+        self.labelTitle.text = @"";
+        
         self.btnPause.hidden = YES;
         self.btnPlay.hidden = FALSE;
         
         [self stopAlbumRotation];
     }
-    
+    else
+    {
+        [self.sliderProgress setSliderEnabled: true];
+        
+        if ([self.engine isPlaying])
+        {
+            self.btnPause.hidden = FALSE;
+            self.btnPlay.hidden = YES;
+            
+            [self startAlbumRotation];
+        }
+        else
+        {
+            self.btnPause.hidden = YES;
+            self.btnPlay.hidden = FALSE;
+            
+            [self pauseAlbumRotation];
+        }
+    }
 }
 
 -(void)updateProgressInfo:(NSNotification*)n
@@ -310,9 +443,10 @@ void valueToMinSec(double d, int *m , int *s)
         
         NSAssert([info isKindOfClass:[ProgressInfo class]], nil);
         
-        [self.sliderProgress setMaximumValue: info.total];
-        [self.sliderProgress setValue: info.current];
-        
+        if (info.total > 0) {
+            [self.sliderProgress setMaximumValue: info.total];
+            [self.sliderProgress setValue: info.current];
+        }
         
         int min , sec;
         
@@ -332,28 +466,51 @@ void valueToMinSec(double d, int *m , int *s)
     }
 }
 
+-(void)pauseLayer:(CALayer*)layer
+{
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
+}
+
+-(void)resumeLayer:(CALayer*)layer
+{
+    CFTimeInterval pausedTime = [layer timeOffset];
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    layer.beginTime = timeSincePause;
+}
+
+-(void)pauseAlbumRotation
+{
+    [self pauseLayer:self.imageAlbumItem.layer];
+}
+
 -(void)stopAlbumRotation
 {
-    [self.imageAlbum.layer removeAllAnimations];
+    [self.imageAlbumItem.layer removeAllAnimations];
 }
 
 
 -(void)startAlbumRotation
 {
-    if(![self.imageAlbum.layer animationForKey:@"rotationAnimation"] )
+    if(![self.imageAlbumItem.layer animationForKey:@"rotationAnimation"] )
     {
         CFTimeInterval duration = 100 * 10 * 60 ;
         CABasicAnimation* rotationAnimation;
         rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-        rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * 0.2  * duration ];
+        rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * 0.15  * duration ];
         rotationAnimation.duration = duration;
         rotationAnimation.cumulative = YES;
         rotationAnimation.repeatCount = 1;
         
-        [self.imageAlbum.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
-        
-        
-        
+        [self.imageAlbumItem.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    }
+    else
+    {
+        [self resumeLayer:self.imageAlbumItem.layer];
     }
     
 }
@@ -369,7 +526,13 @@ void valueToMinSec(double d, int *m , int *s)
     
     UIImage *image = getId3FromAudio( [NSURL fileURLWithPath: r.playingFilePath] , album, artist, title);
     
-    self.imageAlbum.image = image;
+    if (image)
+    {
+        //self.imageAlbum.image = image;
+        
+        UIImage *mask = [UIImage imageNamed:@"cd_icon_r"];
+        self.imageAlbumItem.image = [self maskImage:image withMask:mask];
+    }
     
     self.labelTitle.text = title;
 }
@@ -433,9 +596,10 @@ void valueToMinSec(double d, int *m , int *s)
     else
         self.imageAlbumHighlighted = YES;
     
+    /*
     UIImageView *imageView = self.imageAlbum.subviews.firstObject;
     imageView.hidden = !imageView.hidden;
-    
+    */
 
 }
 
