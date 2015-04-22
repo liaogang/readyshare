@@ -149,6 +149,10 @@
 		1EA9E81A1AE75CD4005A784F /* cd3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8191AE75CD4005A784F /* cd3.png */; };
 		1EA9E81C1AE760BD005A784F /* cd_bg_r.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E81B1AE760BD005A784F /* cd_bg_r.png */; };
 		1EA9E81E1AE76340005A784F /* cd_icon_r.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E81D1AE76340005A784F /* cd_icon_r.png */; };
+		1EA9E8201AE764DD005A784F /* cd_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E81F1AE764DD005A784F /* cd_mask.png */; };
+		1EA9E8221AE769B6005A784F /* cd_mask2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8211AE769B6005A784F /* cd_mask2.png */; };
+		1EA9E8241AE76CA5005A784F /* cd_mask4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8231AE76CA5005A784F /* cd_mask4.png */; };
+		1EA9E8261AE7716F005A784F /* cd_mask5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8251AE7716F005A784F /* cd_mask5.png */; };
 		1EADC74C1AE39F94001E562F /* MusicViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EADC74B1AE39F94001E562F /* MusicViewController.mm */; };
 		1ED794711ACE44AA0080FCA8 /* sheetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED794701ACE44AA0080FCA8 /* sheetTableViewController.m */; };
 		1ED794741ACE4A8F0080FCA8 /* ipTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED794731ACE4A8F0080FCA8 /* ipTool.m */; };
@@ -444,6 +448,10 @@
 		1EA9E8191AE75CD4005A784F /* cd3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd3.png; path = Resource/cd3.png; sourceTree = "<group>"; };
 		1EA9E81B1AE760BD005A784F /* cd_bg_r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_bg_r.png; path = Resource/cd_bg_r.png; sourceTree = "<group>"; };
 		1EA9E81D1AE76340005A784F /* cd_icon_r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_icon_r.png; path = Resource/cd_icon_r.png; sourceTree = "<group>"; };
+		1EA9E81F1AE764DD005A784F /* cd_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_mask.png; path = Resource/cd_mask.png; sourceTree = "<group>"; };
+		1EA9E8211AE769B6005A784F /* cd_mask2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_mask2.png; path = Resource/cd_mask2.png; sourceTree = "<group>"; };
+		1EA9E8231AE76CA5005A784F /* cd_mask4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_mask4.png; path = Resource/cd_mask4.png; sourceTree = "<group>"; };
+		1EA9E8251AE7716F005A784F /* cd_mask5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_mask5.png; path = Resource/cd_mask5.png; sourceTree = "<group>"; };
 		1EADC74A1AE39F94001E562F /* MusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicViewController.h; sourceTree = "<group>"; };
 		1EADC74B1AE39F94001E562F /* MusicViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MusicViewController.mm; sourceTree = "<group>"; };
 		1ED7946F1ACE44AA0080FCA8 /* sheetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sheetTableViewController.h; sourceTree = "<group>"; };
@@ -937,6 +945,10 @@
 		9A1D665C1ADA6AE000A84B41 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				1EA9E8251AE7716F005A784F /* cd_mask5.png */,
+				1EA9E8231AE76CA5005A784F /* cd_mask4.png */,
+				1EA9E8211AE769B6005A784F /* cd_mask2.png */,
+				1EA9E81F1AE764DD005A784F /* cd_mask.png */,
 				1EA9E81D1AE76340005A784F /* cd_icon_r.png */,
 				1EA9E81B1AE760BD005A784F /* cd_bg_r.png */,
 				1EA9E8191AE75CD4005A784F /* cd3.png */,
@@ -1117,6 +1129,7 @@
 				9A1D669E1ADA6B2D00A84B41 /* book_background.png in Resources */,
 				1E3977C21ACD4C4C0049E391 /* ratioButton@2x.png in Resources */,
 				9A1D66A71ADA6B2D00A84B41 /* icon_android_sel.png in Resources */,
+				1EA9E8261AE7716F005A784F /* cd_mask5.png in Resources */,
 				1E3977C81ACD4C4C0049E391 /* repeat@2x.png in Resources */,
 				9A1D66B01ADA6B2D00A84B41 /* icon_video_nor.png in Resources */,
 				9A1D66C01ADA6B2D00A84B41 /* mode_order_sel.png in Resources */,
@@ -1152,6 +1165,7 @@
 				1E3977D91ACD4C4C0049E391 /* subtitleIcon.png in Resources */,
 				1E3977C41ACD4C4C0049E391 /* ratioButtonHighlight@2x.png in Resources */,
 				9A1D66CC1ADA6B2D00A84B41 /* oper_pause_sel.png in Resources */,
+				1EA9E8221AE769B6005A784F /* cd_mask2.png in Resources */,
 				9A1D66C91ADA6B2D00A84B41 /* oper_next_nor.png in Resources */,
 				9A1D66D91ADA6B2D00A84B41 /* volume_level_04.png in Resources */,
 				9A1D66C11ADA6B2D00A84B41 /* mode_random_nor.png in Resources */,
@@ -1199,6 +1213,7 @@
 				1E3977DA1ACD4C4C0049E391 /* subtitleIcon@2x.png in Resources */,
 				1E3977E11ACD4C4C0049E391 /* VDLViewController.xib in Resources */,
 				9A1D66A01ADA6B2D00A84B41 /* cd_icon.png in Resources */,
+				1EA9E8201AE764DD005A784F /* cd_mask.png in Resources */,
 				1E0739B01AE63E59000DCB9E /* list_bg2.png in Resources */,
 				1E3977CD1ACD4C4C0049E391 /* seekbarBg.png in Resources */,
 				1E3977DE1ACD4C4C0049E391 /* volumeballslider@2x.png in Resources */,
@@ -1229,6 +1244,7 @@
 				1E3977AD1ACD4C4C0049E391 /* backIcon.png in Resources */,
 				1E3977CA1ACD4C4C0049E391 /* repeatOne@2x.png in Resources */,
 				1E3977BD1ACD4C4C0049E391 /* playbackDoneButtonHighlight.png in Resources */,
+				1EA9E8241AE76CA5005A784F /* cd_mask4.png in Resources */,
 				9A1D66CA1ADA6B2D00A84B41 /* oper_next_sel.png in Resources */,
 				1E47071F1ACD44470052D2EF /* Images.xcassets in Resources */,
 				9A1D66A61ADA6B2D00A84B41 /* icon_android_nor.png in Resources */,
