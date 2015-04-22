@@ -20,6 +20,53 @@
 #import "fileTypes.h"
 
 
+
+void pauseLayer(CALayer * layer)
+{
+    if (layer.speed > 0.0)
+    {
+        CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+        layer.speed = 0.0;
+        layer.timeOffset = pausedTime;
+    }
+}
+
+void resumeLayer(CALayer* layer)
+{
+    if (layer.speed == 0.0)
+    {
+        CFTimeInterval pausedTime = [layer timeOffset];
+        layer.speed = 1.0;
+        layer.timeOffset = 0.0;
+        layer.beginTime = 0.0;
+        CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+        layer.beginTime = timeSincePause;
+    }
+}
+
+
+UIImage * maskImage(UIImage *image ,UIImage *maskImage )
+{
+    CGImageRef maskRef = maskImage.CGImage;
+    
+    CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
+                                        CGImageGetHeight(maskRef),
+                                        CGImageGetBitsPerComponent(maskRef),
+                                        CGImageGetBitsPerPixel(maskRef),
+                                        CGImageGetBytesPerRow(maskRef),
+                                        CGImageGetDataProvider(maskRef), NULL, false);
+    
+    CGImageRef maskedImageRef = CGImageCreateWithMask([image CGImage], mask);
+    UIImage *maskedImage = [UIImage imageWithCGImage:maskedImageRef];
+    
+    CGImageRelease(mask);
+    CGImageRelease(maskedImageRef);
+    
+    // returns new image with mask applied
+    return maskedImage;
+}
+
+
 void valueToMinSec(double d, int *m , int *s)
 {
     *m = d / 60;
@@ -56,8 +103,6 @@ void valueToMinSec(double d, int *m , int *s)
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *imageAlbum;
 @property (weak, nonatomic) IBOutlet UIImageView *imageAlbumItem;
-@property (nonatomic) bool imageAlbumHighlighted;
-
 @property (nonatomic,strong) UIImageView *albumImage,*placeHolder;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnOrder;
@@ -104,62 +149,10 @@ void valueToMinSec(double d, int *m , int *s)
     [super viewDidLoad];
     
     // Add a place holder view.
-//    CGFloat width2 = self.imageAlbum.bounds.size.width / 2.;
-    /*
-    CGFloat radius = 52. / 2.;
-    CGFloat radius2x = 52. ;
-    
-    UIImageView *placeHolder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius2x, radius2x)];
-    placeHolder.image = [UIImage imageNamed:@"cd_bg"];
-    placeHolder.layer.cornerRadius = radius;
-    placeHolder.layer.masksToBounds = YES;
-    placeHolder.autoresizingMask =  ~0;
-    [self.imageAlbum addSubview:placeHolder];
-    placeHolder.center=CGPointMake(width2, width2);
-    */
-    
-    /*
-    CGFloat radius = width2 ;
-    CGFloat radius2x = width2*2. ;
-    UIImageView *placeHolder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius2x, radius2x)];
-    placeHolder.image = [UIImage imageNamed:@"cd_bg"];
-    placeHolder.layer.cornerRadius = radius;
-    placeHolder.layer.masksToBounds = YES;
-    placeHolder.autoresizingMask =  ~0;
-    [self.imageAlbum addSubview:placeHolder];
-    placeHolder.center=CGPointMake(width2, width2);
-    [self.imageAlbum sendSubviewToBack:placeHolder];
-    */
-    
     
     CGFloat width2 = self.imageAlbum.bounds.size.width / 2.;
     
-    
-    {
-        /*
-        self.albumImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius2x, radius2x)];
-        _albumImage.layer.cornerRadius = radius;
-        _albumImage.layer.masksToBounds = YES;
-        _albumImage.autoresizingMask =  ~0;
-        [self.imageAlbum addSubview:_albumImage];
-        _albumImage.center=CGPointMake(width2, width2);
-        */
-    }
-    
-    
-    {
-        /*
-        CGFloat radius = 152. / 2.;
-        CGFloat radius2x = 152. ;
-        
-        self.albumImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius2x, radius2x)];
-        _albumImage.layer.cornerRadius = radius;
-        _albumImage.layer.masksToBounds = YES;
-        _albumImage.autoresizingMask =  ~0;
-        [self.imageAlbum addSubview:_albumImage];
-        _albumImage.center=CGPointMake(width2, width2);
-         */
-    }
+
     
     {
         CGFloat radius = 144.;
@@ -173,29 +166,18 @@ void valueToMinSec(double d, int *m , int *s)
         _placeHolder.hidden = true;
     }
     
-    
 
-    
-    
     
     self.imageAlbumItem.layer.cornerRadius = width2 - 152.;
     self.imageAlbumItem.layer.masksToBounds = YES;
-    
-    
-//    self.imageAlbumItem.hidden = true;
-    
-    
-    
-    
+   
     
     // imageAlbum
     
     self.imageAlbum.layer.cornerRadius = width2;
     self.imageAlbum.layer.masksToBounds = YES;
     
-    
-    
-    
+
     
     // tableView
     self.tableView.backgroundColor=[UIColor clearColor];
@@ -250,26 +232,7 @@ void valueToMinSec(double d, int *m , int *s)
 
 
 
-- (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage {
-    
-    CGImageRef maskRef = maskImage.CGImage;
-    
-    CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
-                                        CGImageGetHeight(maskRef),
-                                        CGImageGetBitsPerComponent(maskRef),
-                                        CGImageGetBitsPerPixel(maskRef),
-                                        CGImageGetBytesPerRow(maskRef),
-                                        CGImageGetDataProvider(maskRef), NULL, false);
-    
-    CGImageRef maskedImageRef = CGImageCreateWithMask([image CGImage], mask);
-    UIImage *maskedImage = [UIImage imageWithCGImage:maskedImageRef];
-    
-    CGImageRelease(mask);
-    CGImageRelease(maskedImageRef);
-    
-    // returns new image with mask applied
-    return maskedImage;
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -458,38 +421,14 @@ void valueToMinSec(double d, int *m , int *s)
         
     }
     
-    
-    if (!self.imageAlbumHighlighted &&[self.engine isPlaying] )
-    {
-    
-    }
+
 }
 
--(BOOL)isLayerPaused:(CALayer*)layer
-{
-    return layer.speed == 0.0;
-}
 
--(void)pauseLayer:(CALayer*)layer
-{
-    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
-    layer.speed = 0.0;
-    layer.timeOffset = pausedTime;
-}
-
--(void)resumeLayer:(CALayer*)layer
-{
-    CFTimeInterval pausedTime = [layer timeOffset];
-    layer.speed = 1.0;
-    layer.timeOffset = 0.0;
-    layer.beginTime = 0.0;
-    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
-    layer.beginTime = timeSincePause;
-}
 
 -(void)pauseAlbumRotation
 {
-    [self pauseLayer:self.imageAlbum.layer];
+    pauseLayer(self.imageAlbum.layer);
 }
 
 -(void)stopAlbumRotation
@@ -500,21 +439,23 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)startAlbumRotation
 {
-    if(![self.imageAlbum.layer animationForKey:@"rotationAnimation"] )
+    if ([self.engine isPlaying])
     {
-        CFTimeInterval duration = 100 * 10 * 60 ;
-        CABasicAnimation* rotationAnimation;
-        rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-        rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * 0.15  * duration ];
-        rotationAnimation.duration = duration;
-        rotationAnimation.cumulative = YES;
-        rotationAnimation.repeatCount = 1;
+        if(![self.imageAlbum.layer animationForKey:@"rotationAnimation"] )
+        {
+            CFTimeInterval duration = 100 * 10 * 60 ;
+            CABasicAnimation* rotationAnimation;
+            rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+            rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * 0.15  * duration ];
+            rotationAnimation.duration = duration;
+            rotationAnimation.cumulative = YES;
+            rotationAnimation.repeatCount = 1;
+            
+            [self.imageAlbum.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+        }
         
-        [self.imageAlbum.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+        resumeLayer(self.imageAlbum.layer);
     }
-    
-    if ([self isLayerPaused: self.imageAlbum.layer])
-        [self resumeLayer:self.imageAlbum.layer];
 }
 
 
@@ -536,7 +477,7 @@ void valueToMinSec(double d, int *m , int *s)
         self.placeHolder.hidden = NO;
         
         UIImage *mask = [UIImage imageNamed:@"cd_mask5"];
-        self.placeHolder.image = [self maskImage:image withMask:mask];
+        self.placeHolder.image = maskImage(image , mask);
     }
     
     self.labelTitle.text = title;
@@ -595,18 +536,41 @@ void valueToMinSec(double d, int *m , int *s)
 }
 
 
-- (IBAction)actionImageTouched:(UITapGestureRecognizer *)sender {
-    
-    if (sender.state == UIGestureRecognizerStateEnded)
-        self.imageAlbumHighlighted = NO;
-    else
-        self.imageAlbumHighlighted = YES;
-    
-    /*
-    UIImageView *imageView = self.imageAlbum.subviews.firstObject;
-    imageView.hidden = !imageView.hidden;
-    */
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touched Began");
+    NSSet *set = [event touchesForView:self.imageAlbum];
 
+    if ([set count] > 0)
+    {
+        [self pauseAlbumRotation];
+    }
+    
 }
 
+-(void)imageTouchesEnded
+{
+    [self startAlbumRotation];
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+        NSLog(@"Touched End");
+    NSSet *set = [event touchesForView:self.imageAlbum];
+    
+    if ([set count] > 0)
+    {
+        [self imageTouchesEnded];
+    }
+}
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touched Cancelled");
+    NSSet *set = [event touchesForView:self.imageAlbum];
+    if ([set count] > 0)
+    {
+        [self imageTouchesEnded];
+    }
+}
 @end
