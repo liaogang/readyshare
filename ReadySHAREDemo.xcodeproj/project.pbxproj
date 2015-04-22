@@ -1476,6 +1476,7 @@
 					"$(PROJECT_DIR)/ReadySHAREDemo/SMB/libs",
 					"\"$(SRCROOT)/libs/Debug$(EFFECTIVE_PLATFORM_NAME)\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-lsmbclient",
 					"-ltalloc",
