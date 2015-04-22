@@ -58,7 +58,7 @@ void valueToMinSec(double d, int *m , int *s)
 @property (weak, nonatomic) IBOutlet UIImageView *imageAlbumItem;
 @property (nonatomic) bool imageAlbumHighlighted;
 
-@property (nonatomic,strong) UIImageView *albumImage;
+@property (nonatomic,strong) UIImageView *albumImage,*placeHolder;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnOrder;
 @property (weak, nonatomic) IBOutlet UIButton *btnSingle;
@@ -162,17 +162,15 @@ void valueToMinSec(double d, int *m , int *s)
     }
     
     {
-        /*
-        CGFloat radius = 52.;
+        CGFloat radius = 144.;
         
-        UIImageView *placeHolder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius, radius)];
-        placeHolder.image = [UIImage imageNamed:@"cd3"];
-        placeHolder.layer.cornerRadius = radius / 2.;
-        placeHolder.layer.masksToBounds = YES;
-        placeHolder.autoresizingMask =  ~0;
-        [self.imageAlbum addSubview:placeHolder];
-        placeHolder.center=CGPointMake(width2, width2);
-         */
+        self.placeHolder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius, radius)];
+        _placeHolder.layer.cornerRadius = radius / 2.;
+        _placeHolder.layer.masksToBounds = YES;
+        _placeHolder.autoresizingMask =  ~0;
+        [self.imageAlbum addSubview: _placeHolder];
+        _placeHolder.center=CGPointMake(width2, width2);
+        _placeHolder.hidden = true;
     }
     
     
@@ -180,7 +178,7 @@ void valueToMinSec(double d, int *m , int *s)
     
     
     
-    self.imageAlbumItem.layer.cornerRadius = width2;
+    self.imageAlbumItem.layer.cornerRadius = width2 - 152.;
     self.imageAlbumItem.layer.masksToBounds = YES;
     
     
@@ -390,6 +388,8 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)playNext
 {
+    [self stopAlbumRotation];
+    
     int next = getNext(self.order, [RootData shared].playingIndex, 0, [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered].count );
     
     if (next != -1)
@@ -406,13 +406,12 @@ void valueToMinSec(double d, int *m , int *s)
         [self.sliderProgress setSliderEnabled: false];
         
         self.sliderProgress.value = 0.;
-        [self.sliderProgress setSliderEnabled: false];
         self.labelTitle.text = @"";
         
         self.btnPause.hidden = YES;
         self.btnPlay.hidden = FALSE;
         
-        [self stopAlbumRotation];
+        [self pauseAlbumRotation];
     }
     else
     {
@@ -466,6 +465,11 @@ void valueToMinSec(double d, int *m , int *s)
     }
 }
 
+-(BOOL)isLayerPaused:(CALayer*)layer
+{
+    return layer.speed == 0.0;
+}
+
 -(void)pauseLayer:(CALayer*)layer
 {
     CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
@@ -485,18 +489,18 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)pauseAlbumRotation
 {
-    [self pauseLayer:self.imageAlbumItem.layer];
+    [self pauseLayer:self.imageAlbum.layer];
 }
 
 -(void)stopAlbumRotation
 {
-    [self.imageAlbumItem.layer removeAllAnimations];
+    [self.imageAlbum.layer removeAllAnimations];
 }
 
 
 -(void)startAlbumRotation
 {
-    if(![self.imageAlbumItem.layer animationForKey:@"rotationAnimation"] )
+    if(![self.imageAlbum.layer animationForKey:@"rotationAnimation"] )
     {
         CFTimeInterval duration = 100 * 10 * 60 ;
         CABasicAnimation* rotationAnimation;
@@ -506,13 +510,11 @@ void valueToMinSec(double d, int *m , int *s)
         rotationAnimation.cumulative = YES;
         rotationAnimation.repeatCount = 1;
         
-        [self.imageAlbumItem.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
-    }
-    else
-    {
-        [self resumeLayer:self.imageAlbumItem.layer];
+        [self.imageAlbum.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     }
     
+    if ([self isLayerPaused: self.imageAlbum.layer])
+        [self resumeLayer:self.imageAlbum.layer];
 }
 
 
@@ -529,9 +531,12 @@ void valueToMinSec(double d, int *m , int *s)
     if (image)
     {
         //self.imageAlbum.image = image;
+        self.imageAlbumItem.hidden = YES;
         
-        UIImage *mask = [UIImage imageNamed:@"cd_icon_r"];
-        self.imageAlbumItem.image = [self maskImage:image withMask:mask];
+        self.placeHolder.hidden = NO;
+        
+        UIImage *mask = [UIImage imageNamed:@"cd_mask5"];
+        self.placeHolder.image = [self maskImage:image withMask:mask];
     }
     
     self.labelTitle.text = title;
@@ -544,7 +549,8 @@ void valueToMinSec(double d, int *m , int *s)
     NSAssert([info isKindOfClass:[ProgressInfo class]], nil);
     [self.sliderProgress setMaximumValue: info.total];
     [self.sliderProgress setValue: 0];
-    
+
+
     [self setTitleAndAlbumImage];
 }
 
