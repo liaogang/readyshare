@@ -16,7 +16,7 @@
 
 #import "CCoverflowCollectionViewLayout.h"
 
-
+#import "RootData.h"
 
 #if !__has_feature(objc_arc)
 #error this file is ARC only. Either turn on ARC for the project or use -fobjc-arc flag
@@ -108,9 +108,13 @@ CGSize szCoverIphone ={260.,300.};
 {
     [super viewDidLoad];
     
+    
+    [self setPhotoImages: [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered]];
+    
+    
     _indexSelected= -1;
     
-    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self.navigationController action:@selector(dismissModalViewControllerAnimated:)];
+//    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self.navigationController action:@selector(dismissModalViewControllerAnimated:)];
 
     
     bool isIPad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;

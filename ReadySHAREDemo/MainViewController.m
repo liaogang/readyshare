@@ -47,8 +47,8 @@
     
 //    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"设置IP" style:UIBarButtonItemStyleDone target:self action:@selector(actionSetPath)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(figureOutRootPath)];
-    
+    self.navigationItem.rightBarButtonItems = @[ [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(figureOutRootPath)] ,
+                                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"auth"] style:UIBarButtonItemStylePlain target:self action:@selector(popupAuth) ] ];
 
     
     [self figureOutRootPath];
@@ -115,6 +115,10 @@
             rootPath = [NSString stringWithFormat:@"smb://%@",rootPath];
             // save
             [RootData shared].path = rootPath;
+            
+            [[RootData shared] reload:^{
+                [self updateBtnState];
+            }];
         }
         
         if ([result isKindOfClass:[NSError class]])
@@ -127,7 +131,6 @@
         [[[UIAlertView alloc]initWithTitle:@"No ip address" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
     }
     
-    [self updateBtnState];
 }
 
 

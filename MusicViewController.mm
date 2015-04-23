@@ -377,6 +377,11 @@ void valueToMinSec(double d, int *m , int *s)
         self.btnPlay.hidden = FALSE;
         
         [self pauseAlbumRotation];
+        
+        [RootData shared].playingFilePath = nil;
+        
+        self.imageAlbumItem.hidden = FALSE;
+        self.placeHolder.hidden=TRUE;
     }
     else
     {
@@ -481,6 +486,7 @@ void valueToMinSec(double d, int *m , int *s)
         UIImage *mask = [UIImage imageNamed:@"cd_mask5"];
         self.placeHolder.image = maskImage(image , mask);
     }
+
     
     self.labelTitle.text = title;
 }
