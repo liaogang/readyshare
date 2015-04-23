@@ -47,19 +47,19 @@
         self.player = [[AVPlayer alloc]init];
         self.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
         
-        /*
-        addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
         
-        addObserverForEvent(self, @selector(playNext), EventID_to_play_next);
+//        addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
         
-        addObserverForEvent(self, @selector(needResumePlayAtBoot), EventID_player_document_loaded);
+//        addObserverForEvent(self, @selector(playNext), EventID_to_play_next);
+        
+//        addObserverForEvent(self, @selector(needResumePlayAtBoot), EventID_player_document_loaded);
        
         addObserverForEvent(self, @selector(stop), EventID_to_stop);
         
         addObserverForEvent(self, @selector(playPause), EventID_to_play_pause_resume);
         
-        addObserverForEvent(self, @selector(playRandom), EventID_to_play_random);
-        */
+//        addObserverForEvent(self, @selector(playRandom), EventID_to_play_random);
+        
         
         
         NSNotificationCenter *d =[NSNotificationCenter defaultCenter];
