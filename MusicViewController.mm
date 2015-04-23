@@ -19,7 +19,8 @@
 
 #import "fileTypes.h"
 
-
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
 void pauseLayer(CALayer * layer)
 {
@@ -130,7 +131,10 @@ void valueToMinSec(double d, int *m , int *s)
 @property (weak, nonatomic) IBOutlet UIButton *btnNext;
 
 
-
+//add  by  zemeng
+@property (nonatomic , retain)NSString * NameOfSonger;
+@property (nonatomic, retain) NSString * musicAlbumName;
+@property (nonatomic, retain) UIImage  * albumImageForBackground;
 
 
 @property (nonatomic) enum PlayOrder order;
@@ -228,11 +232,47 @@ void valueToMinSec(double d, int *m , int *s)
     }
     
     [self updateUI];
+    
+    
+    AVAudioSession * session = [AVAudioSession sharedInstance];
+    [session setActive:YES error:nil];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
 }
 
+- (BOOL) canBecomeFirstResponder {
+    return YES;
+}
 
+- (void) remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
+    
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        
+        switch (receivedEvent.subtype) {
+                
+            case  UIEventSubtypeRemoteControlPlay:
+                
+                [self actionPlay:nil];
+                break;
+            case UIEventSubtypeRemoteControlPause:
+                
+                [self actionPause:nil];
+                break;
 
-
+            case UIEventSubtypeRemoteControlNextTrack:
+                [self actionNext:nil];
+                break;
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                [self actionPrev:nil];
+                break;
+            default:
+                break;
+        }
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -488,6 +528,9 @@ void valueToMinSec(double d, int *m , int *s)
 
     
     self.labelTitle.text = title;
+    self.NameOfSonger = artist;
+    self.musicAlbumName = album;
+    self.albumImageForBackground = self.placeHolder.image;
 }
 
 
@@ -498,9 +541,48 @@ void valueToMinSec(double d, int *m , int *s)
     [self.sliderProgress setMaximumValue: info.total];
     [self.sliderProgress setValue: 0];
 
-
     [self setTitleAndAlbumImage];
+    
+    [self setPlayInfoWhenBeingBackground];
 }
+
+//add by zemeng
+- (void) setPlayInfoWhenBeingBackground
+{
+        NSMutableDictionary * info = [NSMutableDictionary dictionary];
+        info[MPMediaItemPropertyTitle] = self.labelTitle.text;  //歌曲名字
+        info[MPMediaItemPropertyArtist] =self.NameOfSonger; //歌手
+        info[MPMediaItemPropertyAlbumTitle] = self.musicAlbumName; //唱片名字
+        info[MPNowPlayingInfoPropertyPlaybackRate] = [NSNumber numberWithFloat:1.0];
+    
+        if (self.albumImageForBackground) {
+            info[MPMediaItemPropertyArtwork] = [[MPMediaItemArtwork alloc] initWithImage:self.albumImageForBackground];
+            
+        }
+
+        info[MPMediaItemPropertyLyrics] = @"123345ffdddffddd";
+        info[MPMediaItemPropertyPlaybackDuration] = [NSString stringWithFormat:@"%f",[self.engine totalTime]];
+        info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = [NSString stringWithFormat:@"%f",[self.engine currentTime]];
+    
+        [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = info;
+
+}
+
+//- (void) setPlayingCurrentOnBackGround
+//{
+//    NSMutableDictionary * info = [NSMutableDictionary dictionary];
+//    info[MPMediaItemPropertyTitle] = self.labelTitle.text;  //歌曲名字
+//    info[MPMediaItemPropertyArtist] =self.NameOfSonger; //歌手
+//    info[MPMediaItemPropertyAlbumTitle] = self.musicAlbumName; //唱片名字
+//    info[MPNowPlayingInfoPropertyPlaybackRate] = [NSNumber numberWithFloat:1.0];
+//    
+//    info[MPMediaItemPropertyArtwork] = [[MPMediaItemArtwork alloc] initWithImage:self.albumImageForBackground];
+//    info[MPMediaItemPropertyLyrics] = @"123345ffdddffddd";
+//    info[MPMediaItemPropertyPlaybackDuration] = [NSString stringWithFormat:@"%f",[self.engine totalTime]];
+//    info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @"0";
+//    
+//    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = info;
+//}
 
 #pragma mark - Controls Action
 
@@ -536,6 +618,9 @@ void valueToMinSec(double d, int *m , int *s)
 
 - (IBAction)actionPlay:(id)sender {
     [self.engine playPause];
+    
+    //add by zemeng
+    [self setPlayInfoWhenBeingBackground];
 }
 
 - (IBAction)actionNext:(id)sender {
