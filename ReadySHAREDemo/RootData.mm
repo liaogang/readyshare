@@ -251,6 +251,7 @@
     _playingTrack.lyrics = lyrics;
     _playingTrack.image = image;
     
+    self.fullFileName = path;
     
     PlayerEngine *engine = [PlayerEngine shared];
     [engine playURL: [NSURL fileURLWithPath:path]];

@@ -64,14 +64,11 @@
         info[MPMediaItemPropertyArtwork] = [[MPMediaItemArtwork alloc] initWithImage:track.image];
     }
     
-    info[MPMediaItemPropertyLyrics] = track.lyrics;
-    
     info[MPMediaItemPropertyPlaybackDuration] = @(pgInfo.total).stringValue;
     
     info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(pgInfo.current).stringValue;
     
     [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = info;
-    
 }
 
 - (BOOL) canBecomeFirstResponder {
