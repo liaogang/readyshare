@@ -144,6 +144,14 @@
 		1E6B81F31AE4E8120078C52B /* musicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */; };
 		1E6B81F41AE4E8120078C52B /* musicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */; };
 		1E98F04A1ADB72320021C1C7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E98F04C1ADB72320021C1C7 /* Localizable.strings */; };
+		1EA831B41AE8DCA6006642C5 /* icon_android_nor~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831AC1AE8DCA6006642C5 /* icon_android_nor~iphone.png */; };
+		1EA831B51AE8DCA6006642C5 /* icon_android_sel~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831AD1AE8DCA6006642C5 /* icon_android_sel~iphone.png */; };
+		1EA831B61AE8DCA6006642C5 /* icon_ebooks_nor~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831AE1AE8DCA6006642C5 /* icon_ebooks_nor~iphone.png */; };
+		1EA831B71AE8DCA6006642C5 /* icon_ebooks_sel~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831AF1AE8DCA6006642C5 /* icon_ebooks_sel~iphone.png */; };
+		1EA831B81AE8DCA6006642C5 /* icon_music_nor~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831B01AE8DCA6006642C5 /* icon_music_nor~iphone.png */; };
+		1EA831B91AE8DCA6006642C5 /* icon_music_sel~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831B11AE8DCA6006642C5 /* icon_music_sel~iphone.png */; };
+		1EA831BA1AE8DCA6006642C5 /* icon_photos_nor~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831B21AE8DCA6006642C5 /* icon_photos_nor~iphone.png */; };
+		1EA831BB1AE8DCA6006642C5 /* icon_photos_sel~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831B31AE8DCA6006642C5 /* icon_photos_sel~iphone.png */; };
 		1EA9E8161AE754A8005A784F /* clear_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8151AE754A8005A784F /* clear_thumb.png */; };
 		1EA9E8181AE75AFD005A784F /* cd_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8171AE75AFD005A784F /* cd_icon2.png */; };
 		1EA9E81A1AE75CD4005A784F /* cd3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8191AE75CD4005A784F /* cd3.png */; };
@@ -443,6 +451,14 @@
 		1E98F04E1ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		1E98F04F1ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		1E98F0501ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1EA831AC1AE8DCA6006642C5 /* icon_android_nor~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_android_nor~iphone.png"; path = "Resource/icon_android_nor~iphone.png"; sourceTree = "<group>"; };
+		1EA831AD1AE8DCA6006642C5 /* icon_android_sel~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_android_sel~iphone.png"; path = "Resource/icon_android_sel~iphone.png"; sourceTree = "<group>"; };
+		1EA831AE1AE8DCA6006642C5 /* icon_ebooks_nor~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_ebooks_nor~iphone.png"; path = "Resource/icon_ebooks_nor~iphone.png"; sourceTree = "<group>"; };
+		1EA831AF1AE8DCA6006642C5 /* icon_ebooks_sel~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_ebooks_sel~iphone.png"; path = "Resource/icon_ebooks_sel~iphone.png"; sourceTree = "<group>"; };
+		1EA831B01AE8DCA6006642C5 /* icon_music_nor~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_music_nor~iphone.png"; path = "Resource/icon_music_nor~iphone.png"; sourceTree = "<group>"; };
+		1EA831B11AE8DCA6006642C5 /* icon_music_sel~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_music_sel~iphone.png"; path = "Resource/icon_music_sel~iphone.png"; sourceTree = "<group>"; };
+		1EA831B21AE8DCA6006642C5 /* icon_photos_nor~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_photos_nor~iphone.png"; path = "Resource/icon_photos_nor~iphone.png"; sourceTree = "<group>"; };
+		1EA831B31AE8DCA6006642C5 /* icon_photos_sel~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_photos_sel~iphone.png"; path = "Resource/icon_photos_sel~iphone.png"; sourceTree = "<group>"; };
 		1EA9E8151AE754A8005A784F /* clear_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clear_thumb.png; path = Resource/clear_thumb.png; sourceTree = "<group>"; };
 		1EA9E8171AE75AFD005A784F /* cd_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_icon2.png; path = Resource/cd_icon2.png; sourceTree = "<group>"; };
 		1EA9E8191AE75CD4005A784F /* cd3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd3.png; path = Resource/cd3.png; sourceTree = "<group>"; };
@@ -945,6 +961,14 @@
 		9A1D665C1ADA6AE000A84B41 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				1EA831AC1AE8DCA6006642C5 /* icon_android_nor~iphone.png */,
+				1EA831AD1AE8DCA6006642C5 /* icon_android_sel~iphone.png */,
+				1EA831AE1AE8DCA6006642C5 /* icon_ebooks_nor~iphone.png */,
+				1EA831AF1AE8DCA6006642C5 /* icon_ebooks_sel~iphone.png */,
+				1EA831B01AE8DCA6006642C5 /* icon_music_nor~iphone.png */,
+				1EA831B11AE8DCA6006642C5 /* icon_music_sel~iphone.png */,
+				1EA831B21AE8DCA6006642C5 /* icon_photos_nor~iphone.png */,
+				1EA831B31AE8DCA6006642C5 /* icon_photos_sel~iphone.png */,
 				1EA9E8251AE7716F005A784F /* cd_mask5.png */,
 				1EA9E8231AE76CA5005A784F /* cd_mask4.png */,
 				1EA9E8211AE769B6005A784F /* cd_mask2.png */,
@@ -1143,6 +1167,7 @@
 				9A1D66AF1ADA6B2D00A84B41 /* icon_photos_sel.png in Resources */,
 				9A1D66B41ADA6B2D00A84B41 /* language_cn_nor.png in Resources */,
 				1E3978021ACD5B580049E391 /* file.png in Resources */,
+				1EA831B71AE8DCA6006642C5 /* icon_ebooks_sel~iphone.png in Resources */,
 				1E3977B51ACD4C4C0049E391 /* modernSliderKnob.png in Resources */,
 				1E3977D81ACD4C4C0049E391 /* speedIcon@2x.png in Resources */,
 				1E3977B71ACD4C4C0049E391 /* pauseIcon.png in Resources */,
@@ -1167,6 +1192,7 @@
 				9A1D66CC1ADA6B2D00A84B41 /* oper_pause_sel.png in Resources */,
 				1EA9E8221AE769B6005A784F /* cd_mask2.png in Resources */,
 				9A1D66C91ADA6B2D00A84B41 /* oper_next_nor.png in Resources */,
+				1EA831B81AE8DCA6006642C5 /* icon_music_nor~iphone.png in Resources */,
 				9A1D66D91ADA6B2D00A84B41 /* volume_level_04.png in Resources */,
 				9A1D66C11ADA6B2D00A84B41 /* mode_random_nor.png in Resources */,
 				1EA9E8161AE754A8005A784F /* clear_thumb.png in Resources */,
@@ -1198,6 +1224,7 @@
 				1E3977D31ACD4C4C0049E391 /* sliderminimumTrack.png in Resources */,
 				1E3978031ACD5B580049E391 /* music.png in Resources */,
 				9A1D66AD1ADA6B2D00A84B41 /* icon_music_sel.png in Resources */,
+				1EA831B91AE8DCA6006642C5 /* icon_music_sel~iphone.png in Resources */,
 				9A1D66B81ADA6B2D00A84B41 /* line_img.png in Resources */,
 				9A1D66C61ADA6B2D00A84B41 /* nofile_nor.png in Resources */,
 				1E3978051ACD5B580049E391 /* video.png in Resources */,
@@ -1208,6 +1235,7 @@
 				1E3977CF1ACD4C4C0049E391 /* slidermaximumTrack.png in Resources */,
 				1E3977D01ACD4C4C0049E391 /* slidermaximumTrack@2x.png in Resources */,
 				1E3977B01ACD4C4C0049E391 /* ballSlider@2x.png in Resources */,
+				1EA831B61AE8DCA6006642C5 /* icon_ebooks_nor~iphone.png in Resources */,
 				1E3977B41ACD4C4C0049E391 /* knobSlider@2x.png in Resources */,
 				9A1D66A91ADA6B2D00A84B41 /* icon_ebooks_sel.png in Resources */,
 				1E3977DA1ACD4C4C0049E391 /* subtitleIcon@2x.png in Resources */,
@@ -1224,9 +1252,11 @@
 				1E3977B91ACD4C4C0049E391 /* playbackControllerBg.png in Resources */,
 				1E3AF2251ADFA37D004AA408 /* cover_cell2_iPad.xib in Resources */,
 				9A1D66B11ADA6B2D00A84B41 /* icon_video_sel.png in Resources */,
+				1EA831B51AE8DCA6006642C5 /* icon_android_sel~iphone.png in Resources */,
 				9A1D66D01ADA6B2D00A84B41 /* oper_previous_sel.png in Resources */,
 				9A1D66A11ADA6B2D00A84B41 /* default_book_cover_nor.png in Resources */,
 				1EA9E81E1AE76340005A784F /* cd_icon_r.png in Resources */,
+				1EA831BA1AE8DCA6006642C5 /* icon_photos_nor~iphone.png in Resources */,
 				9A1D66BD1ADA6B2D00A84B41 /* main_bg_02.png in Resources */,
 				1E3AF1EB1ADF9CC0004AA408 /* cell2.xib in Resources */,
 				1E6B81F41AE4E8120078C52B /* musicTableViewCell.xib in Resources */,
@@ -1241,6 +1271,7 @@
 				1ED794761ACE50640080FCA8 /* folder.png in Resources */,
 				1E3977D21ACD4C4C0049E391 /* slidermaxValue@2x.png in Resources */,
 				9A1D66A41ADA6B2D00A84B41 /* format_media2.png in Resources */,
+				1EA831B41AE8DCA6006642C5 /* icon_android_nor~iphone.png in Resources */,
 				1E3977AD1ACD4C4C0049E391 /* backIcon.png in Resources */,
 				1E3977CA1ACD4C4C0049E391 /* repeatOne@2x.png in Resources */,
 				1E3977BD1ACD4C4C0049E391 /* playbackDoneButtonHighlight.png in Resources */,
@@ -1250,6 +1281,7 @@
 				9A1D66A61ADA6B2D00A84B41 /* icon_android_nor.png in Resources */,
 				1E3977C01ACD4C4C0049E391 /* playIcon@2x.png in Resources */,
 				9A1D66AE1ADA6B2D00A84B41 /* icon_photos_nor.png in Resources */,
+				1EA831BB1AE8DCA6006642C5 /* icon_photos_sel~iphone.png in Resources */,
 				9A1D66A21ADA6B2D00A84B41 /* default_book_cover_set.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
