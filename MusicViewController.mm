@@ -478,7 +478,6 @@ void valueToMinSec(double d, int *m , int *s)
     
     if (image)
     {
-        //self.imageAlbum.image = image;
         self.imageAlbumItem.hidden = YES;
         
         self.placeHolder.hidden = NO;
