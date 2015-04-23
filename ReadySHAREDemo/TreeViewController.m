@@ -275,7 +275,6 @@
     UINavigationController *navgationCtlr;
     navgationCtlr=[[UINavigationController alloc]initWithRootViewController:self.collectionView];
     
-    navgationCtlr.navigationBar.translucent = NO;
     
     [self.collectionView setPhotoImages:imageArray];
     

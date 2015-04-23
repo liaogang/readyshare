@@ -152,6 +152,8 @@
 		1EA831B91AE8DCA6006642C5 /* icon_music_sel~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831B11AE8DCA6006642C5 /* icon_music_sel~iphone.png */; };
 		1EA831BA1AE8DCA6006642C5 /* icon_photos_nor~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831B21AE8DCA6006642C5 /* icon_photos_nor~iphone.png */; };
 		1EA831BB1AE8DCA6006642C5 /* icon_photos_sel~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831B31AE8DCA6006642C5 /* icon_photos_sel~iphone.png */; };
+		1EA831BE1AE8E8D3006642C5 /* auth.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831BC1AE8E8D3006642C5 /* auth.png */; };
+		1EA831BF1AE8E8D3006642C5 /* auth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831BD1AE8E8D3006642C5 /* auth@2x.png */; };
 		1EA9E8161AE754A8005A784F /* clear_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8151AE754A8005A784F /* clear_thumb.png */; };
 		1EA9E8181AE75AFD005A784F /* cd_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8171AE75AFD005A784F /* cd_icon2.png */; };
 		1EA9E81A1AE75CD4005A784F /* cd3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA9E8191AE75CD4005A784F /* cd3.png */; };
@@ -459,6 +461,8 @@
 		1EA831B11AE8DCA6006642C5 /* icon_music_sel~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_music_sel~iphone.png"; path = "Resource/icon_music_sel~iphone.png"; sourceTree = "<group>"; };
 		1EA831B21AE8DCA6006642C5 /* icon_photos_nor~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_photos_nor~iphone.png"; path = "Resource/icon_photos_nor~iphone.png"; sourceTree = "<group>"; };
 		1EA831B31AE8DCA6006642C5 /* icon_photos_sel~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_photos_sel~iphone.png"; path = "Resource/icon_photos_sel~iphone.png"; sourceTree = "<group>"; };
+		1EA831BC1AE8E8D3006642C5 /* auth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = auth.png; path = Resource/auth.png; sourceTree = "<group>"; };
+		1EA831BD1AE8E8D3006642C5 /* auth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "auth@2x.png"; path = "Resource/auth@2x.png"; sourceTree = "<group>"; };
 		1EA9E8151AE754A8005A784F /* clear_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clear_thumb.png; path = Resource/clear_thumb.png; sourceTree = "<group>"; };
 		1EA9E8171AE75AFD005A784F /* cd_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_icon2.png; path = Resource/cd_icon2.png; sourceTree = "<group>"; };
 		1EA9E8191AE75CD4005A784F /* cd3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd3.png; path = Resource/cd3.png; sourceTree = "<group>"; };
@@ -961,6 +965,8 @@
 		9A1D665C1ADA6AE000A84B41 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				1EA831BC1AE8E8D3006642C5 /* auth.png */,
+				1EA831BD1AE8E8D3006642C5 /* auth@2x.png */,
 				1EA831AC1AE8DCA6006642C5 /* icon_android_nor~iphone.png */,
 				1EA831AD1AE8DCA6006642C5 /* icon_android_sel~iphone.png */,
 				1EA831AE1AE8DCA6006642C5 /* icon_ebooks_nor~iphone.png */,
@@ -1214,12 +1220,14 @@
 				1E3977BB1ACD4C4C0049E391 /* playbackDoneButton.png in Resources */,
 				1E3977B11ACD4C4C0049E391 /* forwardIcon.png in Resources */,
 				1E3977AA1ACD4C4C0049E391 /* arrows@2x.png in Resources */,
+				1EA831BE1AE8E8D3006642C5 /* auth.png in Resources */,
 				9A1D66DC1ADA6B2D00A84B41 /* volume_level_07.png in Resources */,
 				1E3977D41ACD4C4C0049E391 /* sliderminimumTrack@2x.png in Resources */,
 				9A1D66CF1ADA6B2D00A84B41 /* oper_previous_nor.png in Resources */,
 				9A1D66C81ADA6B2D00A84B41 /* oper_bg.png in Resources */,
 				1E3977CB1ACD4C4C0049E391 /* resetIcon.png in Resources */,
 				1E3977D51ACD4C4C0049E391 /* sliderminiValue.png in Resources */,
+				1EA831BF1AE8E8D3006642C5 /* auth@2x.png in Resources */,
 				1E4707221ACD44470052D2EF /* LaunchScreen.xib in Resources */,
 				1E3977D31ACD4C4C0049E391 /* sliderminimumTrack.png in Resources */,
 				1E3978031ACD5B580049E391 /* music.png in Resources */,
