@@ -306,6 +306,8 @@ void valueToMinSec(double d, int *m , int *s)
     [self playItemAtIndex:indexPath.row];
 }
 
+#pragma mark -
+
 -(void)playItemAtIndex:(int)index
 {
     RootData *r= [RootData shared];
@@ -555,7 +557,7 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-        NSLog(@"Touched End");
+    NSLog(@"Touched End");
     NSSet *set = [event touchesForView:self.imageAlbum];
     
     if ([set count] > 0)
@@ -573,4 +575,21 @@ void valueToMinSec(double d, int *m , int *s)
         [self imageTouchesEnded];
     }
 }
+
+#pragma mark - supported rotations
+
+/// Only support landscape  Interface Orientation if device if iPhone and iPod touch style.
+-(NSUInteger)supportedInterfaceOrientations
+{
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
+    {
+        return UIInterfaceOrientationMaskAll;
+    }
+    else
+    {
+       return UIInterfaceOrientationMaskLandscape;
+    }
+}
+
+
 @end
