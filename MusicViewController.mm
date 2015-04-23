@@ -346,6 +346,41 @@ void valueToMinSec(double d, int *m , int *s)
     [self playItemAtIndex:indexPath.row];
 }
 
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int index = indexPath.row;
+    
+    RootData *r= [RootData shared];
+    NSArray *arr = [r getDataOfCurrMediaTypeVerifyFiltered];
+    
+    KxSMBItemFile *file = arr[index];
+    
+    BOOL exsit = false;
+    
+    [[RootData shared] smbFileExistsAtCache:file :&exsit];
+    
+    return exsit;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if( editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        int index = indexPath.row;
+        
+        RootData *r= [RootData shared];
+        NSArray *arr = [r getDataOfCurrMediaTypeVerifyFiltered];
+        
+        KxSMBItemFile *file = arr[index];
+        
+        BOOL exsit = false;
+        
+        NSString *fullFileName = [[RootData shared] smbFileExistsAtCache:file :&exsit];
+        
+        [[NSFileManager defaultManager] removeItemAtPath:fullFileName error:nil];
+    }
+}
+
 #pragma mark -
 
 -(void)playItemAtIndex:(int)index
