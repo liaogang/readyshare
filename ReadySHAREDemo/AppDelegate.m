@@ -8,6 +8,11 @@
 
 #import "AppDelegate.h"
 #import "PlayerMessage.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+#import "RootData.h"
+#import "PlayerEngine.h"
+#import "PlayerMessage.h"
 
 @interface AppDelegate ()
 
@@ -20,9 +25,83 @@
 
     initPlayerMessage();
     
+
+    addObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
+    
+    
+    AVAudioSession * session = [AVAudioSession sharedInstance];
+    [session setActive:YES error:nil];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
     
     return YES;
 }
+
+
+-(void)trackStarted:(NSNotification*)n
+{
+    ProgressInfo *info = n.object;
+    [self setPlayInfoWhenBeingBackground:info];
+}
+
+//add by zemeng
+- (void) setPlayInfoWhenBeingBackground:(ProgressInfo*)pgInfo
+{
+    RootData *s = [RootData shared];
+    TrackInfo *track = s.playingTrack;
+    
+    
+    NSMutableDictionary * info = [NSMutableDictionary dictionary];
+    info[MPMediaItemPropertyTitle] = track.title;  //歌曲名字
+    info[MPMediaItemPropertyArtist] = track.artist; //歌手
+    info[MPMediaItemPropertyAlbumTitle] = track.album; //唱片名字
+    info[MPNowPlayingInfoPropertyPlaybackRate] = [NSNumber numberWithFloat:1.0];
+    
+    if (track.image) {
+        info[MPMediaItemPropertyArtwork] = [[MPMediaItemArtwork alloc] initWithImage:track.image];
+    }
+    
+    info[MPMediaItemPropertyLyrics] = track.lyrics;
+    
+    info[MPMediaItemPropertyPlaybackDuration] = @(pgInfo.total).stringValue;
+    
+    info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(pgInfo.current).stringValue;
+    
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = info;
+    
+}
+
+- (BOOL) canBecomeFirstResponder {
+    return YES;
+}
+
+- (void) remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
+    
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        
+        switch (receivedEvent.subtype) {
+                
+            case  UIEventSubtypeRemoteControlPlay:
+                postEvent(EventID_to_play_pause_resume, nil);
+                break;
+            case UIEventSubtypeRemoteControlPause:
+                postEvent(EventID_to_play_pause_resume, nil);
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                postEvent(EventID_to_play_next, nil);
+                break;
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

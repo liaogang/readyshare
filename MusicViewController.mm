@@ -19,8 +19,7 @@
 
 #import "fileTypes.h"
 
-#import <MediaPlayer/MediaPlayer.h>
-#import <AVFoundation/AVFoundation.h>
+
 
 void pauseLayer(CALayer * layer)
 {
@@ -131,13 +130,7 @@ void valueToMinSec(double d, int *m , int *s)
 @property (weak, nonatomic) IBOutlet UIButton *btnNext;
 
 
-//add  by  zemeng
-@property (nonatomic , retain)NSString * NameOfSonger;
-@property (nonatomic, retain) NSString * musicAlbumName;
-@property (nonatomic, retain) UIImage  * albumImageForBackground;
 
-
-@property (nonatomic) enum PlayOrder order;
 @property (nonatomic,strong) PlayerEngine *engine;
 
 @end
@@ -192,7 +185,7 @@ void valueToMinSec(double d, int *m , int *s)
     
     
     
-    self.order = playorder_default;
+
     
     self.engine = [PlayerEngine shared];
     
@@ -204,11 +197,11 @@ void valueToMinSec(double d, int *m , int *s)
     self.sliderVolumn.value = self.engine.volume;
  
     
-    addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
+
     addObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
     addObserverForEvent(self , @selector(updateUI), EventID_track_state_changed);
     addObserverForEvent(self, @selector(updateProgressInfo:), EventID_track_progress_changed);
-    addObserverForEvent(self, @selector(playNext), EventID_to_play_next);
+
 
     
     RootData *r = [RootData shared];
@@ -232,47 +225,10 @@ void valueToMinSec(double d, int *m , int *s)
     }
     
     [self updateUI];
-    
-    
-    AVAudioSession * session = [AVAudioSession sharedInstance];
-    [session setActive:YES error:nil];
-    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-    
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-    [self becomeFirstResponder];
+
 }
 
-- (BOOL) canBecomeFirstResponder {
-    return YES;
-}
 
-- (void) remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
-    
-    if (receivedEvent.type == UIEventTypeRemoteControl) {
-        
-        switch (receivedEvent.subtype) {
-                
-            case  UIEventSubtypeRemoteControlPlay:
-                
-                [self actionPlay:nil];
-                break;
-            case UIEventSubtypeRemoteControlPause:
-                
-                [self actionPause:nil];
-                break;
-
-            case UIEventSubtypeRemoteControlNextTrack:
-                [self actionNext:nil];
-                break;
-            case UIEventSubtypeRemoteControlPreviousTrack:
-                [self actionPrev:nil];
-                break;
-            default:
-                break;
-        }
-    }
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -343,7 +299,7 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self playItemAtIndex:indexPath.row];
+    [[RootData shared] playItemAtIndex:indexPath.row];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -383,83 +339,9 @@ void valueToMinSec(double d, int *m , int *s)
 
 #pragma mark -
 
--(void)playItemAtIndex:(int)index
-{
-    RootData *r= [RootData shared];
-    NSArray *arr = [r getDataOfCurrMediaTypeVerifyFiltered];
-    
-    KxSMBItemFile *file = arr[index];
-    
-    BOOL exsit = false;
-    
-    NSString *fullFileName = [[RootData shared] smbFileExistsAtCache:file :&exsit];
-    r.playingFilePath = fullFileName;
-    
-    if (exsit)
-    {
-        // Verify the file size is OK.
-        NSError *error;
-        NSDictionary* dicAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fullFileName error:&error];
-        
-        if (error)
-        {
-            NSLog(@"error: %@",error);
-            exsit = false;
-        }
-        else
-        {
-            auto size = [dicAttributes fileSize];
-            
-            if ( size == file.stat.size)
-            {
-                // Verify OK , play.
-                [RootData shared].playingIndex = index;
-                [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
-            }
-            else
-            {
-                exsit = false;
-            }
-        }
-    }
-    
-    if (!exsit)
-    {
-        [file readDataToEndOfFile:^(id result)
-         {
-             if ([result isKindOfClass:[NSData class]])
-             {
-                 NSData *data = result;
-                 [data writeToFile:fullFileName atomically:YES];
-                 
-                 
-                 [RootData shared].playingIndex = index;
-                 [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
-             }
-             else if([result isKindOfClass:[NSError class]])
-             {
-                 NSError *error = result;
-                 NSLog(@"download smb file error: %@",error);
-                 
-                 [[[UIAlertViewBlock alloc]initWithTitle:NSLocalizedString(@"Error downloading smb file", nil) message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
-             }
-         }];
-    }
-}
 
 
--(void)playNext
-{
-    [self stopAlbumRotation];
-    
-    int next = getNext(self.order, [RootData shared].playingIndex, 0, [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered].count );
-    
-    if (next != -1)
-    {
-        [self playItemAtIndex: next ];
-    }
-    
-}
+
 
 -(void)updateUI
 {
@@ -565,13 +447,17 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)setTitleAndAlbumImage
 {
+        RootData *r= [RootData shared];
+    
+    /*
     NSMutableString *album = [ NSMutableString string];
     NSMutableString *artist = [ NSMutableString string];
     NSMutableString *title = [ NSMutableString string];
+    NSMutableString *lyrics = [ NSMutableString string];
+    */
+
     
-    RootData *r= [RootData shared];
-    
-    UIImage *image = getId3FromAudio( [NSURL fileURLWithPath: r.playingFilePath] , album, artist, title);
+    UIImage *image = r.playingTrack.image;
     
     if (image)
     {
@@ -583,11 +469,12 @@ void valueToMinSec(double d, int *m , int *s)
         self.placeHolder.image = maskImage(image , mask);
     }
 
-    
+    /*
     self.labelTitle.text = title;
     self.NameOfSonger = artist;
     self.musicAlbumName = album;
     self.albumImageForBackground = self.placeHolder.image;
+     */
 }
 
 
@@ -599,62 +486,24 @@ void valueToMinSec(double d, int *m , int *s)
     [self.sliderProgress setValue: 0];
 
     [self setTitleAndAlbumImage];
-    
-    [self setPlayInfoWhenBeingBackground];
 }
 
-//add by zemeng
-- (void) setPlayInfoWhenBeingBackground
-{
-        NSMutableDictionary * info = [NSMutableDictionary dictionary];
-        info[MPMediaItemPropertyTitle] = self.labelTitle.text;  //歌曲名字
-        info[MPMediaItemPropertyArtist] =self.NameOfSonger; //歌手
-        info[MPMediaItemPropertyAlbumTitle] = self.musicAlbumName; //唱片名字
-        info[MPNowPlayingInfoPropertyPlaybackRate] = [NSNumber numberWithFloat:1.0];
-    
-        if (self.albumImageForBackground) {
-            info[MPMediaItemPropertyArtwork] = [[MPMediaItemArtwork alloc] initWithImage:self.albumImageForBackground];
-            
-        }
 
-        info[MPMediaItemPropertyLyrics] = @"123345ffdddffddd";
-        info[MPMediaItemPropertyPlaybackDuration] = [NSString stringWithFormat:@"%f",[self.engine totalTime]];
-        info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = [NSString stringWithFormat:@"%f",[self.engine currentTime]];
-    
-        [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = info;
-
-}
-
-//- (void) setPlayingCurrentOnBackGround
-//{
-//    NSMutableDictionary * info = [NSMutableDictionary dictionary];
-//    info[MPMediaItemPropertyTitle] = self.labelTitle.text;  //歌曲名字
-//    info[MPMediaItemPropertyArtist] =self.NameOfSonger; //歌手
-//    info[MPMediaItemPropertyAlbumTitle] = self.musicAlbumName; //唱片名字
-//    info[MPNowPlayingInfoPropertyPlaybackRate] = [NSNumber numberWithFloat:1.0];
-//    
-//    info[MPMediaItemPropertyArtwork] = [[MPMediaItemArtwork alloc] initWithImage:self.albumImageForBackground];
-//    info[MPMediaItemPropertyLyrics] = @"123345ffdddffddd";
-//    info[MPMediaItemPropertyPlaybackDuration] = [NSString stringWithFormat:@"%f",[self.engine totalTime]];
-//    info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @"0";
-//    
-//    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = info;
-//}
 
 #pragma mark - Controls Action
 
 - (IBAction)actionOrder:(id)sender {
-    self.order = playorder_repeat_list;
+    [RootData shared].order = playorder_repeat_list;
     self.btnOrder.selected = !self.btnOrder.selected;
 }
 
 - (IBAction)actionSingle:(id)sender {
-    self.order = playorder_repeat_single;
+    [RootData shared].order = playorder_repeat_single;
     self.btnSingle.selected = !self.btnSingle.selected;
 }
 
 - (IBAction)actionShuffle:(id)sender {
-    self.order = playorder_shuffle;
+    [RootData shared].order = playorder_random;
     self.btnRandom.selected = !self.btnRandom.selected;
 }
 
@@ -675,9 +524,6 @@ void valueToMinSec(double d, int *m , int *s)
 
 - (IBAction)actionPlay:(id)sender {
     [self.engine playPause];
-    
-    //add by zemeng
-    [self setPlayInfoWhenBeingBackground];
 }
 
 - (IBAction)actionNext:(id)sender {
