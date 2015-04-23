@@ -19,9 +19,9 @@
  *  @param album,artist,title: output info
  *  @return audio's album image.(封面图)
  */
-UIImage * getId3FromAudio(NSURL *audioFile, NSMutableString *album, NSMutableString *artist,NSMutableString *title);
+UIImage * getId3FromAudio(NSURL *audioFile, NSMutableString *album, NSMutableString *artist,NSMutableString *title,NSMutableString *lyrics);
 
-NSData * getId3FromAudio2(NSURL *audioFile, NSMutableString *album, NSMutableString *artist,NSMutableString *title);
+NSData * getId3FromAudio2(NSURL *audioFile, NSMutableString *album, NSMutableString *artist,NSMutableString *title,NSMutableString *lyrics);
 
 
 

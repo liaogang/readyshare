@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 com.uPlayer. All rights reserved.
 //
 #import "KxSMBProvider.h"
+#import "PlayerTrack.h"
+#import "PlayerTypeDefines.h"
 
 typedef void (^Finished)();
 typedef void (^FinishedWithResult)(id result);
@@ -46,16 +48,30 @@ enum MediaType
 */
 -(NSString*)smbFileExistsAtCache:(KxSMBItemFile*)file :(BOOL*)exsit;
 
--(void)getSmbFileCached:(FinishedWithResult)callback;
+//-(void)getSmbFileCached:(FinishedWithResult)callback;
 
+
+/// music module ==> playing stuffs.
 @property (nonatomic) int playingIndex;
 @property (nonatomic,strong) NSString *playingFilePath;
+@property (nonatomic,strong) TrackInfo *playingTrack;
+@property (nonatomic) enum PlayOrder order;
+-(void)playItemAtIndex:(int)index;
+-(void)playNext;
+
 @end
 
 
+#if defined(__cplusplus)
+extern "C" {
+#endif /* defined(__cplusplus) */
 BOOL filterPathByMediaType(NSString *path ,enum MediaType type);
 
 
 NSString * generateTempFolderName();
 
 NSError* clearTempFolder();
+
+#if defined(__cplusplus)
+}
+#endif /* defined(__cplusplus) */

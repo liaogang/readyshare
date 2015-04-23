@@ -15,7 +15,7 @@
 
 
 
-NSData * getId3FromAudio2(NSURL *audioFile, NSMutableString *album, NSMutableString *artist,NSMutableString *title)
+NSData * getId3FromAudio2(NSURL *audioFile, NSMutableString *album, NSMutableString *artist,NSMutableString *title, NSMutableString *lyrics)
 {
     NSData *result;
     if (!audioFile) {
@@ -28,7 +28,7 @@ NSData * getId3FromAudio2(NSURL *audioFile, NSMutableString *album, NSMutableStr
         return nil;
     }
     
-    const int thingsNeedFind = 4;
+    const int thingsNeedFind = 5;
     BOOL n = 0;
     
     for (NSString *format in [mp3Asset availableMetadataFormats])
@@ -65,6 +65,11 @@ NSData * getId3FromAudio2(NSURL *audioFile, NSMutableString *album, NSMutableStr
                 [artist setString:metadataItem.stringValue];
                 n++;
             }
+            else if( [commonKey isEqualToString: AVMetadataiTunesMetadataKeyLyrics])
+            {
+                [lyrics setString:metadataItem.stringValue];
+                n++;
+            }
             
             if (n==thingsNeedFind)
                 break;
@@ -83,9 +88,9 @@ NSData * getId3FromAudio2(NSURL *audioFile, NSMutableString *album, NSMutableStr
     return result;
 }
 
-UIImage * getId3FromAudio(NSURL *audioFile, NSMutableString *album, NSMutableString *artist,NSMutableString *title)
+UIImage * getId3FromAudio(NSURL *audioFile, NSMutableString *album, NSMutableString *artist,NSMutableString *title,NSMutableString *lyrics)
 {
-    return  [UIImage imageWithData:getId3FromAudio2(audioFile, album, artist, title)];
+    return  [UIImage imageWithData:getId3FromAudio2(audioFile, album, artist, title , lyrics)];
 }
 
 
