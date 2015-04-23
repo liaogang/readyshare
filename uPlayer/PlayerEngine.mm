@@ -284,6 +284,8 @@
     
     [_player replaceCurrentItemWithPlayerItem: item ];
     
+    postEvent(EventID_track_stopped, nil);
+    
     if (pfi == false)
         [_player play];
 
