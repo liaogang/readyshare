@@ -397,10 +397,33 @@ void valueToMinSec(double d, int *m , int *s)
     
     if (exsit)
     {
-        [RootData shared].playingIndex = index;
-        [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
+        // Verify the file size is OK.
+        NSError *error;
+        NSDictionary* dicAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fullFileName error:&error];
+        
+        if (error)
+        {
+            NSLog(@"error: %@",error);
+            exsit = false;
+        }
+        else
+        {
+            auto size = [dicAttributes fileSize];
+            
+            if ( size == file.stat.size)
+            {
+                // Verify OK , play.
+                [RootData shared].playingIndex = index;
+                [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
+            }
+            else
+            {
+                exsit = false;
+            }
+        }
     }
-    else
+    
+    if (!exsit)
     {
         [file readDataToEndOfFile:^(id result)
          {
@@ -408,7 +431,7 @@ void valueToMinSec(double d, int *m , int *s)
              {
                  NSData *data = result;
                  [data writeToFile:fullFileName atomically:YES];
- 
+                 
                  
                  [RootData shared].playingIndex = index;
                  [_engine playURL: [NSURL fileURLWithPath:fullFileName]];
@@ -422,7 +445,6 @@ void valueToMinSec(double d, int *m , int *s)
              }
          }];
     }
-    
 }
 
 
