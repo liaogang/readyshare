@@ -15,10 +15,12 @@ typedef void (^FinishedWithResult)(id result);
 
 enum MediaType
 {
-    MediaTypeMovie,
+    MediaTypeMovie = 1000,
     MediaTypeMusic,
     MediaTypePhoto,
     MediaTypeBook,
+    MediaTypeInternet,
+    MediaTypeFileBrowse,
 };
 
 
