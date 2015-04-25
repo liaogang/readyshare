@@ -70,6 +70,9 @@
 
 -(void)reload:(Finished)callback
 {
+    if (! _path )
+        _path = @"smb://";
+    
     KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
     
     [provider fetchAtPath:_path block:^(id result) {
@@ -195,11 +198,8 @@
             {
                 // Verify OK , play.
                 r.playingIndex = index;
-                //r.playingTrack =
                 
                 [self playFileAtPath: fullFileName];
-                
-//                [engine playURL: [NSURL fileURLWithPath:fullFileName]];
             }
             else
             {
@@ -217,9 +217,8 @@
                  NSData *data = result;
                  [data writeToFile:fullFileName atomically:YES];
                  
-                 
                  [RootData shared].playingIndex = index;
-
+                 [self playFileAtPath: fullFileName];
              }
              else if([result isKindOfClass:[NSError class]])
              {
@@ -251,7 +250,7 @@
     _playingTrack.lyrics = lyrics;
     _playingTrack.image = image;
     
-    self.fullFileName = path;
+    self.playingFilePath = path;
     
     PlayerEngine *engine = [PlayerEngine shared];
     [engine playURL: [NSURL fileURLWithPath:path]];

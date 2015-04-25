@@ -254,12 +254,7 @@ void valueToMinSec(double d, int *m , int *s)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *cellIdentifier = @"musicTableCell";
-    
-    musicTableViewCell *cell ;//= [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if(!cell)
-        cell = [[musicTableViewCell alloc]initWithNib];
+    musicTableViewCell *cell = [[musicTableViewCell alloc]initWithNib];
     
     NSArray *arr = [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered];
 
@@ -268,15 +263,13 @@ void valueToMinSec(double d, int *m , int *s)
     cell.textNumber.text = @(indexPath.row + 1).stringValue;
     
     cell.textName.text = file.path.lastPathComponent;
-    
-//    UIView *backView = [[UIView alloc] initWithFrame:CGRectZero];
-//    
-//    backView.backgroundColor = [UIColor clearColor];
-//    
-//    cell.backgroundView = backView;
+
+    if (indexPath.row == [RootData shared].playingIndex)
+        cell.textNumber.textColor = [UIColor yellowColor];
     
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
       [cell setBackgroundColor:[UIColor clearColor]];
@@ -300,6 +293,11 @@ void valueToMinSec(double d, int *m , int *s)
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [[RootData shared] playItemAtIndex:indexPath.row];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
 }
 
 -(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -333,7 +331,11 @@ void valueToMinSec(double d, int *m , int *s)
         
         NSString *fullFileName = [[RootData shared] smbFileExistsAtCache:file :&exsit];
         
-        [[NSFileManager defaultManager] removeItemAtPath:fullFileName error:nil];
+        NSError *error;
+        [[NSFileManager defaultManager] removeItemAtPath:fullFileName error: &error];
+        if (error) {
+            NSLog(@"removeItemAtPath: %@",error);
+        }
     }
 }
 
@@ -447,15 +449,7 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)setTitleAndAlbumImage
 {
-        RootData *r= [RootData shared];
-    
-    /*
-    NSMutableString *album = [ NSMutableString string];
-    NSMutableString *artist = [ NSMutableString string];
-    NSMutableString *title = [ NSMutableString string];
-    NSMutableString *lyrics = [ NSMutableString string];
-    */
-
+    RootData *r= [RootData shared];
     
     UIImage *image = r.playingTrack.image;
     
@@ -468,13 +462,8 @@ void valueToMinSec(double d, int *m , int *s)
         UIImage *mask = [UIImage imageNamed:@"cd_mask5"];
         self.placeHolder.image = maskImage(image , mask);
     }
-
-    /*
-    self.labelTitle.text = title;
-    self.NameOfSonger = artist;
-    self.musicAlbumName = album;
-    self.albumImageForBackground = self.placeHolder.image;
-     */
+    
+    self.labelTitle.text = compressTitle(r.playingTrack);
 }
 
 
@@ -486,6 +475,8 @@ void valueToMinSec(double d, int *m , int *s)
     [self.sliderProgress setValue: 0];
 
     [self setTitleAndAlbumImage];
+    
+    [self.tableView reloadData];
 }
 
 

@@ -22,12 +22,19 @@
 
 #import "constStrings.h"
 
-
+#ifndef TARGET_IPHONE_SIMULATOR
 #import "VDLViewController.h"
+#endif
+
+
 #import "PdfPreviewViewController.h"
 //#import "RSHelper.h"
 
-@interface FileViewController() <VLCViewData>
+@interface FileViewController()
+
+#ifndef TARGET_IPHONE_SIMULATOR
+<VLCViewData>
+#endif
 
 @end
 
@@ -60,7 +67,9 @@
     
     
     long   _lastDownloadedBytes;
+#ifndef TARGET_IPHONE_SIMULATOR
     VDLViewController *_vcMoviePlayer;
+#endif
     UIView *placeHolder;
 }
 
@@ -91,8 +100,10 @@
     
     web=nil;
     
+#ifndef TARGET_IPHONE_SIMULATOR
     [_vcMoviePlayer stop];
     _vcMoviePlayer = nil;
+#endif
     placeHolder= nil;
 }
 
@@ -321,7 +332,9 @@
     if([self isViewRemoved])
     {
         [self closeMovie];
+#ifndef TARGET_IPHONE_SIMULATOR
         [_vcMoviePlayer stop];
+#endif
         self.navigationController.title = nil ;
         
         [self.view removeGestureRecognizer:_reg];
@@ -687,6 +700,7 @@
 
 -(void)playVideo
 {
+#ifndef TARGET_IPHONE_SIMULATOR
     if(httpfileUrl)
         return;
     
@@ -704,6 +718,7 @@
     [_vcMoviePlayer play];
     
     [self.view addSubview:_vcMoviePlayer.view];
+#endif
 }
 
 
