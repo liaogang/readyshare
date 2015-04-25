@@ -148,30 +148,31 @@ void valueToMinSec(double d, int *m , int *s)
     // Add a place holder view.
     
     CGFloat width2 = self.imageAlbum.bounds.size.width / 2.;
-    
-
-    
-    {
-        CGFloat radius = 144.;
-        
-        self.placeHolder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius, radius)];
-        _placeHolder.layer.cornerRadius = radius / 2.;
-        _placeHolder.layer.masksToBounds = YES;
-        _placeHolder.autoresizingMask =  ~0;
-        [self.imageAlbum addSubview: _placeHolder];
-        _placeHolder.center=CGPointMake(width2, width2);
-        _placeHolder.hidden = true;
+    CGFloat radius = 144.;
+    CGFloat widthCenter = 180. - 152.;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        radius /= 2.0;
+        widthCenter /= 2.;
     }
-    
 
     
-    self.imageAlbumItem.layer.cornerRadius = width2 - 152.;
+    
+    
+    self.placeHolder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, radius, radius)];
+    _placeHolder.layer.cornerRadius = radius / 2.;
+    _placeHolder.layer.masksToBounds = YES;
+    _placeHolder.autoresizingMask =  ~0;
+    [self.imageAlbum addSubview: _placeHolder];
+    _placeHolder.center=CGPointMake(width2, width2);
+    _placeHolder.hidden = true;
+    
+
+//    self.imageAlbumItem.layer.cornerRadius = width2 - widthCenter;
     self.imageAlbumItem.layer.masksToBounds = YES;
    
     
     // imageAlbum
-    
-    self.imageAlbum.layer.cornerRadius = width2;
+//    self.imageAlbum.layer.cornerRadius = width2;
     self.imageAlbum.layer.masksToBounds = YES;
     
 
@@ -459,7 +460,7 @@ void valueToMinSec(double d, int *m , int *s)
         
         self.placeHolder.hidden = NO;
         
-        UIImage *mask = [UIImage imageNamed:@"cd_mask5"];
+        UIImage *mask = [UIImage imageNamed:@"cd_mask"];
         self.placeHolder.image = maskImage(image , mask);
     }
     
