@@ -14,6 +14,10 @@
 #import "TreeViewController.h"
 #import "KxSMBProvider.h"
 
+#import "MusicViewController.h"
+#import "smbCollectionView.h"
+
+
 @interface MainViewController ()
 <KxSMBProviderDelegate>
 
@@ -123,6 +127,7 @@
         
         if ([result isKindOfClass:[NSError class]])
         {
+            NSLog(@"error: %@",result);
             [self popupAuth];
         }
     }
@@ -234,4 +239,44 @@
 }
 
 
+- (IBAction)btnClicked:(UIButton*)sender {
+    
+    [RootData shared].currMediaType = sender.tag;
+    
+    UIViewController *nextViewController;
+    
+    enum MediaType type = sender.tag;
+    
+    switch (type) {
+        case MediaTypeMovie:
+        {
+            TreeViewController *t = [[TreeViewController alloc] initAsHeadViewController];
+            t.mediaType = type;
+            t.path = [RootData shared].path;
+            nextViewController = t;
+            break;
+        }
+        case MediaTypeMusic:
+        {
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            nextViewController = [sb instantiateViewControllerWithIdentifier:@"sbid_musicViewController"];
+            break;
+        }
+        case MediaTypePhoto:
+        {
+            nextViewController = [[smbCollectionViewController alloc]init];
+            break;
+        }
+        case MediaTypeBook:
+        {
+            break;
+        }
+        default:
+            break;
+    }
+    
+    
+    [self.navigationController pushViewController:nextViewController animated:YES];
+    
+}
 @end

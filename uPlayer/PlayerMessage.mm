@@ -92,11 +92,6 @@ void removeObserver(id observer)
 
 void postEvent(EventID et , id object)
 {
-
-//    NSLog(@"%d: ",(int)et);
-//    NSString *a = eventIDtoString(et);
-//    NSLog(@"%@",a);
-    
     [sCenter postNotificationName: eventIDtoString(et) object:object];
 }
 

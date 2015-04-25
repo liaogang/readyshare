@@ -14,6 +14,8 @@
 #import "PlayerEngine.h"
 #import "PlayerMessage.h"
 
+#import "MainViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -24,6 +26,24 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     initPlayerMessage();
+
+    
+    
+    
+    MainViewController *mainVC =[[MainViewController alloc] initWithNibName:@"MainView" bundle:nil];
+    
+    
+    
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController: mainVC];
+    
+    
+    self.window = [[UIWindow alloc]initWithFrame: [[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
+    
+    
+    
+    
     
 
     addObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
@@ -36,6 +56,10 @@
     
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
+    
+    
+    // Clear the cache file if it's too much.
+    // clearTempFolder();
     
     return YES;
 }

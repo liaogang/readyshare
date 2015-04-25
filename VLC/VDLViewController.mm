@@ -69,6 +69,7 @@ CGRect rectRorientation(CGRect r)
 @implementation VDLViewController
 
 
+#ifndef TARGET_IPHONE_SIMULATOR
 
 -(void)dealloc
 {
@@ -491,4 +492,5 @@ CGRect rectRorientation(CGRect r)
 }
 
 
+#endif
 @end
