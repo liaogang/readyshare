@@ -7,22 +7,22 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
-                <outlet property="view" destination="BPa-RQ-OZ9" id="gGd-fu-3hc"/>
+                <outlet property="view" destination="BPa-RQ-OZ9" id="yJL-RR-YYm"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="BPa-RQ-OZ9">
-            <rect key="frame" x="0.0" y="0.0" width="532" height="562"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xyn-Ff-NTP">
-                    <rect key="frame" x="284" y="408" width="84" height="99"/>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="drk-HU-1Lq">
+                    <rect key="frame" x="211" y="251" width="43" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="icon_internet_nor.png">
+                    <state key="normal" image="icon_ebooks_nor.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="7p9-3j-CZo"/>
+                        <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="mxd-L0-wb6"/>
                     </connections>
                 </button>
                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jrc-Wp-itP">
@@ -46,7 +46,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="djf-Yq-QIH">
-                    <rect key="frame" x="351" y="64" width="43" height="94"/>
+                    <rect key="frame" x="200" y="71" width="43" height="94"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="icon_music_nor.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -65,20 +65,19 @@
                         <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="SXa-GY-VDJ"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="drk-HU-1Lq">
-                    <rect key="frame" x="318" y="238" width="43" height="38"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xyn-Ff-NTP">
+                    <rect key="frame" x="179" y="385" width="84" height="99"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="icon_ebooks_nor.png">
+                    <state key="normal" image="icon_internet_nor.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="mxd-L0-wb6"/>
+                        <action selector="btnClicked:" destination="-1" eventType="touchUpInside" id="7p9-3j-CZo"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="1384" y="280"/>
+            <point key="canvasLocation" x="1488" y="353"/>
         </view>
     </objects>
     <resources>
