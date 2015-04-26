@@ -226,7 +226,8 @@ void valueToMinSec(double d, int *m , int *s)
     }
     
     [self updateUI];
-
+    
+    self.btnOrder.selected = YES;
 }
 
 
