@@ -383,6 +383,41 @@
 }
 
 
+- (IBAction)openMaps {
+    //打开地图
+    NSString*addressText = @"beijing";
+    //@"1Infinite Loop, Cupertino, CA 95014";
+    addressText =[addressText stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    
+    NSString  *urlText = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@",addressText];
+    NSLog(@"urlText=============== %@", urlText);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlText]];
+}
+
+- (IBAction)openEmail {
+    //打开mail // Fire off an email to apple support
+    [[UIApplication sharedApplication]openURL:[NSURL   URLWithString:@"mailto://devprograms@apple.com"]];
+}
+
+- (IBAction)openPhone {
+    
+    //拨打电话
+    // Call Google 411
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://10086"]];
+}
+
+- (IBAction)openSms {
+    //打开短信
+    // Text toGoogle SMS
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"sms://10086"]];
+}
+
+-(IBAction)openBrowser {
+    //打开浏览器
+    // Lanuch any iPhone developers fav site
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://map.baidu.com/mobile/webapp/index/index/foo=bar/vt=map"]]; //@"http://blog.csdn.net/duxinfeng2010"
+}
+
 - (IBAction)btnClicked:(UIButton*)sender {
     
     [RootData shared].currMediaType = sender.tag;
@@ -413,6 +448,17 @@
         }
         case MediaTypeBook:
         {
+            break;
+        }
+        case MediaTypeInternet:
+        {
+            [self openBrowser];
+            break;
+        }
+        
+        case MediaTypeFileBrowse:
+        {
+            //[self openPhone];
             break;
         }
         default:
