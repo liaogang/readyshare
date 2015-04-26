@@ -17,6 +17,26 @@
 #import "MusicViewController.h"
 #import "smbCollectionView.h"
 
+//#if define
+
+//#define iOSDeviceScreenWidth                320
+//#define iOSDeviceScreenHeight               (CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size)?568:480)
+//#define iOSStatusBarHeight                  20
+//#define Navi_Bar_Height_Portrait            44
+//#define Navi_Bar_Height_Landscape           32
+
+//#define iOSDeviceScreenWidth                768
+//#define iOSDeviceScreenHeight               1024
+//#define iOSStatusBarHeight                  20
+//#define Navi_Bar_Height_Portrait            44
+//#define Navi_Bar_Height_Landscape           44
+//
+//#endif
+
+#define ICON_WIDTH 120
+#define ICON_HEIGHT 120
+
+#define IPAD_DEVICE ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 
 @interface MainViewController ()
 <KxSMBProviderDelegate>
@@ -25,6 +45,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnMusic;
 @property (weak, nonatomic) IBOutlet UIButton *btnPhoto;
 @property (weak, nonatomic) IBOutlet UIButton *btnBook;
+@property (weak, nonatomic) IBOutlet UIButton *btnInternet;
+@property (weak, nonatomic) IBOutlet UIButton *btnFileBrowse;
 
 @end
 
@@ -58,13 +80,135 @@
     [self figureOutRootPath];
     
     
-    /*
-    NSString *path = [RootData shared].path;
-    if ( path == nil || path.length == 0) {
-        [self performSelector:@selector(actionSetPath) withObject:nil afterDelay:0.3];
+    if(IPAD_DEVICE)
+    {
+        iOSDeviceScreenWidth = 768;
+        iOSDeviceScreenHeight = 1024;
+        iOSStatusBarHeight = 20;
+        Navi_Bar_Height_Portrait = 44;
+        Navi_Bar_Height_Landscape = 44;
     }
-    */
+    else
+    {
+        iOSDeviceScreenWidth = 320;
+        iOSDeviceScreenHeight = (CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size)?568:480);
+        iOSStatusBarHeight = 20;
+        Navi_Bar_Height_Portrait = 44;
+        Navi_Bar_Height_Landscape = 32;
+    }
+    
+
+    UIImage *image = [UIImage imageNamed:@"main_bg.png"];
+    self.view.layer.contents = (id) image.CGImage;
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    
+
+}
+
+- (void) viewDidLayoutSubviews
+{
+//    if(IPAD_DEVICE)
+//    {
+//        
+//    }
+//    else
+//    {
+    
+        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        {
+            CGFloat screenWidth = iOSDeviceScreenWidth;
+            CGFloat screenHeight = iOSDeviceScreenHeight-iOSStatusBarHeight;
+            CGFloat detalOffsetY = (screenHeight - ICON_WIDTH*3)/2;
+            [self.btnMovie setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnMusic setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnPhoto setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnBook setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnInternet setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 , detalOffsetY + 2*ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnFileBrowse setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY + 2*ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            
+        }
+        else if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        {
+            CGFloat screenWidth = iOSDeviceScreenWidth;
+            CGFloat screenHeight = iOSDeviceScreenHeight - Navi_Bar_Height_Landscape;
+            CGFloat detalOffsetY = (screenWidth + iOSStatusBarHeight - ICON_HEIGHT *2)/2;
+            
+            [self.btnMovie setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnMusic setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 + ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnPhoto setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 + 2*ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnBook setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnInternet setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2  + ICON_WIDTH , detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnFileBrowse setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 +  2*ICON_WIDTH, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+        }
+   // }
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self showViewWithOritation:toInterfaceOrientation];
+    
+}
+
+- (void) showViewWithOritation:(UIInterfaceOrientation) orientation
+{
+
+//    if(IPAD_DEVICE)
+//    {
+//        
+//    }
+//    else
+//    {
+    
+        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        {
+            CGFloat screenWidth = iOSDeviceScreenWidth;
+            CGFloat screenHeight = iOSDeviceScreenHeight-iOSStatusBarHeight;
+            CGFloat detalOffsetY = (screenHeight - ICON_WIDTH*3)/2;
+            [self.btnMovie setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnMusic setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnPhoto setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnBook setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnInternet setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 , detalOffsetY + 2*ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnFileBrowse setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY + 2*ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            
+        }
+        else if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        {
+            CGFloat screenWidth = iOSDeviceScreenWidth;
+            CGFloat screenHeight = iOSDeviceScreenHeight - Navi_Bar_Height_Landscape;
+            CGFloat detalOffsetY = (screenWidth + iOSStatusBarHeight - ICON_HEIGHT *2)/2;
+            
+            [self.btnMovie setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnMusic setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 + ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnPhoto setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 + 2*ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnBook setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnInternet setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2  + ICON_WIDTH , detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+            [self.btnFileBrowse setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 +  2*ICON_WIDTH, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
+        }
+ //   }
+}
+
+
+
+
 
 -(void)updateBtnState
 {
@@ -239,6 +383,41 @@
 }
 
 
+- (IBAction)openMaps {
+    //打开地图
+    NSString*addressText = @"beijing";
+    //@"1Infinite Loop, Cupertino, CA 95014";
+    addressText =[addressText stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    
+    NSString  *urlText = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@",addressText];
+    NSLog(@"urlText=============== %@", urlText);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlText]];
+}
+
+- (IBAction)openEmail {
+    //打开mail // Fire off an email to apple support
+    [[UIApplication sharedApplication]openURL:[NSURL   URLWithString:@"mailto://devprograms@apple.com"]];
+}
+
+- (IBAction)openPhone {
+    
+    //拨打电话
+    // Call Google 411
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://10086"]];
+}
+
+- (IBAction)openSms {
+    //打开短信
+    // Text toGoogle SMS
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"sms://10086"]];
+}
+
+-(IBAction)openBrowser {
+    //打开浏览器
+    // Lanuch any iPhone developers fav site
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://map.baidu.com/mobile/webapp/index/index/foo=bar/vt=map"]]; //@"http://blog.csdn.net/duxinfeng2010"
+}
+
 - (IBAction)btnClicked:(UIButton*)sender {
     
     [RootData shared].currMediaType = sender.tag;
@@ -269,6 +448,17 @@
         }
         case MediaTypeBook:
         {
+            break;
+        }
+        case MediaTypeInternet:
+        {
+            [self openBrowser];
+            break;
+        }
+        
+        case MediaTypeFileBrowse:
+        {
+            //[self openPhone];
             break;
         }
         default:

@@ -119,6 +119,8 @@
             return _itemsPhoto;
         case MediaTypeBook:
             return _itemsBook;
+        default:
+            return nil;
     }
 }
 
