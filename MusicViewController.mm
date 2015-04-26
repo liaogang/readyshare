@@ -486,17 +486,29 @@ void valueToMinSec(double d, int *m , int *s)
 
 - (IBAction)actionOrder:(id)sender {
     [RootData shared].order = playorder_repeat_list;
-    self.btnOrder.selected = !self.btnOrder.selected;
+    
+    self.btnOrder.selected = YES;
+    self.btnSingle.selected = NO;
+    self.btnRandom.selected = NO;
+    
 }
 
 - (IBAction)actionSingle:(id)sender {
     [RootData shared].order = playorder_repeat_single;
-    self.btnSingle.selected = !self.btnSingle.selected;
+    
+    self.btnOrder.selected = NO;
+    self.btnSingle.selected = YES;
+    self.btnRandom.selected = NO;
+    
 }
 
 - (IBAction)actionShuffle:(id)sender {
     [RootData shared].order = playorder_random;
-    self.btnRandom.selected = !self.btnRandom.selected;
+    
+    self.btnOrder.selected = NO;
+    self.btnSingle.selected = NO;
+    self.btnRandom.selected = YES;
+    
 }
 
 - (IBAction)actionVolumn:(id)sender {
