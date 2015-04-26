@@ -298,6 +298,7 @@
                                             <constraint firstAttribute="width" constant="24" id="xEx-gY-3Sn"/>
                                         </constraints>
                                         <state key="normal" title="Random" image="mode_random_nor.png"/>
+                                        <state key="selected" image="mode_random_sel.png"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="4Uo-f4-ILD"/>
@@ -673,6 +674,7 @@
                                         <state key="normal" title="Single" image="mode_single_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="mode_single_sel.png"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="7Ai-io-76A"/>
@@ -1650,7 +1652,9 @@
         <image name="mode_order_nor.png" width="24" height="18"/>
         <image name="mode_order_sel.png" width="24" height="18"/>
         <image name="mode_random_nor.png" width="24" height="18"/>
+        <image name="mode_random_sel.png" width="24" height="18"/>
         <image name="mode_single_nor.png" width="24" height="24"/>
+        <image name="mode_single_sel.png" width="24" height="24"/>
         <image name="music_bg.png" width="800" height="480"/>
         <image name="oper_bg.png" width="325" height="410"/>
         <image name="oper_next_nor.png" width="43" height="43"/>
