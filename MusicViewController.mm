@@ -538,7 +538,6 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"Touched Began");
     NSSet *set = [event touchesForView:self.imageAlbum];
 
     if ([set count] > 0)
@@ -555,7 +554,6 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"Touched End");
     NSSet *set = [event touchesForView:self.imageAlbum];
     
     if ([set count] > 0)
@@ -566,7 +564,6 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"Touched Cancelled");
     NSSet *set = [event touchesForView:self.imageAlbum];
     if ([set count] > 0)
     {

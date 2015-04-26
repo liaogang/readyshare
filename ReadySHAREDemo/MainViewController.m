@@ -448,6 +448,12 @@
         }
         case MediaTypeBook:
         {
+            // @todo
+            
+            TreeViewController *t = [[TreeViewController alloc] initAsHeadViewController];
+            t.mediaType = type;
+            t.path = [RootData shared].path;
+            nextViewController = t;
             break;
         }
         case MediaTypeInternet:
