@@ -35,7 +35,8 @@
     
     
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController: mainVC];
-    
+
+    nav.navigationBar.translucent = false;
     
     self.window = [[UIWindow alloc]initWithFrame: [[UIScreen mainScreen] bounds]];
     self.window.rootViewController = nav;
