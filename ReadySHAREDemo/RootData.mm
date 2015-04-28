@@ -264,11 +264,22 @@
          {
              if ([result isKindOfClass:[NSData class]])
              {
+
                  NSData *data = result;
-                 [data writeToFile:fullFileName atomically:YES];
-                 
-                 [RootData shared].playingIndex = index;
-                 [self playFileAtPath: fullFileName];
+                 if (data.length == file.stat.size)
+                 {
+                     if(![data writeToFile:fullFileName atomically:YES])
+                     {
+                         NSLog(@"error save data to file.");
+                     }
+                     
+                     [RootData shared].playingIndex = index;
+                     [self playFileAtPath: fullFileName];
+                 }
+                 else
+                 {
+                     NSLog(@"Download file error.");
+                 }
              }
              else if([result isKindOfClass:[NSError class]])
              {
@@ -309,7 +320,7 @@
 
 -(void)playNext
 {
-    int next = getNext(_order,  _playingIndex, 0, [self getDataOfCurrMediaTypeVerifyFiltered].count );
+    int next = getNext(_order,  _playingIndex, 0, self.itemsMusic.count );
     
     if (next != -1)
     {
