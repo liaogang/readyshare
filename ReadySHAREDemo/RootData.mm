@@ -164,14 +164,62 @@
     return result;
 }
 
-
+-(void)getSmbFileCached:(KxSMBItemFile*)file callback:(FinishedWithResult)callback
+{
+    BOOL exist;
+    NSString *localFilePath = [self smbFileExistsAtCache:file :&exist];
+    if (exist)
+    {
+        // Verify the file size is OK.
+        NSError *error;
+        NSDictionary* dicAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:localFilePath error:&error];
+        
+        if (error)
+        {
+            NSLog(@"error: %@",error);
+            exist = false;
+        }
+        else
+        {
+            unsigned long long size = [dicAttributes fileSize];
+            
+            if ( size == file.stat.size)
+            {
+                // Verify OK
+                callback(localFilePath);
+            }
+            else
+            {
+                exist = false;
+            }
+        }
+    }
+    
+    if(!exist)
+    {
+        [file readDataToEndOfFile:^(id result)
+         {
+             if ([result isKindOfClass:[NSData class]])
+             {
+                 NSData *data = result;
+                 [data writeToFile:localFilePath atomically:YES];
+              
+                 callback(localFilePath);
+             }
+             else if([result isKindOfClass:[NSError class]])
+             {
+                 callback(result);
+             }
+         }];
+    }
+    
+}
 
 
 -(void)playItemAtIndex:(int)index
 {
     RootData *r = self;
 
-    
     NSArray *arr = [r getDataOfCurrMediaTypeVerifyFiltered];
     
     KxSMBItemFile *file = arr[index];
