@@ -167,9 +167,10 @@
         
     }
 
-    
+    /*
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"photo_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(ShowPhotoBroswer)];
     self.navigationItem.rightBarButtonItem.enabled = false;
+     */
     
 }
 
