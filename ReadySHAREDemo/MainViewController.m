@@ -449,11 +449,8 @@
         case MediaTypeBook:
         {
             // @todo
-            
-            TreeViewController *t = [[TreeViewController alloc] initAsHeadViewController];
-            t.mediaType = type;
-            t.path = [RootData shared].path;
-            nextViewController = t;
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            nextViewController = [sb instantiateViewControllerWithIdentifier:@"sbidBook"];
             break;
         }
         case MediaTypeInternet:

@@ -24,6 +24,8 @@
 		1E21D1951AEBAE4300386233 /* oper_previous_sel~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E21D18C1AEBAE4300386233 /* oper_previous_sel~iphone.png */; };
 		1E21D1971AEBAE8200386233 /* cd_bg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E21D1961AEBAE8200386233 /* cd_bg~iphone.png */; };
 		1E21D1991AEBB00200386233 /* cd_mask~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E21D1981AEBB00200386233 /* cd_mask~iphone.png */; };
+		1E3853601AEF777D004E6A8B /* bookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E38535F1AEF777D004E6A8B /* bookViewController.m */; };
+		1E3853631AEF785B004E6A8B /* bookCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3853621AEF785B004E6A8B /* bookCollectionViewCell.m */; };
 		1E3977111ACD47ED0049E391 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977101ACD47ED0049E391 /* libiconv.dylib */; };
 		1E3977131ACD47F50049E391 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977121ACD47F50049E391 /* libresolv.dylib */; };
 		1E3977171ACD49A30049E391 /* TreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3977151ACD49A30049E391 /* TreeViewController.m */; };
@@ -268,6 +270,10 @@
 		1E21D18C1AEBAE4300386233 /* oper_previous_sel~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "oper_previous_sel~iphone.png"; path = "Resource/oper_previous_sel~iphone.png"; sourceTree = "<group>"; };
 		1E21D1961AEBAE8200386233 /* cd_bg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cd_bg~iphone.png"; path = "Resource/cd_bg~iphone.png"; sourceTree = "<group>"; };
 		1E21D1981AEBB00200386233 /* cd_mask~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cd_mask~iphone.png"; path = "Resource/cd_mask~iphone.png"; sourceTree = "<group>"; };
+		1E38535E1AEF777D004E6A8B /* bookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bookViewController.h; sourceTree = "<group>"; };
+		1E38535F1AEF777D004E6A8B /* bookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bookViewController.m; sourceTree = "<group>"; };
+		1E3853611AEF785B004E6A8B /* bookCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bookCollectionViewCell.h; sourceTree = "<group>"; };
+		1E3853621AEF785B004E6A8B /* bookCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bookCollectionViewCell.m; sourceTree = "<group>"; };
 		1E3977101ACD47ED0049E391 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		1E3977121ACD47F50049E391 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		1E3977141ACD49A30049E391 /* TreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeViewController.h; path = ReadySHAREDemo/TreeViewController.h; sourceTree = SOURCE_ROOT; };
@@ -932,9 +938,13 @@
 				1E4707181ACD44470052D2EF /* ViewController.h */,
 				1E4707191ACD44470052D2EF /* ViewController.m */,
 				1E47071B1ACD44470052D2EF /* Main.storyboard */,
+				1E3853611AEF785B004E6A8B /* bookCollectionViewCell.h */,
+				1E3853621AEF785B004E6A8B /* bookCollectionViewCell.m */,
 				1EC73A681AEB94ED00C3ECD5 /* MainView.xib */,
 				1EFEC0C91ADA78E700478346 /* MainViewController.h */,
 				1EFEC0CA1ADA78E700478346 /* MainViewController.m */,
+				1E38535E1AEF777D004E6A8B /* bookViewController.h */,
+				1E38535F1AEF777D004E6A8B /* bookViewController.m */,
 				1E47071E1ACD44470052D2EF /* Images.xcassets */,
 				1E4707201ACD44470052D2EF /* LaunchScreen.xib */,
 				1E4707111ACD44470052D2EF /* Supporting Files */,
@@ -1334,6 +1344,7 @@
 				1E3977441ACD4B7F0049E391 /* UIButton+WebCache.m in Sources */,
 				1E3977461ACD4B7F0049E391 /* UIImage+MultiFormat.m in Sources */,
 				1E3977431ACD4B7F0049E391 /* SDWebImagePrefetcher.m in Sources */,
+				1E3853631AEF785B004E6A8B /* bookCollectionViewCell.m in Sources */,
 				1E3977501ACD4B910049E391 /* SDWebImageManager+MJ.m in Sources */,
 				1ED7947C1ACE552C0080FCA8 /* UIAlertViewBlock.m in Sources */,
 				1E3AF1FE1ADF9D04004AA408 /* MJPhoto.m in Sources */,
@@ -1374,6 +1385,7 @@
 				1E39775E1ACD4BAB0049E391 /* UIImage+UIImageExt.m in Sources */,
 				1E3AF20B1ADF9D55004AA408 /* MBProgressHUD+Add.m in Sources */,
 				1E6B81F31AE4E8120078C52B /* musicTableViewCell.m in Sources */,
+				1E3853601AEF777D004E6A8B /* bookViewController.m in Sources */,
 				1E4707141ACD44470052D2EF /* main.m in Sources */,
 				1E3AF21E1ADF9E63004AA408 /* CBetterCollectionViewCell.m in Sources */,
 				1E39773D1ACD4B7F0049E391 /* SDImageCache.m in Sources */,
