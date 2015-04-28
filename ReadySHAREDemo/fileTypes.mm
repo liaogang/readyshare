@@ -82,7 +82,37 @@ NSData * getId3FromAudio2(NSURL *audioFile, NSMutableString *album, NSMutableStr
     
     //if no title find , use the file name.
     if ([title isEqualToString:@""]) {
-        [title setString: audioFile.path.lastPathComponent.stringByDeletingPathExtension];
+        NSString *lastPC = audioFile.path.lastPathComponent;
+        
+        
+        /// 去掉下载时加上的时间截.     xxxxxxxx~xx-fileName.xxx
+        const int minTimeLen = 8;
+        if (lastPC.length > minTimeLen+1)
+        {
+            const char *s = lastPC.UTF8String;
+            
+            char *p = strchr(s, '-');
+            if (p) {
+                bool bAllNumber = true;
+                for (char *beg = (char*)s; beg < p ; beg++) {
+                    if(!isnumber(beg[0]) )
+                    {
+                        bAllNumber = false;
+                        break;
+                    }
+                }
+                
+                if (bAllNumber)
+                {
+                    NSString *sub = [lastPC substringFromIndex: p+1-s];
+                    lastPC = sub;
+                }
+            }
+        }
+        
+        
+        
+        [title setString: lastPC ];
     }
     
     return result;
