@@ -38,8 +38,8 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" id="7FS-n6-Azx">
-                        <rect key="frame" x="61" y="12" width="20" height="20"/>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" id="7FS-n6-Azx">
+                        <rect key="frame" x="59" y="12" width="20" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </activityIndicatorView>
                 </subviews>
@@ -51,7 +51,7 @@
                 <outlet property="textName" destination="QUF-FY-x0f" id="75f-Xv-7Bm"/>
                 <outlet property="textNumber" destination="ntr-me-Cn7" id="sfO-fL-izW"/>
             </connections>
-            <point key="canvasLocation" x="1249" y="424"/>
+            <point key="canvasLocation" x="1292" y="427"/>
         </tableViewCell>
     </objects>
     <resources>
