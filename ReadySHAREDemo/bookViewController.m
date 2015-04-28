@@ -9,6 +9,11 @@
 #import "bookViewController.h"
 #import "bookCollectionViewCell.h"
 #import "RootData.h"
+#import "PdfPreviewViewController.h"
+#import "UIAlertViewBlock.h"
+
+
+
 
 @interface bookViewController ()
 @property (nonatomic,strong) NSArray *files;// KxSMBItemFile
@@ -81,14 +86,51 @@ static NSString * const reuseIdentifier = @"bookCell";
     
     KxSMBItemFile *file = self.files[indexPath.row];
     
-    
     cell.title.text = [file.path.lastPathComponent stringByDeletingPathExtension];
-    
     
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    
+    KxSMBItemFile *file = self.files[indexPath.row];
+    
+
+    
+    BOOL e = false;
+    
+    [[RootData shared]smbFileExistsAtCache:file :&e ];
+    
+    [[RootData shared] getSmbFileCached:file callback:^(id result)
+    {
+        if ([result isKindOfClass:[NSString class]])
+        {
+            NSString *localFilePath = result;
+            
+            if ([PdfPreviewViewController canPreviewItem:[NSURL fileURLWithPath: localFilePath]])
+            {
+                PdfPreviewViewController *pdf =[[PdfPreviewViewController alloc]initWithFilePaths:@[[NSURL fileURLWithPath: localFilePath]]];
+                
+                [self.navigationController pushViewController:pdf animated:YES];
+            }
+            
+        }
+        else
+        {
+            NSError *error = result;
+            NSString *shortName = [file.path.lastPathComponent stringByDeletingPathExtension];
+            [[[UIAlertViewBlock alloc]initWithTitle: [NSString stringWithFormat: NSLocalizedString(@"Error downloading file: %@", nil) , shortName] message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
+        }
+    }];
+    
+
+}
+
+
 
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking

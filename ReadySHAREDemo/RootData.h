@@ -50,7 +50,7 @@ enum MediaType
 */
 -(NSString*)smbFileExistsAtCache:(KxSMBItemFile*)file :(BOOL*)exsit;
 
-//-(void)getSmbFileCached:(FinishedWithResult)callback;
+-(void)getSmbFileCached:(KxSMBItemFile*)file callback:(FinishedWithResult)callback;
 
 
 /// music module ==> playing stuffs.
