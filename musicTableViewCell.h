@@ -11,6 +11,7 @@
 @interface musicTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *textNumber;
 @property (weak, nonatomic) IBOutlet UILabel *textName;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 
 -(instancetype)initWithNib;
 

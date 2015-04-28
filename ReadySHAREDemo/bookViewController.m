@@ -99,14 +99,16 @@ static NSString * const reuseIdentifier = @"bookCell";
     
     KxSMBItemFile *file = self.files[indexPath.row];
     
-
-    
-    BOOL e = false;
-    
-    [[RootData shared]smbFileExistsAtCache:file :&e ];
+    UIActivityIndicatorView *av = [[UIActivityIndicatorView alloc]init];
+    av.center=self.view.center;
+    [av startAnimating];
+    [self.view addSubview:av];
     
     [[RootData shared] getSmbFileCached:file callback:^(id result)
     {
+        [av stopAnimating];
+        [av removeFromSuperview];
+        
         if ([result isKindOfClass:[NSString class]])
         {
             NSString *localFilePath = result;

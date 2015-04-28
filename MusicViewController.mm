@@ -130,7 +130,6 @@ void valueToMinSec(double d, int *m , int *s)
 @property (weak, nonatomic) IBOutlet UIButton *btnNext;
 
 
-
 @property (nonatomic,strong) PlayerEngine *engine;
 
 @end
@@ -294,6 +293,11 @@ void valueToMinSec(double d, int *m , int *s)
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    musicTableViewCell *cell = (musicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.loading.hidden = false;
+    [cell.loading startAnimating];
+    
+    
     [[RootData shared] playItemAtIndex:indexPath.row];
 }
 
@@ -479,6 +483,11 @@ void valueToMinSec(double d, int *m , int *s)
     [self setTitleAndAlbumImage];
     
     [self.tableView reloadData];
+    
+    
+    musicTableViewCell *cell = (musicTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow: [RootData shared].playingIndex inSection:0 ]];
+    [cell.loading stopAnimating];
+    cell.loading.hidden = true;
 }
 
 
