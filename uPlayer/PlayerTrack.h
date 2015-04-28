@@ -14,9 +14,9 @@
 
 @interface TrackInfo: NSObject
 @property (nonatomic,strong) NSString *artist,*title,*album,*genre,*year;
-@property (nonatomic,strong)NSString *path;
+@property (nonatomic,strong) NSString *path;
 
-@property (nonatomic,strong)NSString *lyrics;
+@property (nonatomic,strong) NSString *lyrics;
 @property (nonatomic,strong) UIImage *image;
 @end
 
