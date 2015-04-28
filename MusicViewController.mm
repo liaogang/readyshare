@@ -227,6 +227,7 @@ void valueToMinSec(double d, int *m , int *s)
     [self updateUI];
     
     self.btnOrder.selected = YES;
+    [RootData shared].order = playorder_repeat_list;
 }
 
 
@@ -338,10 +339,16 @@ void valueToMinSec(double d, int *m , int *s)
         NSString *fullFileName = [[RootData shared] smbFileExistsAtCache:file :&exsit];
         
         NSError *error;
-        [[NSFileManager defaultManager] removeItemAtPath:fullFileName error: &error];
-        if (error) {
+        if([[NSFileManager defaultManager] removeItemAtPath:fullFileName error: &error])
+        {
+            NSLog(@"removeItemAtPath success.");
+        }
+        
+        if (error)
+        {
             NSLog(@"removeItemAtPath: %@",error);
         }
+        
     }
 }
 
