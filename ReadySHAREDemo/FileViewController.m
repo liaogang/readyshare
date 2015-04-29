@@ -22,9 +22,21 @@
 
 #import "constStrings.h"
 
-#ifndef TARGET_IPHONE_SIMULATOR
+
+/**
+ * in iphone.os.sdk ==> #define TARGET_IPHONE_SIMULATOR     0 
+ * in iphone.simulator.sdk ==> #define TARGET_IPHONE_SIMULATOR     1
+ * All defined , but the value is different, so use `#if` instead of `#ifdef`
+ */
+
+#if TARGET_IPHONE_SIMULATOR
+#warning Using iPhone Simulator
+#else
+#warning Using Iphone Device.
 #import "VDLViewController.h"
 #endif
+
+
 
 
 #import "PdfPreviewViewController.h"
@@ -32,7 +44,7 @@
 
 @interface FileViewController()
 
-#ifndef TARGET_IPHONE_SIMULATOR
+#if !(TARGET_IPHONE_SIMULATOR)
 <VLCViewData>
 #endif
 
@@ -67,9 +79,11 @@
     
     
     long   _lastDownloadedBytes;
-#ifndef TARGET_IPHONE_SIMULATOR
+    
+#if !(TARGET_IPHONE_SIMULATOR)
     VDLViewController *_vcMoviePlayer;
 #endif
+    
     UIView *placeHolder;
 }
 
@@ -100,7 +114,7 @@
     
     web=nil;
     
-#ifndef TARGET_IPHONE_SIMULATOR
+#if !(TARGET_IPHONE_SIMULATOR)
     [_vcMoviePlayer stop];
     _vcMoviePlayer = nil;
 #endif
@@ -332,7 +346,7 @@
     if([self isViewRemoved])
     {
         [self closeMovie];
-#ifndef TARGET_IPHONE_SIMULATOR
+#if !(TARGET_IPHONE_SIMULATOR)
         [_vcMoviePlayer stop];
 #endif
         self.navigationController.title = nil ;
@@ -698,9 +712,11 @@
 }
 
 
+
+
 -(void)playVideo
 {
-#ifndef TARGET_IPHONE_SIMULATOR
+    #if !(TARGET_IPHONE_SIMULATOR)
     if(httpfileUrl)
         return;
     
@@ -708,7 +724,6 @@
     float ivW=self.view.frame.size.width,ivH=self.view.frame.size.height- 150;
 
 
-    
     _vcMoviePlayer = [[VDLViewController alloc]initWithNibName:@"VDLViewController" bundle:nil];
     [_vcMoviePlayer.view setFrame:CGRectMake(0, 150, ivW, ivH)];
     _vcMoviePlayer.view.autoresizingMask = 0xffffffff & ~UIViewAutoresizingFlexibleTopMargin;
@@ -720,7 +735,6 @@
     [self.view addSubview:_vcMoviePlayer.view];
 #endif
 }
-
 
 
 
