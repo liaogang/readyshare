@@ -45,6 +45,7 @@ CGRect rectRorientation(CGRect r)
 
 
 @interface VDLViewController () <UIGestureRecognizerDelegate>
+#if !(TARGET_IPHONE_SIMULATOR)
 {
     VLCMediaPlayer *_mediaplayer;
     
@@ -63,13 +64,13 @@ CGRect rectRorientation(CGRect r)
     UIPinchGestureRecognizer *_pinchRecognizer;
     int _performed;
 }
-
+#endif
 @end
 
 @implementation VDLViewController
 
 
-#ifndef TARGET_IPHONE_SIMULATOR
+#if !(TARGET_IPHONE_SIMULATOR)
 
 -(void)dealloc
 {
