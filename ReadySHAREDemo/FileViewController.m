@@ -16,17 +16,12 @@
 
 #import "TreeViewController.h"
 
-
+//#import "MJPhotoBrowser.h"
+//#import "MJPhoto.h"
 #include <math.h>
 
 #import "constStrings.h"
 #import "MBProgressHUD+Add.h"
-
-#import <MediaPlayer/MPMoviePlayerController.h>
-
-#import "PdfPreviewViewController.h"
-#import "MAAssert.h"
-
 
 /**
  * in iphone.os.sdk ==> #define TARGET_IPHONE_SIMULATOR     0
@@ -41,6 +36,11 @@
 #import "VDLViewController.h"
 #endif
 
+
+
+
+#import "PdfPreviewViewController.h"
+//#import "RSHelper.h"
 
 
 NSString *stringFromTimeInterval(NSTimeInterval t)
@@ -70,11 +70,12 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 
 
-
 @interface FileViewController()
 
+#if !(TARGET_IPHONE_SIMULATOR)
 <VLCViewData>
-@property (strong,nonatomic)   UIImageView *imageView2;
+#endif
+
 @end
 
 @implementation FileViewController {
@@ -97,7 +98,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     int errorDownload;
     
     UIImageView *_imageView;
-    
+    UIImageView *_imageView2;
     UITapGestureRecognizer *_reg;
     
     
@@ -113,21 +114,17 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     }
     _mediaType;
     
+    
     long   _lastDownloadedBytes;
+    
+#if !(TARGET_IPHONE_SIMULATOR)
     VDLViewController *_vcMoviePlayer;
+#endif
     
-    
-    bool isAddedBySuperView;
-    
-    NSMutableData * _md;
-    
-    
-    UIDocumentInteractionController *_DocumentInteractionController;
-    UIBarButtonItem *_shareBarButton ;
-    UIBarButtonItem *_fixBarButton;
-    UIBarButtonItem *_saveBarButton;
+    UIView *placeHolder;
 }
 
+@synthesize readyshareHomeVC;
 - (void) dealloc
 {
     [_imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
@@ -143,26 +140,29 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     _downloadButton= nil ;
     _downloadProgress= nil ;
     _downloadLabel= nil ;
-    _smbFile = nil;
+    
     _filePath = nil ;
     
     _imageView = nil ;
-    self.imageView2=nil;
+    [_imageView2 removeFromSuperview];
+    _imageView2=nil;
     _reg=nil;
     
     
     web=nil;
     
+#if !(TARGET_IPHONE_SIMULATOR)
     [_vcMoviePlayer stop];
     _vcMoviePlayer = nil;
-    
-    _DocumentInteractionController = nil ;
+#endif
+    placeHolder= nil;
 }
 
 - (id)init
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
+        self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }
@@ -224,15 +224,14 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.translucent = NO;
     
     self.navigationItem.title = self.smbFile.path.lastPathComponent;
+    
     
     
     [self figureOutMediaType];
     [self downloadAction];
 }
-
 
 -(void)figureOutMediaType
 {
@@ -262,10 +261,84 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
 }
 
+-(void)PopSelfInNavAndSetNavPromptNil
+{
+    
+}
+
+//把文件从临时目录放到Downloads目录。
+-(void)Save2Local
+{
+    //图片全屏时，按了”存储”不算。
+    if(dwscViewIsFullScreen)
+        return;
+    
+    NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                            NSUserDomainMask,
+                                                            YES) lastObject];
+    folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
+    
+    NSString *filename = _smbFile.path.lastPathComponent;
+    __block NSString *path2 = [folder stringByAppendingPathComponent:filename];
+    
+    NSFileManager *fm =[[NSFileManager alloc]init];
+    
+    [fm createDirectoryAtURL:[NSURL fileURLWithPath:folder]
+ withIntermediateDirectories:YES attributes:nil error:nil ];
+    
+    if([fm fileExistsAtPath:path2])
+    {
+        __weak typeof(self) weakSelf = self;
+        UIAlertViewBlock *alert = [[UIAlertViewBlock alloc] initWithTitle:NSLocalizedString(@"exists file", nil)
+                                                                  message:nil
+                                                        cancelButtonTitle:NSLocalizedString(@"cancel", nil) cancelledBlock:^(UIAlertViewBlock *a){
+                                                        }
+                                                           okButtonTitles:NSLocalizedString(@"ok", nil) okBlock:^(UIAlertViewBlock *a){
+                                                               [[NSFileManager defaultManager] removeItemAtPath:path2 error:nil];
+                                                               
+                                                               [weakSelf Save2Local2:path2];
+                                                               
+                                                           }];
+        
+        
+        [alert show];
+    }
+    else
+        [self Save2Local2:path2];
+    
+}
 
 
 
-
+-(void)Save2Local2:(NSString*)path2
+{
+    NSLog(@"Copy File From :%@ to :%@",_filePath,path2);
+    NSFileManager *fm =[[NSFileManager alloc]init];
+    
+    NSString *title;
+    NSError *error = [[NSError alloc]init];
+    if( [fm moveItemAtPath:_filePath toPath:path2 error:&error])
+    {
+        self.navigationItem.rightBarButtonItem = nil ;
+        
+        NSArray *pathComponents =path2.pathComponents;
+        
+        title = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"File Saved to :",nil),pathComponents[pathComponents.count-2]];
+        
+        [self closeFiles];
+    }
+    else
+        title = error.description ;
+    
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok",nil), nil];
+        [alert show];
+    }
+    
+    
+    [self refreshLocalViewer];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -311,18 +384,11 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 }
 
 
-//return view is loaded and now removed.
 -(BOOL)isViewRemoved
 {
-    return  isAddedBySuperView && self.view.superview == nil;
+    return self.view.superview == nil;
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    isAddedBySuperView = true;
-    
-}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -334,6 +400,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         
     }
     
+    [_imageView2 removeFromSuperview];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -344,11 +411,14 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     if([self isViewRemoved])
     {
         [self closeMovie];
+#if !(TARGET_IPHONE_SIMULATOR)
         [_vcMoviePlayer stop];
+#endif
         self.navigationController.title = nil ;
         
         [self.view removeGestureRecognizer:_reg];
         
+        [_imageView2 removeFromSuperview];
         
         if(_fileHandle)
             [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
@@ -390,9 +460,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         NSString *filename = _smbFile.path.lastPathComponent;
         _filePath = [folder stringByAppendingPathComponent:filename];
         
-#ifdef DEBUG
         NSLog(@"\n smb file size: %ld",_smbFile.stat.size);
-#endif
         
         if ([fm fileExistsAtPath:_filePath])
             [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
@@ -428,11 +496,13 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
             [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
         
         [self closeFiles];
+        [self refreshLocalViewer];
         
         _downloadLabel.text = @"";
         _downloadProgress.progress = 0;
         _downloadProgress.hidden = YES;
         _downloadLabel.text = @"Cancelled";
+        [self closeFiles];
         //[_downloadButton setTitle:@"Download" forState:UIControlStateNormal];
     }
 }
@@ -462,13 +532,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
             }
             else
             {
-                //提醒用户文件为空
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.labelText = NSLocalizedString(@"File is Empty",nil);
-                // 再设置模式
-                hud.mode = MBProgressHUDModeCustomView;
-                // 隐藏时候从父控件中移除
-                hud.removeFromSuperViewOnHide = YES;
+                self.navigationItem.title=NSLocalizedString(@"File is Empty",nil);
                 
                 
                 _downloadLabel.text = nil ;
@@ -479,37 +543,52 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
             }
         } else
         {
+            NSTimeInterval time = -[_timestamp timeIntervalSinceNow];
+            
             _downloadedBytes += data.length;
+            _downloadProgress.progress = (float)_downloadedBytes / (float)_smbFile.stat.size;
+            
+            CGFloat value;
+            NSString *unit;
+            
+            if (_downloadedBytes < 1024) {
+                
+                value = _downloadedBytes;
+                unit = @"B";
+                
+            } else if (_downloadedBytes < 1048576) {
+                
+                value = _downloadedBytes / 1024.f;
+                unit = @"KB";
+                
+            } else {
+                
+                value = _downloadedBytes / 1048576.f;
+                unit = @"MB";
+            }
+            
             
             if (_fileHandle)
             {
+                
+                _downloadLabel.text = [NSString stringWithFormat:@"downloaded %.1f%@ (%.1f%%) %.2f%@s",
+                                       value, unit,
+                                       _downloadProgress.progress * 100.f,
+                                       value / time, unit];
+                
+                [_fileHandle writeData:data];
+                [_fileHandle synchronizeFile];
+                
                 //下载 完毕
                 if(_downloadedBytes == _smbFile.stat.size) {
-                    [self updateProgressLabel];
+                    
                     [self closeFiles];
                     [self downloadComplete];
                     
                 } else
                 {
-                    //[self download];
-                    [self updateProgressLabel];
+                    [self download];
                 }
-                
-                [_fileHandle writeData:data];
-                
-                
-                
-                //kSupportedFileExtensions
-                /*
-                if(   _mediaType  == video && !httpfileUrl)
-                {
-                    //大于20或%20，播放预览
-                    if( _downloadedBytes > 10*1024*1024 || _downloadProgress.progress *100 > 10 )
-                        [self playVideo];
-                }
-                */
-                
-                
             }
         }
     } else {
@@ -518,74 +597,37 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     }
 }
 
--(void)updateProgressLabel
+-(void)clearNavPromptWithDelay:(int)times
 {
-    NSTimeInterval time = -[_timestamp timeIntervalSinceNow];
+    __weak id wself = self;
     
-    
-    _downloadProgress.progress = (float)_downloadedBytes / (float)_smbFile.stat.size;
-    
-    CGFloat value;
-    NSString *unit;
-    
-    
-    if (_downloadedBytes < _smbFile.stat.size)
-    {
-        
-        
-        if (_downloadedBytes < 1024) {
-            
-            value = _downloadedBytes;
-            unit = @"B";
-            
-        } else if (_downloadedBytes < 1048576) {
-            
-            value = _downloadedBytes / 1024.f;
-            unit = @"KB";
-            
-        } else {
-            value = _downloadedBytes / 1048576.f;
-            unit = @"MB";
-        }
-        
-        NSTimeInterval timeRequire = (_smbFile.stat.size - _downloadedBytes) * time / _downloadedBytes ;
-        
-        // downloaded d(S) c(P) c(s)
-        _downloadLabel.text = [NSString stringWithFormat
-                               :NSLocalizedString(@"downloaded %.1f%@ (%.1f%%) %.2f%@s      require %@",nil),
-                               value, unit,
-                               _downloadProgress.progress * 100.f,
-                               value / time, unit  , stringFromTimeInterval(timeRequire)];
-    }
-    else
-    {
-        //download complete
-        _downloadLabel.text =[NSString stringWithFormat:
-                              NSLocalizedString(@"download completed in %@",nil) , stringFromTimeInterval(time) ];
-    }
-    
-    
-    
-    //[_fileHandle synchronizeFile];
+    [self performSelector:@selector(clearNavPrompt:) withObject:wself afterDelay:times];
 }
+
+-(void)clearNavPromptWithDelay
+{
+    __weak id wself = self;
+    
+    [self performSelector:@selector(clearNavPrompt:) withObject:wself afterDelay:3];
+}
+
+-(void)clearNavPrompt:(__weak id)sender
+{
+    __strong __typeof__(self) sself = sender ;
+    
+    if(sself)
+        sself.navigationItem.prompt = nil ;
+}
+
 
 -(void)downloadComplete
 {
-    if (!self.navigationItem.rightBarButtonItems)
-    {
-        _saveBarButton =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(Save2Local)];
-        
-        _fixBarButton =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        
-        
-        _shareBarButton =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDocumentInteractionMenu:)];
-        
-        self.navigationItem.rightBarButtonItems=@[_shareBarButton,_fixBarButton,_saveBarButton];
-    }
+//    self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(Save2Local)];
     
     
     //提醒用户下载完毕
     [MBProgressHUD showSuccess:NSLocalizedString(@"download finished", nil ) toView:self.navigationController.view];
+    
     
     //is a video? played in vlc.
     if( !httpfileUrl )
@@ -620,15 +662,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
             }
     }
     
+    
 }
-
-
-
-
-
-
-
-
 
 -(void)showPicture
 {
@@ -643,7 +678,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     _imageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 150, ivW, ivH)];
     [_imageView setImage:image];
-    _imageView.autoresizingMask =  ~UIViewAutoresizingFlexibleTopMargin;
+    _imageView.autoresizingMask = 0xffffffff & ~UIViewAutoresizingFlexibleTopMargin;
     _imageView.clipsToBounds = YES;
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_imageView];
@@ -658,103 +693,64 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 // 全屏
 -(void)tapped
 {
-    CGRect rcBounds = self.navigationController.view.bounds;
+    CGRect rcApp = [self.navigationController.view frame];
     
-    MAAssert(dwscViewIsFullScreen == false ? self.imageView2.superview == nil: true);
+    bool isLandscape = UIDeviceOrientationIsLandscape(self.interfaceOrientation);
+    bool isLandscapeLeft = self.interfaceOrientation == UIDeviceOrientationLandscapeLeft;
     
-    if (self.imageView2 == nil)
+    if(isLandscape){
+        rcApp.size=CGSizeMake(rcApp.size.height, rcApp.size.width);
+        if(isLandscapeLeft)
+            rcApp.origin.x = rcApp.origin.y;
+    }
+    
+    
+    if(!_imageView2)
     {
-        CGRect rcF = [self.view convertRect:_imageView.frame toView:self.navigationController.view];
-        self.imageView2=[[UIImageView alloc]initWithFrame:rcF];
+        CGRect rc = [self.view convertRect:_imageView.frame toView:self.navigationController.view];
+        
+        _imageView2=[[UIImageView alloc]initWithFrame:rc];
         [_imageView2 setImage:_imageView.image];
-        _imageView2.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
+        _imageView2.autoresizingMask = 0xffffffff ;
         _imageView2.clipsToBounds = YES;
         _imageView2.contentMode = UIViewContentModeScaleAspectFill;
         
         [self.navigationController.view addSubview:_imageView2];
     }
     
-    
-    
+    dwscViewIsFullScreen=!dwscViewIsFullScreen;
+    _imageView2.hidden=NO;
     __weak typeof(self) weakSelf =self;
     __weak typeof(_imageView2) weakImageView = _imageView2;
-    dwscViewIsFullScreen=!dwscViewIsFullScreen;
     [UIView animateWithDuration:.5f animations:^{
         CGRect rc ;
         
         if(dwscViewIsFullScreen)
-            rc = rcBounds;
+            rc = rcApp;
         else
             rc= [weakSelf.view convertRect:_imageView.frame toView:self.navigationController.view];
         
         [weakImageView setFrame:rc];
-        
-    } completion:^(BOOL finished)
-     {
-         if(!dwscViewIsFullScreen)
-         {
-             weakImageView.hidden=YES;
-             [weakImageView removeFromSuperview];
-             weakSelf.imageView2=nil;
-         }
-     }];
+    } completion:^(BOOL finished) {
+        if(!dwscViewIsFullScreen)
+            weakImageView.hidden=YES;
+    }];
     
 }
 
-
--(void)downloadThread
-{
-    NSCondition *condition ;
-    condition = [[NSCondition alloc]init];
-    
-    _md = [NSMutableData data];
-    
-    static BOOL bEnd ;
-    bEnd = FALSE;
-    
-    [_smbFile readDataToEndOfFileEx:_md condition:condition bEnd:&bEnd];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    while (1)
-    {
-        if (!weakSelf || [self isViewRemoved] )
-        {
-            bEnd = READ_DATA_FLAG_END;
-            _md  = nil ;
-            if(_fileHandle)
-                [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
-            
-            [self closeFiles];
-            break;
-        }
-        
-        [condition lock];
-        
-        while (bEnd<=0)
-            [condition wait];
-        
-        if (bEnd--==READ_DATA_FLAG_END)
-        {
-            [self performSelectorOnMainThread:@selector(updateDownloadStatus:) withObject:_md waitUntilDone:FALSE];
-            [condition unlock];
-            break;
-        }
-        else
-        {
-            NSMutableData *data = [NSMutableData dataWithData:_md];
-            [self performSelectorOnMainThread:@selector(updateDownloadStatus:) withObject:data waitUntilDone:FALSE];
-            
-            [condition unlock];
-        }
-    }
-    
-}
 
 
 - (void) download
 {
-    [self performSelectorInBackground:@selector(downloadThread) withObject:nil];
+    __weak __typeof(self) weakSelf = self;
+    [_smbFile readDataOfLength:32768
+                         block:^(id result)
+     {
+         FileViewController *p = weakSelf;
+         if (p) {
+             [p updateDownloadStatus:result];
+         }
+     }];
 }
 
 
@@ -790,65 +786,41 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 }
 
 
+
+
 -(void)playVideo
 {
+#if !(TARGET_IPHONE_SIMULATOR)
+    if(httpfileUrl)
+        return;
+    
     httpfileUrl = [NSURL fileURLWithPath:_filePath];
     float ivW=self.view.frame.size.width,ivH=self.view.frame.size.height- 150;
     
     
     _vcMoviePlayer = [[VDLViewController alloc]initWithNibName:@"VDLViewController" bundle:nil];
     [_vcMoviePlayer.view setFrame:CGRectMake(0, 150, ivW, ivH)];
-    _vcMoviePlayer.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
-    
+    _vcMoviePlayer.view.autoresizingMask = 0xffffffff & ~UIViewAutoresizingFlexibleTopMargin;
     _vcMoviePlayer.delegate=self;
     
     [_vcMoviePlayer setMedia:httpfileUrl];
-    
-    
     [_vcMoviePlayer play];
     
     [self.view addSubview:_vcMoviePlayer.view];
+#endif
 }
 
--(void)showHudMsg:(NSString*)str
-{
-    [MBProgressHUD showError:str toView:self.navigationController.view];
-}
-
--(void)showHudMsgInMainThread:(NSString*)str
-{
-    MAAssert([NSThread isMainThread]);
-    
-    [self performSelectorOnMainThread:@selector(showHudMsg:) withObject:str waitUntilDone:NO];
-}
 
 
 -(void)closeMovie
 {
-    [_vcMoviePlayer.view removeFromSuperview];
-    
-    
     [moviePlay stop];
     moviePlay=nil;
 }
 
 
-
-
-
-
-#pragma mark - UIDocumentInteraction Action
-
--(void)showDocumentInteractionMenu:(id)sender
+-(void)refreshLocalViewer
 {
-    if (!_DocumentInteractionController)
-    {
-        _DocumentInteractionController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:_filePath]];
-    }
     
-    
-    [_DocumentInteractionController presentOpenInMenuFromBarButtonItem:sender animated:YES];
 }
-
-
 @end
