@@ -33,8 +33,10 @@
 
 
 #import "KxSMBProvider.h"
+#if !(TARGET_IPHONE_SIMULATOR)
 #import <smb/libsmbclient.h>
 #import <smb/talloc_stack.h>
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -215,6 +217,7 @@ static KxSMBProvider *gSmbProvider;
     dispatch_queue_t    _dispatchQueue;
 }
 
+#if !(TARGET_IPHONE_SIMULATOR)
 //set uploading status flag - add by kk
 + (void) setStopUploading: (BOOL) stop
 {
@@ -425,7 +428,7 @@ static KxSMBProvider *gSmbProvider;
     KxSMBItemStat *stat = [[KxSMBItemStat alloc] init];
     stat.lastModified = [NSDate dateWithTimeIntervalSince1970: st.st_mtime];
     stat.lastAccess = [NSDate dateWithTimeIntervalSince1970: st.st_atime];
-    stat.size = st.st_size;
+    stat.size = (unsigned long)st.st_size;
     stat.mode = st.st_mode;
     return stat;
     
@@ -688,7 +691,7 @@ static KxSMBProvider *gSmbProvider;
                  [fileHandle writeData:data];
                  
                  if (progress) {
-                     progress(smbFile, fileHandle.offsetInFile);
+                     progress(smbFile, (unsigned long)fileHandle.offsetInFile);
                  }
                  
                  [self readSMBFile:smbFile
@@ -902,7 +905,7 @@ static KxSMBProvider *gSmbProvider;
             if ([result isKindOfClass:[NSNumber class]]) {
                 
                 if (progress) {
-                    progress(smbFile, fileHandle.offsetInFile);
+                    progress(smbFile, (unsigned long)fileHandle.offsetInFile);
                 }
                 
                 [self  writeSMBFile:smbFile
@@ -1512,6 +1515,7 @@ static KxSMBProvider *gSmbProvider;
     });
 }
 
+#endif
 @end
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1519,6 +1523,7 @@ static KxSMBProvider *gSmbProvider;
 
 @implementation KxSMBItemTree
 
+#if !(TARGET_IPHONE_SIMULATOR)
 - (void) fetchItems: (KxSMBBlock) block
 {
     NSParameterAssert(block);
@@ -1601,6 +1606,7 @@ static KxSMBProvider *gSmbProvider;
     return [[KxSMBProvider sharedSmbProvider] removeAtPath:[self.path stringByAppendingSMBPathComponent:name]];
 }
 
+#endif
 @end
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1616,6 +1622,7 @@ static KxSMBProvider *gSmbProvider;
     NSString *_path;
 }
 
+#if !(TARGET_IPHONE_SIMULATOR)
 - (id) initWithPath: (NSString *) path
 {
     self = [super init];
@@ -1762,12 +1769,11 @@ static KxSMBProvider *gSmbProvider;
 - (id)readDataToEndOfFileEx:(NSMutableData*)md condition:(NSCondition*)condition bEnd:(BOOL*)bEnd
 {
     if (!_file) {
-        
         NSError *error = [self openFile];
         if (error)
         {
             [condition lock];
-            *bEnd = 8;
+            *bEnd = READ_DATA_FLAG_END;
             [condition signal];
             [condition unlock];
             return error;
@@ -1780,16 +1786,24 @@ static KxSMBProvider *gSmbProvider;
     
     smbc_read_fn readFn = smbc_getFunctionRead(_context);
     while (1) {
-        
         int r = readFn(_context, _file, buffer, sizeof(buffer));
         
         if (r == 0)
             break;
         
+        //ended by caller.
+        if (READ_DATA_FLAG_END==*bEnd)
+        {
+#ifdef DEBUG
+            NSLog(@"download thread ended.");
+#endif
+            return nil;
+        }
+        
         if (r < 0) {
             printf("\n\n\n\n<0\n");
             [condition lock];
-            *bEnd = 8;
+            *bEnd = READ_DATA_FLAG_END;
             [condition signal];
             [condition unlock];
             const int err = errno;
@@ -1807,10 +1821,13 @@ static KxSMBProvider *gSmbProvider;
     }
     
     [condition lock];
-    *bEnd = 8;
+    *bEnd = READ_DATA_FLAG_END;
     [condition signal];
     [condition unlock];
+    
+#ifdef DEBUG
     printf(" read data   [condition unlock];%p",condition);
+#endif
     
     return nil;
 }
@@ -1865,6 +1882,7 @@ static KxSMBProvider *gSmbProvider;
     
     return @(data.length - bytesToWrite);
 }
+#endif
 
 @end
 
@@ -1873,6 +1891,7 @@ static KxSMBProvider *gSmbProvider;
     KxSMBFileImpl *_impl;
 }
 
+#if !(TARGET_IPHONE_SIMULATOR)
 - (void) dealloc
 {
     [self close];
@@ -2054,6 +2073,7 @@ static KxSMBProvider *gSmbProvider;
     return [_impl createFile:overwrite];
 }
 
+#endif
 @end
 
 ///////////////////////////////////////////////////////////////////////////////
