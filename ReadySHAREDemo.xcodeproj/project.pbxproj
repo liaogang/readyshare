@@ -104,7 +104,7 @@
 		1E3977DD1ACD4C4C0049E391 /* volumeballslider.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E3977951ACD4C4C0049E391 /* volumeballslider.png */; };
 		1E3977DE1ACD4C4C0049E391 /* volumeballslider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E3977961ACD4C4C0049E391 /* volumeballslider@2x.png */; };
 		1E3977DF1ACD4C4C0049E391 /* OBSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3977A41ACD4C4C0049E391 /* OBSlider.m */; };
-		1E3977E01ACD4C4C0049E391 /* VDLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E3977A61ACD4C4C0049E391 /* VDLViewController.mm */; };
+		1E3977E01ACD4C4C0049E391 /* VDLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3977A61ACD4C4C0049E391 /* VDLViewController.m */; };
 		1E3977E11ACD4C4C0049E391 /* VDLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E3977A71ACD4C4C0049E391 /* VDLViewController.xib */; };
 		1E3977E41ACD4C7E0049E391 /* PdfPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3977E31ACD4C7E0049E391 /* PdfPreviewViewController.m */; };
 		1E3977E61ACD51250049E391 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977E51ACD51250049E391 /* MediaPlayer.framework */; };
@@ -385,7 +385,7 @@
 		1E3977A31ACD4C4C0049E391 /* OBSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBSlider.h; sourceTree = "<group>"; };
 		1E3977A41ACD4C4C0049E391 /* OBSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBSlider.m; sourceTree = "<group>"; };
 		1E3977A51ACD4C4C0049E391 /* VDLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDLViewController.h; sourceTree = "<group>"; };
-		1E3977A61ACD4C4C0049E391 /* VDLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VDLViewController.mm; sourceTree = "<group>"; };
+		1E3977A61ACD4C4C0049E391 /* VDLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VDLViewController.m; sourceTree = "<group>"; };
 		1E3977A71ACD4C4C0049E391 /* VDLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VDLViewController.xib; sourceTree = "<group>"; };
 		1E3977A81ACD4C4C0049E391 /* VLCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCConstants.h; sourceTree = "<group>"; };
 		1E3977E21ACD4C7E0049E391 /* PdfPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PdfPreviewViewController.h; sourceTree = "<group>"; };
@@ -740,7 +740,7 @@
 				1E3977971ACD4C4C0049E391 /* MobileVLCKit */,
 				1E3977A21ACD4C4C0049E391 /* OBSlider */,
 				1E3977A51ACD4C4C0049E391 /* VDLViewController.h */,
-				1E3977A61ACD4C4C0049E391 /* VDLViewController.mm */,
+				1E3977A61ACD4C4C0049E391 /* VDLViewController.m */,
 				1E3977A71ACD4C4C0049E391 /* VDLViewController.xib */,
 				1E3977A81ACD4C4C0049E391 /* VLCConstants.h */,
 			);
@@ -1381,7 +1381,7 @@
 				1E0739AB1AE609CD000DCB9E /* MAAssert.m in Sources */,
 				1E39773C1ACD4B7F0049E391 /* NSData+ImageContentType.m in Sources */,
 				1E3AF21F1ADF9E63004AA408 /* CBetterCollectionViewLayoutAttributes.m in Sources */,
-				1E3977E01ACD4C4C0049E391 /* VDLViewController.mm in Sources */,
+				1E3977E01ACD4C4C0049E391 /* VDLViewController.m in Sources */,
 				1E3977401ACD4B7F0049E391 /* SDWebImageDownloader.m in Sources */,
 				1E0739A71AE609AB000DCB9E /* PlayerMessage.mm in Sources */,
 				1E3AF2001ADF9D04004AA408 /* MJPhotoBrowser.m in Sources */,
