@@ -114,6 +114,7 @@ typedef void (^KxSMBBlockProgress)(KxSMBItem *item, unsigned long transferred);
 - (void)readDataToEndOfFile:(KxSMBBlock) block;
 - (id)readDataToEndOfFile;
 //by lg
+#define READ_DATA_FLAG_END (8)
 - (void)readDataToEndOfFileEx:(NSMutableData *)md condition:(NSCondition *)condition bEnd:(BOOL*)bEnd;
 
 
@@ -138,7 +139,6 @@ typedef void (^KxSMBBlockProgress)(KxSMBItem *item, unsigned long transferred);
 @protocol KxSMBProviderDelegate <NSObject>
 - (KxSMBAuth *) smbAuthForServer: (NSString *) server
                        withShare: (NSString *) share;
-@optional
 -(void) connectSucceed:(NSString*)serverAddr;
 -(void) connectFailed:(NSString*)serverAddr;
 @end
