@@ -33,10 +33,8 @@
 
 
 #import "KxSMBProvider.h"
-#if !(TARGET_IPHONE_SIMULATOR)
 #import <smb/libsmbclient.h>
 #import <smb/talloc_stack.h>
-#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -217,7 +215,6 @@ static KxSMBProvider *gSmbProvider;
     dispatch_queue_t    _dispatchQueue;
 }
 
-#if !(TARGET_IPHONE_SIMULATOR)
 //set uploading status flag - add by kk
 + (void) setStopUploading: (BOOL) stop
 {
@@ -1515,7 +1512,6 @@ static KxSMBProvider *gSmbProvider;
     });
 }
 
-#endif
 @end
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1523,7 +1519,6 @@ static KxSMBProvider *gSmbProvider;
 
 @implementation KxSMBItemTree
 
-#if !(TARGET_IPHONE_SIMULATOR)
 - (void) fetchItems: (KxSMBBlock) block
 {
     NSParameterAssert(block);
@@ -1606,7 +1601,6 @@ static KxSMBProvider *gSmbProvider;
     return [[KxSMBProvider sharedSmbProvider] removeAtPath:[self.path stringByAppendingSMBPathComponent:name]];
 }
 
-#endif
 @end
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1622,7 +1616,6 @@ static KxSMBProvider *gSmbProvider;
     NSString *_path;
 }
 
-#if !(TARGET_IPHONE_SIMULATOR)
 - (id) initWithPath: (NSString *) path
 {
     self = [super init];
@@ -1882,7 +1875,6 @@ static KxSMBProvider *gSmbProvider;
     
     return @(data.length - bytesToWrite);
 }
-#endif
 
 @end
 
@@ -1891,7 +1883,6 @@ static KxSMBProvider *gSmbProvider;
     KxSMBFileImpl *_impl;
 }
 
-#if !(TARGET_IPHONE_SIMULATOR)
 - (void) dealloc
 {
     [self close];
@@ -2073,7 +2064,6 @@ static KxSMBProvider *gSmbProvider;
     return [_impl createFile:overwrite];
 }
 
-#endif
 @end
 
 ///////////////////////////////////////////////////////////////////////////////

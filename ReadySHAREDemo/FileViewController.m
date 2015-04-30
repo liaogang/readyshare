@@ -73,9 +73,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 @interface FileViewController()
 
-#if !(TARGET_IPHONE_SIMULATOR)
 <VLCViewData>
-#endif
 @property (strong,nonatomic)   UIImageView *imageView2;
 @end
 
@@ -116,9 +114,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     _mediaType;
     
     long   _lastDownloadedBytes;
-#if !(TARGET_IPHONE_SIMULATOR)
     VDLViewController *_vcMoviePlayer;
-#endif
     
     
     bool isAddedBySuperView;
@@ -157,10 +153,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     web=nil;
     
-#if !(TARGET_IPHONE_SIMULATOR)
     [_vcMoviePlayer stop];
     _vcMoviePlayer = nil;
-#endif
     
     _DocumentInteractionController = nil ;
 }
@@ -350,9 +344,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     if([self isViewRemoved])
     {
         [self closeMovie];
-#if !(TARGET_IPHONE_SIMULATOR)
         [_vcMoviePlayer stop];
-#endif
         self.navigationController.title = nil ;
         
         [self.view removeGestureRecognizer:_reg];
@@ -800,7 +792,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 -(void)playVideo
 {
-#if !(TARGET_IPHONE_SIMULATOR)
     httpfileUrl = [NSURL fileURLWithPath:_filePath];
     float ivW=self.view.frame.size.width,ivH=self.view.frame.size.height- 150;
     
@@ -817,7 +808,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     [_vcMoviePlayer play];
     
     [self.view addSubview:_vcMoviePlayer.view];
-#endif
 }
 
 -(void)showHudMsg:(NSString*)str
@@ -835,9 +825,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 -(void)closeMovie
 {
-#if !(TARGET_IPHONE_SIMULATOR)
     [_vcMoviePlayer.view removeFromSuperview];
-#endif
     
     
     [moviePlay stop];
