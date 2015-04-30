@@ -23,13 +23,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE. */
 
-
 #import <UIKit/UIKit.h>
-#import <MobileVLCKit/MobileVLCKit.h>
 #import "OBSlider.h"
+#import "MobileVLCKit.h"
+
 /**
-*param bWillConvertToFullScreen ,是:当前正转换到全屏,否,相反.
-*/
+ *param bWillConvertToFullScreen ,是:当前正转换到全屏,否,相反.
+ */
 typedef void(^FullScreenCallBack)(BOOL bWillConvertToFullScreen );
 
 @protocol VLCViewData <NSObject>
@@ -41,62 +41,14 @@ typedef void(^FullScreenCallBack)(BOOL bWillConvertToFullScreen );
 
 @interface VDLViewController : UIViewController <VLCMediaPlayerDelegate>
 @property (nonatomic , assign  ) id<VLCViewData> delegate;
-
-
-
-@property (retain, nonatomic) IBOutlet UIButton *btnFullScreen;
-///定位条
-@property (retain, nonatomic) IBOutlet OBSlider *posSlider;
-- (IBAction)posSliderChanged:(id)sender;
-///xxx:xx显示定位
-@property (retain, nonatomic) IBOutlet UIButton *posTextField;
-
-
-
-
-///视频输出
-@property (nonatomic, strong) IBOutlet UIView *movieView;
-
-
-
-
-
-@property (retain, nonatomic) IBOutlet UIButton *btnBack;
-@property (retain, nonatomic) IBOutlet UIButton *btnForward;
-@property (retain, nonatomic) IBOutlet UIButton *btnPlayandPause;
-///重复模式按钮
-@property (retain, nonatomic) IBOutlet UIButton *btnRepeat;
-
-
-
-
-
-
-- (IBAction)playandPause:(id)sender;
-
-
-
--(void)play;
+-(BOOL)play;
 -(void)stop;
 
-
-///全屏按钮
-- (IBAction)actionFullScreen:(id)sender;
 ///全屏或退出全屏时的通知
 @property (nonatomic,copy) FullScreenCallBack fullScreenCallBack;
-
 ///设置源
 -(void)setMedia:(NSURL*)url;
-
 -(void)setPos:(float)pos;
 
-
-- (IBAction)repeatBtnTouched:(id)sender;
-
-
-///前进一小段
-- (IBAction)fowardBtnTouched:(id)sender;
-///后退xxx
-- (IBAction)backBtnTouched:(id)sender;
-
+-(BOOL)isPlaying;
 @end
