@@ -585,10 +585,26 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
                     [self closeFiles];
                     [self downloadComplete];
                     
+                    if (_mediaType == video) {
+                        self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(tryPlay)];
+                    }
                 } else
                 {
                     [self download];
                 }
+               
+                
+                //kSupportedFileExtensions
+                if (_smbFile.stat.size >= 50*1024*1024)
+                {
+                    if(   _mediaType  == video && !httpfileUrl)
+                    {
+                        //大于50或%10，播放预览
+                        if( _downloadedBytes > 50*1024*1024 || _downloadProgress.progress *100 > 10 )
+                            [self playVideo];
+                    }
+                }
+                
             }
         }
     } else {
@@ -619,16 +635,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         sself.navigationItem.prompt = nil ;
 }
 
-
--(void)downloadComplete
+-(void)tryPlay
 {
-//    self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(Save2Local)];
-    
-    
-    //提醒用户下载完毕
-    [MBProgressHUD showSuccess:NSLocalizedString(@"download finished", nil ) toView:self.navigationController.view];
-    
-    
     //is a video? played in vlc.
     if( !httpfileUrl )
     {
@@ -662,7 +670,23 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
             }
     }
     
+}
+
+-(void)downloadComplete
+{
+    //提醒用户下载完毕
+    [MBProgressHUD showSuccess:NSLocalizedString(@"download finished", nil ) toView:self.navigationController.view];
+    [self tryPlay];
+   
+    if (_mediaType == video) {
+        if(_vcMoviePlayer.isPlaying)
+        {
+            self.navigationItem.rightBarButtonItem = nil;
+            return;
+        }
+    }
     
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 -(void)showPicture
