@@ -1655,7 +1655,7 @@
                             <size key="itemSize" width="106" height="151"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="50" height="18"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="20" minY="6" maxX="20" maxY="4"/>
                         </collectionViewFlowLayout>
                         <imageView key="backgroundView" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book_background.png" id="hhh-s5-ls1">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -1673,7 +1673,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="151"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="孟子" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cVx-Kc-twP">
-                                            <rect key="frame" x="19" y="8" width="87" height="143"/>
+                                            <rect key="frame" x="19" y="8" width="79" height="143"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="143" id="EUp-9Q-O8z"/>
                                             </constraints>
@@ -1690,13 +1690,49 @@
                                     <constraint firstAttribute="trailing" secondItem="EPC-Xt-OI1" secondAttribute="trailing" id="OrS-n6-m2Z"/>
                                     <constraint firstItem="EPC-Xt-OI1" firstAttribute="top" secondItem="7KD-Vh-TAq" secondAttribute="top" id="kxV-Kt-ocx"/>
                                     <constraint firstAttribute="centerY" secondItem="cVx-Kc-twP" secondAttribute="centerY" constant="-4" id="pX0-fB-y4P"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="cVx-Kc-twP" secondAttribute="trailing" constant="-8" id="rHp-Wg-SFQ"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="cVx-Kc-twP" secondAttribute="trailing" id="rHp-Wg-SFQ"/>
                                     <constraint firstItem="cVx-Kc-twP" firstAttribute="leading" secondItem="7KD-Vh-TAq" secondAttribute="leadingMargin" constant="11" id="zML-eC-ED8"/>
                                 </constraints>
                                 <size key="customSize" width="106" height="151"/>
                                 <connections>
                                     <outlet property="title" destination="cVx-Kc-twP" id="4PS-aH-P3X"/>
                                 </connections>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="B1t-TD-XHM">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="106" height="151"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="juU-Ce-lFK">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="106" height="151"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="AET-Bz-igO">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="106" height="151"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="wKn-XJ-gV7">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="106" height="151"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="bookFooter" id="P1H-TR-riu">
