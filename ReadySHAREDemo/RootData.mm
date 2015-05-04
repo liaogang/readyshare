@@ -13,6 +13,7 @@
 #import "PlayerMessage.h"
 #import "UIAlertViewBlock.h"
 #import "fileTypes.h"
+#import "serializeTool.h"
 
 @interface RootData ()
 @property (nonatomic,strong) NSMutableArray *items;
@@ -23,6 +24,22 @@
 
 
 @implementation RootData
+
+-(void)setPath:(NSString *)path
+{
+    _path = path;
+    
+    //Load auth info.
+    if (_path == nil) {
+        _userName = nil;
+        _passWord = nil;
+    }
+    else{
+        self.userName = getPasswordOfAccount(_path);
+        self.passWord = getTokenOfAccount(_path);
+    }
+    
+}
 
 -(void)reset
 {
@@ -45,6 +62,7 @@
         self.idLastReload = -1;
         self.playingIndex = -1;
         self.order = playorder_default;
+        
         
         addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
         addObserverForEvent(self, @selector(playNext), EventID_to_play_next);
@@ -76,11 +94,18 @@
     KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
     
     [provider fetchAtPath:_path block:^(id result) {
-        if ([result isKindOfClass:[NSError class]]) {
+        if ([result isKindOfClass:[NSError class]])
+        {
             NSLog(@"%@",result);
         }
         else
+        {
+            // Save the auth info when succeed.
+            saveAccountValue(self.path, self.userName, self.passWord);
+            
+            
             [self ParseFetchResult:result];
+        }
         
         callback(result);
     }];
