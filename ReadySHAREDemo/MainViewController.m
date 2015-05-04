@@ -17,29 +17,13 @@
 #import "MusicViewController.h"
 #import "smbCollectionView.h"
 
-//#if define
 
-//#define iOSDeviceScreenWidth                320
-//#define iOSDeviceScreenHeight               (CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size)?568:480)
-//#define iOSStatusBarHeight                  20
-//#define Navi_Bar_Height_Portrait            44
-//#define Navi_Bar_Height_Landscape           32
 
-//#define iOSDeviceScreenWidth                768
-//#define iOSDeviceScreenHeight               1024
-//#define iOSStatusBarHeight                  20
-//#define Navi_Bar_Height_Portrait            44
-//#define Navi_Bar_Height_Landscape           44
-//
-//#endif
-
-#define ICON_WIDTH 120
-#define ICON_HEIGHT 120
-
-#define IPAD_DEVICE ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 
 @interface MainViewController ()
 <KxSMBProviderDelegate>
+@property (weak, nonatomic) IBOutlet UIView *viewPortrait;
+@property (weak, nonatomic) IBOutlet UIView *viewLanscape;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnMovie;
 @property (weak, nonatomic) IBOutlet UIButton *btnMusic;
@@ -69,86 +53,35 @@
     
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     ((KxSMBProvider*)[KxSMBProvider sharedSmbProvider]).delegate = self;
     
-//    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"设置IP" style:UIBarButtonItemStyleDone target:self action:@selector(actionSetPath)];
     self.barAuth = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"auth"] style:UIBarButtonItemStylePlain target:self action:@selector(popupAuth) ];
     self.barReload = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(figureOutRootPath)];
     
     self.navigationItem.rightBarButtonItems = @[ self.barReload, self.barAuth];
 
-    
-    [self figureOutRootPath];
-    
-    
-    if(IPAD_DEVICE)
+    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
     {
-        iOSDeviceScreenWidth = 768;
-        iOSDeviceScreenHeight = 1024;
-        iOSStatusBarHeight = 20;
-        Navi_Bar_Height_Portrait = 44;
-        Navi_Bar_Height_Landscape = 44;
+        self.viewLanscape.hidden=FALSE;
+        self.viewPortrait.hidden=YES;
     }
     else
     {
-        iOSDeviceScreenWidth = 320;
-        iOSDeviceScreenHeight = (CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size)?568:480);
-        iOSStatusBarHeight = 20;
-        Navi_Bar_Height_Portrait = 44;
-        Navi_Bar_Height_Landscape = 32;
+        self.viewLanscape.hidden=YES;
+        self.viewPortrait.hidden=FALSE;
     }
     
-
-    UIImage *image = [UIImage imageNamed:@"main_bg.png"];
-    self.view.layer.contents = (id) image.CGImage;
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
     
-
+    [self figureOutRootPath];
 }
 
-- (void) viewDidLayoutSubviews
-{
-//    if(IPAD_DEVICE)
-//    {
-//        
-//    }
-//    else
-//    {
-    
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
-        {
-            CGFloat screenWidth = iOSDeviceScreenWidth;
-            CGFloat screenHeight = iOSDeviceScreenHeight-iOSStatusBarHeight;
-            CGFloat detalOffsetY = (screenHeight - ICON_WIDTH*3)/2;
-            [self.btnMovie setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnMusic setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnPhoto setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnBook setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnInternet setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 , detalOffsetY + 2*ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnFileBrowse setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY + 2*ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            
-        }
-        else if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
-        {
-            CGFloat screenWidth = iOSDeviceScreenWidth;
-            CGFloat screenHeight = iOSDeviceScreenHeight - Navi_Bar_Height_Landscape;
-            CGFloat detalOffsetY = (screenWidth + iOSStatusBarHeight - ICON_HEIGHT *2)/2;
-            
-            [self.btnMovie setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnMusic setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 + ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnPhoto setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 + 2*ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnBook setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnInternet setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2  + ICON_WIDTH , detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnFileBrowse setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 +  2*ICON_WIDTH, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-        }
-   // }
-}
+
+
+#pragma mark - UIViewControllerRotation
 
 - (BOOL)shouldAutorotate
 {
@@ -167,51 +100,19 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    [self showViewWithOritation:toInterfaceOrientation];
-    
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation))
+    {
+        self.viewLanscape.hidden=YES;
+        self.viewPortrait.hidden=FALSE;
+    }
+    else
+    {
+        self.viewLanscape.hidden=false;
+        self.viewPortrait.hidden=YES;
+    }
 }
 
-- (void) showViewWithOritation:(UIInterfaceOrientation) orientation
-{
-
-//    if(IPAD_DEVICE)
-//    {
-//        
-//    }
-//    else
-//    {
-    
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
-        {
-            CGFloat screenWidth = iOSDeviceScreenWidth;
-            CGFloat screenHeight = iOSDeviceScreenHeight-iOSStatusBarHeight;
-            CGFloat detalOffsetY = (screenHeight - ICON_WIDTH*3)/2;
-            [self.btnMovie setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnMusic setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnPhoto setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnBook setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnInternet setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 , detalOffsetY + 2*ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnFileBrowse setFrame:CGRectMake((screenWidth - ICON_WIDTH *2)/2 + ICON_WIDTH, detalOffsetY + 2*ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            
-        }
-        else if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
-        {
-            CGFloat screenWidth = iOSDeviceScreenWidth;
-            CGFloat screenHeight = iOSDeviceScreenHeight - Navi_Bar_Height_Landscape;
-            CGFloat detalOffsetY = (screenWidth + iOSStatusBarHeight - ICON_HEIGHT *2)/2;
-            
-            [self.btnMovie setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnMusic setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 + ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnPhoto setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 + 2*ICON_WIDTH, detalOffsetY, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnBook setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnInternet setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2  + ICON_WIDTH , detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-            [self.btnFileBrowse setFrame:CGRectMake((screenHeight - ICON_WIDTH *3)/2 +  2*ICON_WIDTH, detalOffsetY + ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT)];
-        }
- //   }
-}
-
-
-
+#pragma mark -
 
 
 -(void)updateBtnState
@@ -251,8 +152,6 @@
     
     if (ipLocal)
     {
-//        self.navigationItem.title = ipLocal;
-        
         char ip[20];
         
         strcpy( ip,  ipLocal.UTF8String );
