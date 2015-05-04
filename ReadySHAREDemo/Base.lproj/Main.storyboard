@@ -1789,7 +1789,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7TN-fY-Car">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7TN-fY-Car">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="cez-8B-VGj">
@@ -1916,7 +1916,7 @@
                                     <constraint firstItem="hpi-nY-nL9" firstAttribute="leading" secondItem="7TN-fY-Car" secondAttribute="leading" id="yAc-Bw-GET"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-EY-dDX">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-EY-dDX">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="lkc-RT-Ig9">
@@ -2064,12 +2064,18 @@
                     </view>
                     <navigationItem key="navigationItem" id="9fv-LK-0q0"/>
                     <connections>
-                        <outlet property="btnBook" destination="KZc-vc-Aqa" id="tc4-PO-oTK"/>
-                        <outlet property="btnFileBrowse" destination="XaN-hC-gis" id="eVI-Np-QYk"/>
-                        <outlet property="btnInternet" destination="SFk-eM-xGT" id="qls-o8-bab"/>
-                        <outlet property="btnMovie" destination="szt-M5-6iI" id="HZb-h6-wDN"/>
-                        <outlet property="btnMusic" destination="hg6-Oa-6tY" id="XV4-pU-q1q"/>
-                        <outlet property="btnPhoto" destination="kC8-9X-odc" id="wAV-Df-Huy"/>
+                        <outlet property="btnBook" destination="byu-TI-rjC" id="LGa-I0-ZU6"/>
+                        <outlet property="btnBook2" destination="KZc-vc-Aqa" id="UbQ-xG-eIn"/>
+                        <outlet property="btnFileBrowse" destination="3gd-MM-4kA" id="L3Q-eE-Q5b"/>
+                        <outlet property="btnFileBrowse2" destination="XaN-hC-gis" id="dkx-rz-sog"/>
+                        <outlet property="btnInternet" destination="n7r-b2-KsY" id="LbE-7i-Yka"/>
+                        <outlet property="btnInternet2" destination="SFk-eM-xGT" id="dWm-ve-f8p"/>
+                        <outlet property="btnMovie" destination="wrK-qC-irG" id="mad-Ng-WEr"/>
+                        <outlet property="btnMovie2" destination="szt-M5-6iI" id="ZVt-GG-KdE"/>
+                        <outlet property="btnMusic" destination="05M-mY-ArD" id="7Jb-xg-BBu"/>
+                        <outlet property="btnMusic2" destination="hg6-Oa-6tY" id="4Mx-y6-ewm"/>
+                        <outlet property="btnPhoto" destination="vh5-20-bhJ" id="WBs-MZ-9wu"/>
+                        <outlet property="btnPhoto2" destination="kC8-9X-odc" id="OEC-PS-N27"/>
                         <outlet property="viewLanscape" destination="Gdw-EY-dDX" id="TIb-jn-7uT"/>
                         <outlet property="viewPortrait" destination="7TN-fY-Car" id="JiM-R9-9je"/>
                     </connections>

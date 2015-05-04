@@ -54,8 +54,13 @@ static NSString * const reuseIdentifier = @"bookCell";
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    
     [self.collectionViewLayout invalidateLayout];
 
+    if (self.files.count == 0) {
+        return 0;
+    }
+    
     return 1 + self.files.count / [self itemPerLine];
 }
 

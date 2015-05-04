@@ -28,6 +28,8 @@ enum MediaType
 @interface RootData : NSObject
 +(instancetype)shared;
 
+-(void)setPathAndLoadAuthInfo:(NSString*)path;
+
 @property (nonatomic,strong) NSString * path;
 @property (nonatomic,strong) NSString *userName,*passWord,*group;
 
