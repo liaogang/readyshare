@@ -34,7 +34,8 @@ enum MediaType
 @property (nonatomic) enum MediaType currMediaType;
 
 /// check error first. and then getDataOfCurrMediaTypeVerifyFiltered
--(void)reload:(Finished)callback;
+-(void)reload:(FinishedWithResult)callback;
+-(void)ParseFetchResult:(id)result;
 
 /// will refresh at every each reload.
 @property (nonatomic) int idReloadDate,idLastReload;
