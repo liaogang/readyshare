@@ -66,13 +66,13 @@
 
     if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
     {
-        self.viewLanscape.hidden=FALSE;
-        self.viewPortrait.hidden=YES;
+        self.viewLanscape.hidden=YES;
+        self.viewPortrait.hidden=FALSE;
     }
     else
     {
-        self.viewLanscape.hidden=YES;
-        self.viewPortrait.hidden=FALSE;
+        self.viewLanscape.hidden=FALSE;
+        self.viewPortrait.hidden=YES;
     }
     
     
