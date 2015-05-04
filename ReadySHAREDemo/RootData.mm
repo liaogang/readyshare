@@ -24,8 +24,7 @@
 
 
 @implementation RootData
-
--(void)setPath:(NSString *)path
+-(void)setPathAndLoadAuthInfo:(NSString*)path
 {
     _path = path;
     
@@ -35,11 +34,17 @@
         _passWord = nil;
     }
     else{
-        self.userName = getPasswordOfAccount(_path);
-        self.passWord = getTokenOfAccount(_path);
+        NSString *u = getPasswordOfAccount(_path);
+        NSString *p = getTokenOfAccount(_path);
+        
+        if(u)
+            self.userName = p;
+        
+        if(p)
+            self.passWord = getTokenOfAccount(_path);
     }
-    
 }
+
 
 -(void)reset
 {

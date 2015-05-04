@@ -32,6 +32,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnInternet;
 @property (weak, nonatomic) IBOutlet UIButton *btnFileBrowse;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnMovie2;
+@property (weak, nonatomic) IBOutlet UIButton *btnMusic2;
+@property (weak, nonatomic) IBOutlet UIButton *btnPhoto2;
+@property (weak, nonatomic) IBOutlet UIButton *btnBook2;
+@property (weak, nonatomic) IBOutlet UIButton *btnInternet2;
+@property (weak, nonatomic) IBOutlet UIButton *btnFileBrowse2;
+
+
 @property (nonatomic,strong) NSString *ipRouter;
 
 @property (nonatomic,strong) UIBarButtonItem *barAuth,*barReload;
@@ -113,9 +121,12 @@
 }
 
 #pragma mark -
-
-
 -(void)updateBtnState
+{
+    [self updateBtnState:[self hasIpAddress]];
+}
+
+-(void)updateBtnState:(BOOL)state
 {
     self.btnMovie.enabled=
     self.btnMusic.enabled=
@@ -123,7 +134,17 @@
     self.btnBook.enabled=
     self.btnFileBrowse.enabled=
     self.btnInternet.enabled=
-    [self hasIpAddress];
+    
+    self.btnMovie2.enabled=
+    self.btnMusic2.enabled=
+    self.btnPhoto2.enabled=
+    self.btnBook2.enabled=
+    self.btnFileBrowse2.enabled=
+    self.btnInternet2.enabled=
+    
+    state;
+    
+    
 }
 
 -(bool)hasIpAddress
@@ -145,7 +166,7 @@
     self.barAuth.enabled = false;
     self.barReload.enabled = false;
     
-    [self updateBtnState];
+    [self updateBtnState:FALSE];
     
     
     NSString *ipLocal = ipLocalHost();
@@ -166,7 +187,8 @@
         // get the root path.  192.168.x.x/Public
         NSString *rootPath = [NSString stringWithFormat:@"smb://%@/Public" , ipRouter ];
         
-        [RootData shared].path = rootPath;
+        [[RootData shared] setPathAndLoadAuthInfo:rootPath];
+        
         [[RootData shared] reload:^(id result)
         {
             [av stopAnimating];
@@ -177,7 +199,7 @@
             
             if([result isKindOfClass:[NSArray class]] && [result count] > 0 )
             {
-                [self updateBtnState];
+                [self updateBtnState:YES];
             }
             else if ([result isKindOfClass:[NSError class]])
             {
