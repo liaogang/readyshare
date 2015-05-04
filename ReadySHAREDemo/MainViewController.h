@@ -9,14 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MainViewController : UIViewController
-{
-    CGFloat iOSDeviceScreenWidth;
-    CGFloat iOSDeviceScreenHeight;
-    CGFloat iOSStatusBarHeight;
-    CGFloat Navi_Bar_Height_Portrait;
-    CGFloat Navi_Bar_Height_Landscape;
-}
-
 @end
 
 

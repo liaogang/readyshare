@@ -31,7 +31,7 @@
 
     serializeToolOpen();
     
-    
+    /*
     MainViewController *mainVC =[[MainViewController alloc] initWithNibName:@"MainView" bundle:nil];
     
     
@@ -43,7 +43,7 @@
     self.window = [[UIWindow alloc]initWithFrame: [[UIScreen mainScreen] bounds]];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
-    
+    */
     
     
     
