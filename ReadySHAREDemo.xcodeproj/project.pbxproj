@@ -145,7 +145,7 @@
 		1E3AF2251ADFA37D004AA408 /* cover_cell2_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E3AF2241ADFA37D004AA408 /* cover_cell2_iPad.xib */; };
 		1E3AF2271ADFA395004AA408 /* cell2_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E3AF2261ADFA395004AA408 /* cell2_iPad.xib */; };
 		1E4707141ACD44470052D2EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4707131ACD44470052D2EF /* main.m */; };
-		1E4707171ACD44470052D2EF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4707161ACD44470052D2EF /* AppDelegate.m */; };
+		1E4707171ACD44470052D2EF /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E4707161ACD44470052D2EF /* AppDelegate.mm */; };
 		1E47071A1ACD44470052D2EF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4707191ACD44470052D2EF /* ViewController.m */; };
 		1E47071D1ACD44470052D2EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E47071B1ACD44470052D2EF /* Main.storyboard */; };
 		1E47071F1ACD44470052D2EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E47071E1ACD44470052D2EF /* Images.xcassets */; };
@@ -156,6 +156,7 @@
 		1E6B81EF1AE4E5340078C52B /* musicTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B81EE1AE4E5340078C52B /* musicTableHeader.xib */; };
 		1E6B81F31AE4E8120078C52B /* musicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */; };
 		1E6B81F41AE4E8120078C52B /* musicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */; };
+		1E85F7A01AF769E2008CB2FE /* serializeTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E85F79F1AF769E2008CB2FE /* serializeTool.mm */; };
 		1E98F04A1ADB72320021C1C7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E98F04C1ADB72320021C1C7 /* Localizable.strings */; };
 		1EA831BE1AE8E8D3006642C5 /* auth.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831BC1AE8E8D3006642C5 /* auth.png */; };
 		1EA831BF1AE8E8D3006642C5 /* auth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831BD1AE8E8D3006642C5 /* auth@2x.png */; };
@@ -449,7 +450,7 @@
 		1E4707121ACD44470052D2EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E4707131ACD44470052D2EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1E4707151ACD44470052D2EF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		1E4707161ACD44470052D2EF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1E4707161ACD44470052D2EF /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		1E4707181ACD44470052D2EF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		1E4707191ACD44470052D2EF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		1E47071C1ACD44470052D2EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -465,6 +466,8 @@
 		1E6B81F01AE4E8120078C52B /* musicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = musicTableViewCell.h; sourceTree = "<group>"; };
 		1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = musicTableViewCell.m; sourceTree = "<group>"; };
 		1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = musicTableViewCell.xib; sourceTree = "<group>"; };
+		1E85F79E1AF769E2008CB2FE /* serializeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serializeTool.h; sourceTree = "<group>"; };
+		1E85F79F1AF769E2008CB2FE /* serializeTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serializeTool.mm; sourceTree = "<group>"; };
 		1E98F04B1ADB72320021C1C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1E98F04E1ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		1E98F04F1ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -919,6 +922,8 @@
 				1ED7947B1ACE552C0080FCA8 /* UIAlertViewBlock.m */,
 				1E4707371ACD46190052D2EF /* KxSMBProvider.h */,
 				1E4707381ACD46190052D2EF /* KxSMBProvider.m */,
+				1E85F79E1AF769E2008CB2FE /* serializeTool.h */,
+				1E85F79F1AF769E2008CB2FE /* serializeTool.mm */,
 				1E0739A01AE609AB000DCB9E /* uPlayer */,
 				1E0739A81AE609CD000DCB9E /* MAAssert */,
 				1E4707101ACD44470052D2EF /* ReadySHAREDemo */,
@@ -958,7 +963,7 @@
 			isa = PBXGroup;
 			children = (
 				1E4707151ACD44470052D2EF /* AppDelegate.h */,
-				1E4707161ACD44470052D2EF /* AppDelegate.m */,
+				1E4707161ACD44470052D2EF /* AppDelegate.mm */,
 				1E4707181ACD44470052D2EF /* ViewController.h */,
 				1E4707191ACD44470052D2EF /* ViewController.m */,
 				1E3853661AEF9302004E6A8B /* Movie */,
@@ -1392,7 +1397,8 @@
 				1E0739B31AE6405D000DCB9E /* fileTypes.mm in Sources */,
 				1EFEC0CB1ADA78E700478346 /* MainViewController.m in Sources */,
 				1E3AF1E71ADF82FD004AA408 /* smbCollectionView.m in Sources */,
-				1E4707171ACD44470052D2EF /* AppDelegate.m in Sources */,
+				1E4707171ACD44470052D2EF /* AppDelegate.mm in Sources */,
+				1E85F7A01AF769E2008CB2FE /* serializeTool.mm in Sources */,
 				1E4707391ACD46190052D2EF /* KxSMBProvider.m in Sources */,
 				1E3AF2231ADF9E63004AA408 /* Interpolator.cpp in Sources */,
 				1E39775B1ACD4BAB0049E391 /* UIImage+Alpha.m in Sources */,

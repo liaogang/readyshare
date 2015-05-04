@@ -49,6 +49,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnFileBrowse;
 
 @property (nonatomic,strong) NSString *ipRouter;
+
+@property (nonatomic,strong) UIBarButtonItem *barAuth,*barReload;
 @end
 
 
@@ -73,9 +75,10 @@
     ((KxSMBProvider*)[KxSMBProvider sharedSmbProvider]).delegate = self;
     
 //    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"设置IP" style:UIBarButtonItemStyleDone target:self action:@selector(actionSetPath)];
+    self.barAuth = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"auth"] style:UIBarButtonItemStylePlain target:self action:@selector(popupAuth) ];
+    self.barReload = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(figureOutRootPath)];
     
-    self.navigationItem.rightBarButtonItems = @[ [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(figureOutRootPath)] ,
-                                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"auth"] style:UIBarButtonItemStylePlain target:self action:@selector(popupAuth) ] ];
+    self.navigationItem.rightBarButtonItems = @[ self.barReload, self.barAuth];
 
     
     [self figureOutRootPath];
@@ -217,6 +220,8 @@
     self.btnMusic.enabled=
     self.btnPhoto.enabled=
     self.btnBook.enabled=
+    self.btnFileBrowse.enabled=
+    self.btnInternet.enabled=
     [self hasIpAddress];
 }
 
@@ -228,7 +233,19 @@
 
 -(void)figureOutRootPath
 {
+    [RootData shared].path = nil;
+    
+    UIActivityIndicatorView *av = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    av.hidesWhenStopped=YES;
+    av.center=self.view.center;
+    [self.view addSubview:av];
+    [av startAnimating];
+    
+    self.barAuth.enabled = false;
+    self.barReload.enabled = false;
+    
     [self updateBtnState];
+    
     
     NSString *ipLocal = ipLocalHost();
     
@@ -253,6 +270,12 @@
         [RootData shared].path = rootPath;
         [[RootData shared] reload:^(id result)
         {
+            [av stopAnimating];
+            [av removeFromSuperview];
+            
+            self.barAuth.enabled = YES;
+            self.barReload.enabled = YES;
+            
             if([result isKindOfClass:[NSArray class]] && [result count] > 0 )
             {
                 [self updateBtnState];
@@ -268,6 +291,12 @@
     }
     else
     {
+        [av stopAnimating];
+        [av removeFromSuperview];
+        
+        self.barAuth.enabled = YES;
+        self.barReload.enabled = YES;
+        
         [[[UIAlertView alloc]initWithTitle: NSLocalizedString(@"Network not avaliable",nil) message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
     }
     

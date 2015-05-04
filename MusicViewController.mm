@@ -203,10 +203,10 @@ void valueToMinSec(double d, int *m , int *s)
     addObserverForEvent(self, @selector(updateProgressInfo:), EventID_track_progress_changed);
 
 
-    
+    /*
     RootData *r = [RootData shared];
-    [r reload:^{
-        
+    [r reload:^(id result)
+    {
         if (r.error)
         {
             
@@ -216,7 +216,7 @@ void valueToMinSec(double d, int *m , int *s)
             [self.tableView reloadData];
         }
     }];
-    
+    */
     
     if ([self.engine isPlaying]) {
         [self.sliderProgress setMaximumValue: self.engine.totalTime];
