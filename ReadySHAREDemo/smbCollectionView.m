@@ -165,24 +165,29 @@ CGSize szCoverIphone ={260.,300.};
 
 -(void)setPhotoImages:(NSArray*)imageArray_
 {
-    NSAssert(imageArray_.count>0, @"empty array.");
-    NSAssert([[imageArray_ firstObject]isKindOfClass:[KxSMBItemFile class]], @"pass a KxSMBItemFile array");
+//    NSAssert(imageArray_.count>0, @"empty array.");
+//    NSAssert([[imageArray_ firstObject]isKindOfClass:[KxSMBItemFile class]], @"pass a KxSMBItemFile array");
     
-    _smbItemFiles = imageArray_;
-    
-    NSUInteger count = _smbItemFiles.count;
-    
-    scaledImages = [NSMutableArray arrayWithCapacity:count ];
-    
-    
-    
-    for (int i=0;i<count;++i)
+    if (imageArray_.count>0 && [imageArray_.firstObject isKindOfClass:[KxSMBItemFile class]])
     {
-        [scaledImages addObject:[NSNull null]];
+        
+        _smbItemFiles = imageArray_;
+        
+        NSUInteger count = _smbItemFiles.count;
+        
+        scaledImages = [NSMutableArray arrayWithCapacity:count ];
+        
+        
+        
+        for (int i=0;i<count;++i)
+        {
+            [scaledImages addObject:[NSNull null]];
+        }
+        
+        
+        self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"%d pictures",nil),[_smbItemFiles count] ];
+        
     }
-    
-    
-    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"%d pictures",nil),[_smbItemFiles count] ];
 }
 
 

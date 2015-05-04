@@ -48,6 +48,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnInternet;
 @property (weak, nonatomic) IBOutlet UIButton *btnFileBrowse;
 
+@property (nonatomic,strong) NSString *ipRouter;
 @end
 
 
@@ -224,6 +225,7 @@
     return [RootData shared].path != nil;
 }
 
+
 -(void)figureOutRootPath
 {
     [self updateBtnState];
@@ -232,52 +234,41 @@
     
     if (ipLocal)
     {
-        char ip[20] ;
+//        self.navigationItem.title = ipLocal;
+        
+        char ip[20];
         
         strcpy( ip,  ipLocal.UTF8String );
         
         char *p = strrchr(ip, '.');
         
-        strcpy( p + 1 , "1");
+        strcpy( p + 1 , "254");
         
-        ipLocal = [NSString stringWithUTF8String: ip];
+        NSString * ipRouter = [NSString stringWithUTF8String: ip];
+        self.ipRouter = ipRouter;
         
+        // get the root path.  192.168.x.x/Public
+        NSString *rootPath = [NSString stringWithFormat:@"smb://%@/Public" , ipRouter ];
         
-        // get the root path.  192.168.x.x/xxx/Public
-        
-        NSString *rootPath = [NSString stringWithFormat:@"smb://%@",ipLocal];
-        
-        id result = [[KxSMBProvider sharedSmbProvider] fetchAtPath:rootPath];
-        
-        if([result isKindOfClass:[NSArray class]] && [result count] > 0 )
+        [RootData shared].path = rootPath;
+        [[RootData shared] reload:^(id result)
         {
-            NSArray *arr = result;
-            
-            KxSMBItemTree *tree = arr.lastObject;
-            
-            // stringByAppendingPathComponent will remove a '/' in "//"
-            rootPath = [ipLocal stringByAppendingPathComponent: tree.path.lastPathComponent];
-            
-            rootPath = [rootPath stringByAppendingPathComponent:@"Public"];
-            
-            rootPath = [NSString stringWithFormat:@"smb://%@",rootPath];
-            // save
-            [RootData shared].path = rootPath;
-            
-            [[RootData shared] reload:^{
+            if([result isKindOfClass:[NSArray class]] && [result count] > 0 )
+            {
                 [self updateBtnState];
-            }];
-        }
+            }
+            else if ([result isKindOfClass:[NSError class]])
+            {
+                [RootData shared].path=nil;
+                [self performSelector:@selector(popupAuth) withObject:nil afterDelay:0.5];
+            }
+        }];
         
-        if ([result isKindOfClass:[NSError class]])
-        {
-            NSLog(@"error: %@",result);
-            [self popupAuth];
-        }
+       
     }
     else
     {
-        [[[UIAlertView alloc]initWithTitle:@"No ip address" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+        [[[UIAlertView alloc]initWithTitle: NSLocalizedString(@"Network not avaliable",nil) message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
     }
     
 }
@@ -333,14 +324,20 @@
     // iPad 版本
     if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
     {
-        sheetTableViewController *sheet=[[sheetTableViewController alloc]initWithTitle:@"认证信息" detailTitle:@"" cancelBtn:@"Cancel" okBtn:@"OK" datas:datas images:nil placeHolders:placeH dismissed:^(NSArray *arrTableData) {
+        NSString *title = NSLocalizedString(@"Auth info", nil);
+        NSString *detail = [NSString stringWithFormat:NSLocalizedString(@"Connecting to %@", nil) , self.ipRouter];
+        
+        sheetTableViewController *sheet=[[sheetTableViewController alloc]initWithTitle:title detailTitle:detail cancelBtn:NSLocalizedString(@"Cancel", nil) okBtn:NSLocalizedString(@"OK", nil) datas:datas images:nil placeHolders:placeH dismissed:^(NSArray *arrTableData) {
             NSLog(@"%@",arrTableData);
             if(arrTableData)
             {
                 [RootData shared].group = arrTableData[0];
                 [RootData shared].userName = arrTableData[1];
                 [RootData shared].passWord = arrTableData[2];
+                
+                [self figureOutRootPath];
             }
+
         }];
         [sheet show];
     }

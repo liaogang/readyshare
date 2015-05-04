@@ -68,7 +68,7 @@
     self.idReloadDate++;
 }
 
--(void)reload:(Finished)callback
+-(void)reload:(FinishedWithResult)callback
 {
     if (! _path )
         _path = @"smb://";
@@ -76,9 +76,13 @@
     KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
     
     [provider fetchAtPath:_path block:^(id result) {
+        if ([result isKindOfClass:[NSError class]]) {
+            NSLog(@"%@",result);
+        }
+        else
+            [self ParseFetchResult:result];
         
-        [self ParseFetchResult:result];
-        callback();
+        callback(result);
     }];
 }
 

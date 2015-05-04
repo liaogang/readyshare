@@ -12,4 +12,12 @@
 
 "Error downloading smb file" ;
 
-"OK";
+"OK" = "确定";
+
+"Cancel" = "取消";
+
+"Network not avaliable" = "网络不可用";
+
+"Auth info" = "认证信息";
+
+"Connecting to %@" = "连接到%@";
