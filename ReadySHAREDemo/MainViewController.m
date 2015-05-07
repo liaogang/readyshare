@@ -42,7 +42,7 @@
 
 @property (nonatomic,strong) NSString *ipRouter;
 
-@property (nonatomic,strong) UIBarButtonItem *barAuth,*barReload;
+@property (nonatomic,strong) UIBarButtonItem *barReload;//*barAuth
 @end
 
 
@@ -67,10 +67,13 @@
     
     ((KxSMBProvider*)[KxSMBProvider sharedSmbProvider]).delegate = self;
     
-    self.barAuth = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"auth"] style:UIBarButtonItemStylePlain target:self action:@selector(popupAuth) ];
+    
+    
+    //self.barAuth = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"auth"] style:UIBarButtonItemStylePlain target:self action:@selector(popupAuth) ];
+    
     self.barReload = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(figureOutRootPath)];
     
-    self.navigationItem.rightBarButtonItems = @[ self.barReload, self.barAuth];
+    self.navigationItem.rightBarButtonItems = @[ self.barReload];//self.barAuth
 
     if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
     {
@@ -85,6 +88,17 @@
     
     
     [self figureOutRootPath];
+    
+    
+//    NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+//    //[formatter setDateFormat:@"YYYY-MM-dd  hh:mm:ss"];
+//    [formatter setDateFormat:@"YYYY:MM:dd:hh:mm:ss"];
+//    NSString *date = [formatter stringFromDate:[NSDate date]];
+//    
+//    NSArray *dataArray = [date componentsSeparatedByString:@":"];
+//    NSInteger year = [dateArray[0] integerValue];
+    
+    
 }
 
 
@@ -163,8 +177,9 @@
     [self.view addSubview:av];
     [av startAnimating];
     
-    self.barAuth.enabled = false;
+    //self.barAuth.enabled = false;
     self.barReload.enabled = false;
+    
     
     [self updateBtnState:FALSE];
     
@@ -194,7 +209,7 @@
             [av stopAnimating];
             [av removeFromSuperview];
             
-            self.barAuth.enabled = YES;
+            //self.barAuth.enabled = YES;
             self.barReload.enabled = YES;
             
             if([result isKindOfClass:[NSArray class]] && [result count] > 0 )
@@ -215,7 +230,7 @@
         [av stopAnimating];
         [av removeFromSuperview];
         
-        self.barAuth.enabled = YES;
+        //self.barAuth.enabled = YES;
         self.barReload.enabled = YES;
         
         [[[UIAlertView alloc]initWithTitle: NSLocalizedString(@"Network not avaliable",nil) message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
@@ -267,37 +282,42 @@
 
 -(void)popupAuth
 {
-    NSArray *datas=@[@"group",@"userName",@"password"];
-    NSArray *placeH=@[@"workgroup",@"name",@"password"];
-   
+//    NSArray *datas=@[@"group",@"userName",@"password"];
+//    NSArray *placeH=@[@"workgroup",@"name",@"password"];
+//   
+//    
+//    // iPad 版本
+//    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
+//    {
+//        NSString *title = NSLocalizedString(@"Auth info", nil);
+//        NSString *detail = [NSString stringWithFormat:NSLocalizedString(@"Connecting to %@", nil) , self.ipRouter];
+//        
+//        sheetTableViewController *sheet=[[sheetTableViewController alloc]initWithTitle:title detailTitle:detail cancelBtn:NSLocalizedString(@"Cancel", nil) okBtn:NSLocalizedString(@"OK", nil) datas:datas images:nil placeHolders:placeH dismissed:^(NSArray *arrTableData) {
+//            NSLog(@"%@",arrTableData);
+//            if(arrTableData)
+//            {
+//                [RootData shared].group = arrTableData[0];
+//                [RootData shared].userName = arrTableData[1];
+//                [RootData shared].passWord = arrTableData[2];
+//                
+//                [self figureOutRootPath];
+//            }
+//
+//        }];
+//        [sheet show];
+//    }
+//    // iPhone,iPod 版本
+//    else
+//    {
+//        UIAlertView *alert = [UIAlertView alloc];
+//        
+//    }
     
-    // iPad 版本
-    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
-    {
-        NSString *title = NSLocalizedString(@"Auth info", nil);
-        NSString *detail = [NSString stringWithFormat:NSLocalizedString(@"Connecting to %@", nil) , self.ipRouter];
-        
-        sheetTableViewController *sheet=[[sheetTableViewController alloc]initWithTitle:title detailTitle:detail cancelBtn:NSLocalizedString(@"Cancel", nil) okBtn:NSLocalizedString(@"OK", nil) datas:datas images:nil placeHolders:placeH dismissed:^(NSArray *arrTableData) {
-            NSLog(@"%@",arrTableData);
-            if(arrTableData)
-            {
-                [RootData shared].group = arrTableData[0];
-                [RootData shared].userName = arrTableData[1];
-                [RootData shared].passWord = arrTableData[2];
-                
-                [self figureOutRootPath];
-            }
-
-        }];
-        [sheet show];
-    }
-    // iPhone,iPod 版本
-    else
-    {
-        UIAlertView *alert = [UIAlertView alloc];
-        
-        
-    }
+    [RootData shared].group = @"";
+    [RootData shared].userName = @"admin";
+    [RootData shared].passWord = @"admin";
+    
+    [self figureOutRootPath];
 }
 
 - (void)didReceiveMemoryWarning {
