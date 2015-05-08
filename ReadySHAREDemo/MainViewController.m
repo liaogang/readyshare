@@ -52,8 +52,7 @@
 - (KxSMBAuth *) smbAuthForServer: (NSString *) server
                        withShare: (NSString *) share
 {
-    RootData *s = [RootData shared];
-    return [KxSMBAuth smbAuthWorkgroup:s.group username:s.userName password:s.passWord];
+    return [KxSMBAuth smbAuthWorkgroup:@"" username:@"admin" password:@"admin"];
 }
 
 -(void)awakeFromNib
@@ -221,7 +220,11 @@
             else if ([result isKindOfClass:[NSError class]])
             {
                 [RootData shared].path=nil;
-                [self performSelector:@selector(popupAuth) withObject:nil afterDelay:0.5];
+                
+                NSError *error = result;
+                NSString *title = error.localizedDescription;
+                NSString *msg = error.localizedFailureReason;
+                [[[UIAlertView alloc]initWithTitle:title message:msg delegate:nil cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"ok", nil), nil]show];
             }
         }];
         
@@ -315,11 +318,9 @@
 //        
 //    }
     
-    [RootData shared].group = @"";
-    [RootData shared].userName = @"admin";
-    [RootData shared].passWord = @"admin";
+
     
-    [self figureOutRootPath];
+    //[self figureOutRootPath];
 }
 
 - (void)didReceiveMemoryWarning {

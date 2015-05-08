@@ -26,6 +26,8 @@
 #import "PlayerMessage.h"
 #import "PlayerEngine.h"
 
+#import "RootData.h"
+
 /**
  * in iphone.os.sdk ==> #define TARGET_IPHONE_SIMULATOR     0
  * in iphone.simulator.sdk ==> #define TARGET_IPHONE_SIMULATOR     1
@@ -222,10 +224,9 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     self.navigationItem.title = self.smbFile.path.lastPathComponent;
     
-    
-    
     [self figureOutMediaType];
-    [self downloadAction];
+    
+    [self performSelector:@selector(downloadAction) withObject:nil afterDelay:0.3];
 }
 
 -(void)figureOutMediaType
@@ -256,80 +257,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
 }
 
--(void)PopSelfInNavAndSetNavPromptNil
-{
-    
-}
-
-//把文件从临时目录放到Downloads目录。
--(void)Save2Local
-{
-    NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                            NSUserDomainMask,
-                                                            YES) lastObject];
-    folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
-    
-    NSString *filename = _smbFile.path.lastPathComponent;
-    __block NSString *path2 = [folder stringByAppendingPathComponent:filename];
-    
-    NSFileManager *fm =[[NSFileManager alloc]init];
-    
-    [fm createDirectoryAtURL:[NSURL fileURLWithPath:folder]
- withIntermediateDirectories:YES attributes:nil error:nil ];
-    
-    if([fm fileExistsAtPath:path2])
-    {
-        __weak typeof(self) weakSelf = self;
-        UIAlertViewBlock *alert = [[UIAlertViewBlock alloc] initWithTitle:NSLocalizedString(@"exists file", nil)
-                                                                  message:nil
-                                                        cancelButtonTitle:NSLocalizedString(@"cancel", nil) cancelledBlock:^(UIAlertViewBlock *a){
-                                                        }
-                                                           okButtonTitles:NSLocalizedString(@"ok", nil) okBlock:^(UIAlertViewBlock *a){
-                                                               [[NSFileManager defaultManager] removeItemAtPath:path2 error:nil];
-                                                               
-                                                               [weakSelf Save2Local2:path2];
-                                                               
-                                                           }];
-        
-        
-        [alert show];
-    }
-    else
-        [self Save2Local2:path2];
-    
-}
-
-
-
--(void)Save2Local2:(NSString*)path2
-{
-    NSLog(@"Copy File From :%@ to :%@",_filePath,path2);
-    NSFileManager *fm =[[NSFileManager alloc]init];
-    
-    NSString *title;
-    NSError *error = [[NSError alloc]init];
-    if( [fm moveItemAtPath:_filePath toPath:path2 error:&error])
-    {
-        self.navigationItem.rightBarButtonItem = nil ;
-        
-        NSArray *pathComponents =path2.pathComponents;
-        
-        title = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"File Saved to :",nil),pathComponents[pathComponents.count-2]];
-        
-        [self closeFiles];
-    }
-    else
-        title = error.description ;
-    
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                        message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok",nil), nil];
-        [alert show];
-    }
-    
-    
-    [self refreshLocalViewer];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -342,36 +269,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     _nameLabel.text = _smbFile.path;
     
-    CGFloat value;
-    NSString *unit;
-    
-    if (_smbFile.stat.size < 1024) {
-        
-        value = _smbFile.stat.size;
-        unit = @"B";
-        
-    } else if (_smbFile.stat.size < 1048576) {
-        
-        value = _smbFile.stat.size / 1024.f;
-        unit = @"KB";
-        
-    } else {
-        
-        value = _smbFile.stat.size / 1048576.f;
-        unit = @"MB";
-    }
-    _sizeLabel.text = [NSString stringWithFormat:@"size: %.1f%@", value,unit];
-    
-    
-    NSDate *date =_smbFile.stat.lastModified;
-    
-    NSDateFormatter *dateFormatter =[[NSDateFormatter alloc]init];
-    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSString *fixString = [dateFormatter stringFromDate:date];
-    
-    _dateLabel.text = [NSString stringWithFormat:@"date: %@", fixString];
+    [self updateProgressLabel];
 }
 
 

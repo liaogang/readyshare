@@ -21,3 +21,50 @@
 "Auth info" = "认证信息";
 
 "Connecting to %@" = "连接到%@";
+
+
+"Error downloading file: %@" = "下载文件错误: %@";
+
+
+
+//ReadyShareUSB
+"Fetching" = "正在加载...";
+"FriendlyMsg" = "请检查网络是否通畅或USB是否已连接";
+"Unable unlink file" = "无法删除文件";
+"NewFolder" = "新建文件夹";
+"SMB Authorization" = "认证信息";
+"Create" = "创建";
+"File Saved to :" = "文件已保存至:";
+"Remember Password"="记住密码";
+"File is Empty" = "文件为空";
+"Folder is Empty" = "文件夹为空";
+"Add Folder" =  "新建文件夹" ;
+"Delete" = "删除";
+"Refresh" ="刷新";
+"download finished" = "下载完成";
+"Unable rmdir file" = "未能删除目录或文件";
+"Unable mkdir" = "未能创建目录或文件";
+"ReadySHARE USB is not supported" = "不支持易共享 USB。";
+"Photo browser" = "照片浏览器";
+"The file is too large,\ncontinue opening it?"="文件有点大,\n需要继续查看吗?";
+"ReadySHARE USB function is not supported in your router"="此路由不支持ReadySHARE USB功能";
+
+"Please make sure the folder name is not taken up and contains no sperial characters" = "请确认文件名未被占用,且未包含特殊字符";
+
+"SMB Error" = "";
+"SMB Invalid argument"= "无效参数";
+"SMB Invalid protocol"= "无效协议";
+"SMB Out of memory"= "内存不足";
+"SMB Permission denied"= "权限不足";
+"SMB No such file or directory"= "文件或目录不存在";
+"SMB Not a directory"= "目录不存在";
+"SMB Is a directory"= "对象是目录";
+"SMB Workgroup not found"= "没找到工作组";
+"SMB Share does not exist"= "共享不存在";
+"SMB Item already exists"= "对象已存在";
+"SMB Directory not empty" = "目录不为空";
+"SMB File I/O failure"= "文件 I/O 出错";
+"SMB Ready-Only FileSystem" ="只读文件系统";
+"SMB No Space left on device" = "设备没有足够的空间";
+"SMB Operation Timed Out" = "操作超时";
+//readyshare
