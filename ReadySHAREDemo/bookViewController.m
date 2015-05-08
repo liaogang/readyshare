@@ -12,10 +12,10 @@
 #import "PdfPreviewViewController.h"
 #import "UIAlertViewBlock.h"
 
+#import "ReaderViewController.h"
 
 
-
-@interface bookViewController ()
+@interface bookViewController ()<ReaderViewControllerDelegate>
 @property (nonatomic,strong) NSArray *files;// KxSMBItemFile
 @end
 
@@ -112,12 +112,47 @@ static NSString * const reuseIdentifier = @"bookCell";
         {
             NSString *localFilePath = result;
             
-            if ([PdfPreviewViewController canPreviewItem:[NSURL fileURLWithPath: localFilePath]])
+//            if ([PdfPreviewViewController canPreviewItem:[NSURL fileURLWithPath: localFilePath]])
+//            {
+//                PdfPreviewViewController *pdf =[[PdfPreviewViewController alloc]initWithFilePaths:@[[NSURL fileURLWithPath: localFilePath]]];
+//                
+//                [self.navigationController pushViewController:pdf animated:YES];
+//            }
+            
+            NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
+            
+            NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:@"pdf" inDirectory:nil];
+            
+            NSString *filePath = [pdfs firstObject]; assert(filePath != nil); // Path to first PDF file
+            
+            //ReaderDocument *document = [ReaderDocument withDocumentFilePath:filePath password:phrase];
+            
+            ReaderDocument *document = [ReaderDocument withDocumentFilePath:localFilePath password:phrase];
+            
+            if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
             {
-                PdfPreviewViewController *pdf =[[PdfPreviewViewController alloc]initWithFilePaths:@[[NSURL fileURLWithPath: localFilePath]]];
+                ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
                 
-                [self.navigationController pushViewController:pdf animated:YES];
+                readerViewController.delegate = self; // Set the ReaderViewCont`roller delegate to self
+                
+#if (DEMO_VIEW_CONTROLLER_PUSH == TRUE)
+                
+                [self.navigationController pushViewController:readerViewController animated:YES];
+                
+#else // present in a modal view controller
+                
+                readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+                
+                [self presentViewController:readerViewController animated:YES completion:NULL];
+                
+#endif // DEMO_VIEW_CONTROLLER_PUSH
             }
+            else // Log an error so that we know that something went wrong
+            {
+                NSLog(@"%s [ReaderDocument withDocumentFilePath:'%@' password:'%@'] failed.", __FUNCTION__, filePath, phrase);
+            }
+
             
         }
         else
@@ -131,7 +166,20 @@ static NSString * const reuseIdentifier = @"bookCell";
 
 }
 
+#pragma mark - ReaderViewControllerDelegate methods
 
+- (void)dismissReaderViewController:(ReaderViewController *)viewController
+{
+#if (DEMO_VIEW_CONTROLLER_PUSH == TRUE)
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+#else // dismiss the modal view controller
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    
+#endif // DEMO_VIEW_CONTROLLER_PUSH
+}
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
 	return YES;
