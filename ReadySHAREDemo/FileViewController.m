@@ -95,14 +95,10 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     NSDate          *_timestamp;
     
     MPMoviePlayerController *moviePlay;
-    BOOL dwscViewIsFullScreen;
+    bool isAddedBySuperView;
     CGRect rcNormal;
     
     int errorDownload;
-    
-    UIImageView *_imageView;
-    UIImageView *_imageView2;
-    UITapGestureRecognizer *_reg;
     
     
     NSURL *httpfileUrl;
@@ -132,9 +128,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 @synthesize readyshareHomeVC;
 - (void) dealloc
 {
-    [_imageView setImageWithURL:[NSURL URLWithString:@"file:///abc"]];
-    [self.view removeGestureRecognizer:_reg];
-    
     [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
     [self closeMovie];
     [self closeFiles];
@@ -148,10 +141,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     _filePath = nil ;
     
-    _imageView = nil ;
-    [_imageView2 removeFromSuperview];
-    _imageView2=nil;
-    _reg=nil;
+
     
     
     web=nil;
@@ -274,10 +264,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 //把文件从临时目录放到Downloads目录。
 -(void)Save2Local
 {
-    //图片全屏时，按了”存储”不算。
-    if(dwscViewIsFullScreen)
-        return;
-    
     NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                             NSUserDomainMask,
                                                             YES) lastObject];
@@ -391,7 +377,14 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 -(BOOL)isViewRemoved
 {
-    return self.view.superview == nil;
+    return  isAddedBySuperView && self.view.superview == nil;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+     isAddedBySuperView = true;
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -404,8 +397,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         [self closeMovie];
         
     }
-    
-    [_imageView2 removeFromSuperview];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -421,9 +412,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 #endif
         self.navigationController.title = nil ;
         
-        [self.view removeGestureRecognizer:_reg];
-        
-        [_imageView2 removeFromSuperview];
         
         if(_fileHandle)
             [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
@@ -684,37 +672,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 {
     //is a video? played in vlc.
     if( !httpfileUrl )
-    {
         if ( _mediaType == video )
-        {
             [self playVideo];
-        }
-        else
-            //Picture
-            if(  _mediaType == picture )
-            {
-                [self showPicture];
-            }
-            else if(_mediaType == audio )
-            {
-                [self playMusic];
-            }
-        //QuickLook
-            else if ([PdfPreviewViewController canPreviewItem:[NSURL fileURLWithPath: _filePath]])
-            {
-                //show a reopen menu in right bar.
-                UIButton *reopen = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                reopen.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-                
-                [reopen setTitle:NSLocalizedString(@"Open with QuickLook",nil) forState:UIControlStateNormal];
-                [reopen addTarget:self action:@selector(showPdf) forControlEvents:UIControlEventTouchUpInside];
-                float ivW=self.view.frame.size.width,ivH=self.view.frame.size.height- 150;
-                [reopen setFrame:CGRectMake(0, 0, 200 , 50)];
-                reopen.center=CGPointMake(ivW /2 , ivH /2 + 150);
-                [self.view addSubview:reopen];
-            }
-    }
-    
 }
 
 -(void)downloadComplete
@@ -734,78 +693,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     self.navigationItem.rightBarButtonItem = nil;
 }
 
--(void)showPicture
-{
-    float ivW=self.view.frame.size.width,ivH=self.view.frame.size.height- 150;
-    UIImage *image=[UIImage imageWithContentsOfFile:_filePath];
-    CGFloat t = image.size.width *image.size.height;
-    
-    if( t > 2048 * 2048 )
-    {
-        image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(ivW, ivH) interpolationQuality:kCGInterpolationHigh];
-    }
-    
-    _imageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 150, ivW, ivH)];
-    [_imageView setImage:image];
-    _imageView.autoresizingMask = 0xffffffff & ~UIViewAutoresizingFlexibleTopMargin;
-    _imageView.clipsToBounds = YES;
-    _imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.view addSubview:_imageView];
-    
-    
-    
-    _reg=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapped)];
-    _reg.numberOfTapsRequired=1;
-    [self.view addGestureRecognizer:_reg];
-}
 
-// 全屏
--(void)tapped
-{
-    CGRect rcApp = [self.navigationController.view frame];
-    
-    bool isLandscape = UIDeviceOrientationIsLandscape(self.interfaceOrientation);
-    bool isLandscapeLeft = self.interfaceOrientation == UIDeviceOrientationLandscapeLeft;
-    
-    if(isLandscape){
-        rcApp.size=CGSizeMake(rcApp.size.height, rcApp.size.width);
-        if(isLandscapeLeft)
-            rcApp.origin.x = rcApp.origin.y;
-    }
-    
-    
-    if(!_imageView2)
-    {
-        CGRect rc = [self.view convertRect:_imageView.frame toView:self.navigationController.view];
-        
-        _imageView2=[[UIImageView alloc]initWithFrame:rc];
-        [_imageView2 setImage:_imageView.image];
-        _imageView2.autoresizingMask = 0xffffffff ;
-        _imageView2.clipsToBounds = YES;
-        _imageView2.contentMode = UIViewContentModeScaleAspectFill;
-        
-        [self.navigationController.view addSubview:_imageView2];
-    }
-    
-    dwscViewIsFullScreen=!dwscViewIsFullScreen;
-    _imageView2.hidden=NO;
-    __weak typeof(self) weakSelf =self;
-    __weak typeof(_imageView2) weakImageView = _imageView2;
-    [UIView animateWithDuration:.5f animations:^{
-        CGRect rc ;
-        
-        if(dwscViewIsFullScreen)
-            rc = rcApp;
-        else
-            rc= [weakSelf.view convertRect:_imageView.frame toView:self.navigationController.view];
-        
-        [weakImageView setFrame:rc];
-    } completion:^(BOOL finished) {
-        if(!dwscViewIsFullScreen)
-            weakImageView.hidden=YES;
-    }];
-    
-}
+
 
 
 
