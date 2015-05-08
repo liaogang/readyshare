@@ -1862,8 +1862,8 @@
 					"-lMobileVLCKit",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "457ff2b8-f24a-4e9c-8171-a37a454afcae";
-				TARGETED_DEVICE_FAMILY = 2;
+				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -1900,8 +1900,8 @@
 					"-lMobileVLCKit",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "457ff2b8-f24a-4e9c-8171-a37a454afcae";
-				TARGETED_DEVICE_FAMILY = 2;
+				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
