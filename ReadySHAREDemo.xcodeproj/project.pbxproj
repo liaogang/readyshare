@@ -465,7 +465,6 @@
 		1E85F79E1AF769E2008CB2FE /* serializeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serializeTool.h; sourceTree = "<group>"; };
 		1E85F79F1AF769E2008CB2FE /* serializeTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serializeTool.mm; sourceTree = "<group>"; };
 		1E98F04B1ADB72320021C1C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		1E98F04E1ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		1E98F04F1ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		1E98F0501ADB72B80021C1C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1EA831BC1AE8E8D3006642C5 /* auth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = auth.png; path = Resource/auth.png; sourceTree = "<group>"; };
@@ -489,6 +488,7 @@
 		1ED7947D1ACE553C0080FCA8 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewController.h; sourceTree = "<group>"; };
 		1ED7947E1ACE553C0080FCA8 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileViewController.m; sourceTree = "<group>"; };
 		1ED794811ACE60370080FCA8 /* constStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constStrings.h; sourceTree = "<group>"; };
+		1EF396E51AFCC43900A2ADCC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		1EFEC0C91ADA78E700478346 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		1EFEC0CA1ADA78E700478346 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		1EFEC0CC1ADA7F1D00478346 /* RootData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RootData.mm; path = ReadySHAREDemo/RootData.mm; sourceTree = "<group>"; };
@@ -1435,7 +1435,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1E47071C1ACD44470052D2EF /* Base */,
-				1E98F04E1ADB72B80021C1C7 /* zh-Hans */,
+				1EF396E51AFCC43900A2ADCC /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
