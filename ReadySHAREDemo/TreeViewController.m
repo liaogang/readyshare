@@ -77,7 +77,8 @@
 
 - (id)initAsHeadViewController {
     if((self = [self init])) {
-        self.navigationItem.title = @"Remote";
+        
+        self.navigationItem.title = NSLocalizedString(@"Movie", nil);
     }
     return self;
 }
