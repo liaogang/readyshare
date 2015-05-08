@@ -36,7 +36,6 @@
 
 #import "RootData.h"
 
-@class  LocalViewController,ReadyshareHomeViewController;
 @interface TreeViewController : UITableViewController <UIAlertViewDelegate>
 - (id)initAsHeadViewController;
 - (void) reloadPath;
