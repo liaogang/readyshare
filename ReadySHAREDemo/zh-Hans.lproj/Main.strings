@@ -1,0 +1,36 @@
+
+/* Class = "UIButton"; normalTitle = "Music"; ObjectID = "05M-mY-ArD"; */
+"05M-mY-ArD.normalTitle" = "音乐";
+
+/* Class = "UIButton"; normalTitle = "Android"; ObjectID = "3gd-MM-4kA"; */
+"3gd-MM-4kA.normalTitle" = "安卓";
+
+/* Class = "UILabel"; text = "00:00"; ObjectID = "836-f6-aaA"; */
+"836-f6-aaA.text" = "00:00";
+
+/* Class = "UIButton"; normalTitle = "Random"; ObjectID = "9k6-i0-k5v"; */
+"9k6-i0-k5v.normalTitle" = "随机";
+
+/* Class = "UIButton"; normalTitle = "Order"; ObjectID = "ULz-KL-l8L"; */
+"ULz-KL-l8L.normalTitle" = "顺序";
+
+/* Class = "UIButton"; normalTitle = "eBook"; ObjectID = "byu-TI-rjC"; */
+"byu-TI-rjC.normalTitle" = "电子书";
+
+/* Class = "UIButton"; normalTitle = "Single"; ObjectID = "iHo-zU-boM"; */
+"iHo-zU-boM.normalTitle" = "重复";
+
+/* Class = "UIButton"; normalTitle = "Internet"; ObjectID = "n7r-b2-KsY"; */
+"n7r-b2-KsY.normalTitle" = "网络";
+
+/* Class = "UILabel"; text = "00:00"; ObjectID = "oZu-Ed-2JU"; */
+"oZu-Ed-2JU.text" = "00:00";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "u0L-TG-QFI"; */
+"u0L-TG-QFI.text" = "标题";
+
+/* Class = "UIButton"; normalTitle = "Photo"; ObjectID = "vh5-20-bhJ"; */
+"vh5-20-bhJ.normalTitle" = "照片";
+
+/* Class = "UIButton"; normalTitle = "Movie"; ObjectID = "wrK-qC-irG"; */
+"wrK-qC-irG.normalTitle" = "电影";
