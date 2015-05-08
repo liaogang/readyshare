@@ -51,4 +51,5 @@ typedef void(^FullScreenCallBack)(BOOL bWillConvertToFullScreen );
 -(void)setPos:(float)pos;
 
 -(BOOL)isPlaying;
+-(BOOL)willPlay;
 @end

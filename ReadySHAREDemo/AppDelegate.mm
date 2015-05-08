@@ -31,23 +31,7 @@
 
     serializeToolOpen();
     
-    /*
-    MainViewController *mainVC =[[MainViewController alloc] initWithNibName:@"MainView" bundle:nil];
-    
-    
-    
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController: mainVC];
 
-    nav.navigationBar.translucent = false;
-    
-    self.window = [[UIWindow alloc]initWithFrame: [[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = nav;
-    [self.window makeKeyAndVisible];
-    */
-    
-    
-    
-    
 
     addObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
     

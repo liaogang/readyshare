@@ -55,10 +55,6 @@
     return [KxSMBAuth smbAuthWorkgroup:@"" username:@"admin" password:@"admin"];
 }
 
--(void)awakeFromNib
-{
-    
-}
 
 
 - (void)viewDidLoad {
@@ -67,73 +63,17 @@
     ((KxSMBProvider*)[KxSMBProvider sharedSmbProvider]).delegate = self;
     
     
-    
-    //self.barAuth = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"auth"] style:UIBarButtonItemStylePlain target:self action:@selector(popupAuth) ];
-    
     self.barReload = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(figureOutRootPath)];
     
     self.navigationItem.rightBarButtonItems = @[ self.barReload];//self.barAuth
 
-    /*
-    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
-    {
-        self.viewLanscape.hidden=YES;
-        self.viewPortrait.hidden=FALSE;
-    }
-    else
-    {
-        self.viewLanscape.hidden=FALSE;
-        self.viewPortrait.hidden=YES;
-    }
-    */
+
     
     [self figureOutRootPath];
-    
-    
-//    NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
-//    //[formatter setDateFormat:@"YYYY-MM-dd  hh:mm:ss"];
-//    [formatter setDateFormat:@"YYYY:MM:dd:hh:mm:ss"];
-//    NSString *date = [formatter stringFromDate:[NSDate date]];
-//    
-//    NSArray *dataArray = [date componentsSeparatedByString:@":"];
-//    NSInteger year = [dateArray[0] integerValue];
-    
-    
+
 }
 
 
-
-#pragma mark - UIViewControllerRotation
-
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAll;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    /*
-    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation))
-    {
-        self.viewLanscape.hidden=YES;
-        self.viewPortrait.hidden=FALSE;
-    }
-    else
-    {
-        self.viewLanscape.hidden=false;
-        self.viewPortrait.hidden=YES;
-    }*/
-}
 
 #pragma mark -
 -(void)updateBtnState

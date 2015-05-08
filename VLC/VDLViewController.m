@@ -272,6 +272,12 @@ CGRect rectRorientation(CGRect r)
     return [_mediaplayer isPlaying];
 }
 
+-(BOOL)willPlay
+{
+    return [_mediaplayer willPlay];
+}
+
+
 -(BOOL)_play
 {
     BOOL bRet = FALSE;
@@ -500,6 +506,8 @@ CGRect rectRorientation(CGRect r)
         _posTextField.hidden=NO;
         _posSlider.hidden=NO;
         [_btnPlayandPause setImage:[UIImage imageNamed:@"pauseIcon"] forState:UIControlStateNormal];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"VDLViewControllerAboutToPlay" object:nil];
     }
     else
     {

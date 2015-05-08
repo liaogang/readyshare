@@ -143,7 +143,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     _filePath = nil ;
     
-
+    [[NSNotificationCenter defaultCenter] removeObserver:self ];
+     
     
     
     web=nil;
@@ -227,6 +228,16 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     [self figureOutMediaType];
     
     [self performSelector:@selector(downloadAction) withObject:nil afterDelay:0.3];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStarted) name:@"VDLViewControllerAboutToPlay" object:nil];
+    
+    
+}
+
+-(void)videoStarted
+{
+    self.navigationItem.rightBarButtonItem = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self ];
 }
 
 -(void)figureOutMediaType
@@ -268,6 +279,27 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     [super viewWillAppear:animated];
     
     _nameLabel.text = _smbFile.path;
+    
+    CGFloat value;
+    NSString *unit;
+    
+    if (_smbFile.stat.size < 1024) {
+        
+        value = _smbFile.stat.size;
+        unit = @"B";
+        
+    } else if (_smbFile.stat.size < 1048576) {
+        
+        value = _smbFile.stat.size / 1024.f;
+        unit = @"KB";
+        
+    } else {
+        
+        value = _smbFile.stat.size / 1048576.f;
+        unit = @"MB";
+    }
+    _sizeLabel.text = [NSString stringWithFormat:@"size: %.1f%@", value,unit];
+    
     
     [self updateProgressLabel];
 }
@@ -572,6 +604,14 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     if( !httpfileUrl )
         if ( _mediaType == video )
             [self playVideo];
+    
+    [self updateRightBarItem];
+}
+
+-(void)updateRightBarItem
+{
+    if ( [_vcMoviePlayer willPlay] ||  [_vcMoviePlayer isPlaying])
+        self.navigationItem.rightBarButtonItem = nil;
 }
 
 -(void)downloadComplete
@@ -583,7 +623,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     if (_mediaType == video) {
         if(_vcMoviePlayer.isPlaying)
         {
-            self.navigationItem.rightBarButtonItem = nil;
             return;
         }
     }
@@ -709,10 +748,11 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     [_vcMoviePlayer setMedia:httpfileUrl];
     [_vcMoviePlayer play];
     
+    [self updateRightBarItem];
+    
     [self.view addSubview:_vcMoviePlayer.view];
 #endif
 }
-
 
 
 -(void)closeMovie
@@ -720,7 +760,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     [moviePlay stop];
     moviePlay=nil;
 }
-
 
 -(void)refreshLocalViewer
 {
