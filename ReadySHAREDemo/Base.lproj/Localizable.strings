@@ -5,3 +5,49 @@
   Created by liaogang on 15/4/13.
   Copyright (c) 2015年 com.uPlayer. All rights reserved.
 */
+
+
+//ReadyShareUSB
+"Fetching" = "Loading...";
+"FriendlyMsg" = "Please check the network connection and make sure USB drive is attached to your router.";
+"Unable unlink file" = "Unable to unlink the file.";
+"NewFolder" = "New Folder";
+"SMB Authorization" = "Authorization";
+"Create" = "Create";
+"File Saved to :" = "File is saved to:" ;
+"Remember Password"="Remember password.";
+"File is Empty" = "The file is empty";
+"Folder is Empty" = "The folder is empty.";
+"Add Folder" =  "Add Folder" ;
+"Delete" = "Delete";
+"Refresh" ="Refresh";
+"download finished" = "Download finished.";
+"Unable rmdir file" = "Unable to run the command rmdir.";
+"Unable mkdir" = "Unable to run the command mkdir.";
+"ReadySHARE USB is not supported" = "ReadySHARE USB is not supported.";
+"Photo browser"="Photo browser";
+"The file is too large,\ncontinue opening it?"="";//show when pdf file size is up to 40mb
+
+"Please make sure the folder name is not taken up and contains no sperial characters";
+
+//进行smb操作时,可能返回的错误字符串.每一个字符串对应一个错误代码,
+//"smb error"对应其余所有未处理的错误代码.
+//当返回错误"smb error"的时候,程序则显示"FriendlyMsg"对应的字样
+"SMB Error" = ""; // --> frendlyMsg
+"SMB Invalid argument"= "Invalid argument";
+"SMB Invalid protocol"= "Invalid protocol";
+"SMB Out of memory"= "Out of memory";
+"SMB Permission denied"= "Permission denied";
+"SMB No such file or directory"= "No such file or directory";
+"SMB Not a directory"= "Not a directory";
+"SMB Is a directory"= "Is a directory";
+"SMB Workgroup not found"= "Workgroup not found";
+"SMB Share does not exist"= "Share does not exist";
+"SMB Item already exists"= "Item already exists";
+"SMB Directory not empty"= "Directory not empty";
+"SMB File I/O failure"= "File I/O failure";
+"SMB Ready-Only FileSystem" ="Read-Only FileSystem";
+"SMB No Space left on device" = "No Space left on device";
+"SMB Operation Timed Out" = "Operation Timed Out";
+//readyshare
+
