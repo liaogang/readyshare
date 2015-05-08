@@ -6,7 +6,7 @@
 //
 //
 #define arrayMovieTypes (@[@"mp4",@"aac",@"mov",@"alac",@"m4a",@"3gp",@"mpv"])
-#define arrayMusicTypes (@[@"mp3",@"aac",@"alac"],@"ogg"])
+#define arrayMusicTypes (@[@"mp3",@"aac",@"alac",@"ogg"])
 #define arrayPictureTypes (@"xmb",@"cur",@[@"BMPf",@"gif",@"tif",@"tiff",@"png",@"jpg",@"gif",@"bmp",@"jpeg",@"ico"])
 
 #define arrayBookTypes (@[@"pdf",@"txt"])
