@@ -774,7 +774,7 @@
                                             <action selector="actionPause:" destination="Ie2-Wa-UGq" eventType="touchUpInside" id="ziZ-AD-dvM"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="03:21" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="836-f6-aaA">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="836-f6-aaA">
                                         <rect key="frame" x="239" y="345" width="47" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="47" id="3os-sq-RsR"/>
