@@ -147,7 +147,7 @@
                                             <rect key="frame" x="4" y="8" width="400" height="780"/>
                                         </variation>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="标题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOp-GV-jxn">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOp-GV-jxn">
                                         <rect key="frame" x="0.0" y="17" width="300" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="F2S-If-oxH"/>
@@ -1672,7 +1672,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_book_cover_nor.png" translatesAutoresizingMaskIntoConstraints="NO" id="EPC-Xt-OI1">
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="151"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="孟子" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cVx-Kc-twP">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cVx-Kc-twP">
                                             <rect key="frame" x="19" y="8" width="79" height="143"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="143" id="EUp-9Q-O8z"/>
@@ -1815,10 +1815,10 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
-                                        <state key="normal" title="电影 " backgroundImage="icon_video_nor.png">
+                                        <state key="normal" title="Movie" backgroundImage="icon_video_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" title="电影" backgroundImage="icon_video_sel.png"/>
+                                        <state key="highlighted" backgroundImage="icon_video_sel.png"/>
                                         <connections>
                                             <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="z7n-fV-Fnh"/>
                                         </connections>
@@ -1830,10 +1830,10 @@
                                             <constraint firstAttribute="width" constant="111" id="BnD-1m-VCF"/>
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
-                                        <state key="normal" title="音乐" backgroundImage="icon_music_nor.png">
+                                        <state key="normal" title="Music" backgroundImage="icon_music_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" title="音乐" backgroundImage="icon_music_sel.png"/>
+                                        <state key="highlighted" backgroundImage="icon_music_sel.png"/>
                                         <connections>
                                             <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="z6a-hn-l1N"/>
                                         </connections>
@@ -1845,10 +1845,10 @@
                                             <constraint firstAttribute="width" constant="111" id="zBh-UT-Uza"/>
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
-                                        <state key="normal" title="照片" backgroundImage="icon_photos_nor.png">
+                                        <state key="normal" title="Photo" backgroundImage="icon_photos_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" title="照片" backgroundImage="icon_photos_sel.png"/>
+                                        <state key="highlighted" backgroundImage="icon_photos_sel.png"/>
                                         <connections>
                                             <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="Xsd-Xw-ruh"/>
                                         </connections>
@@ -1869,10 +1869,10 @@
                                             <constraint firstAttribute="width" constant="111" id="p4k-8A-R2D"/>
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
-                                        <state key="normal" title="电子书" backgroundImage="icon_ebooks_nor.png">
+                                        <state key="normal" title="eBook" backgroundImage="icon_ebooks_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" title="电子书" backgroundImage="icon_ebooks_sel.png"/>
+                                        <state key="highlighted" backgroundImage="icon_ebooks_sel.png"/>
                                         <connections>
                                             <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="vOK-Id-hCK"/>
                                         </connections>
@@ -1884,10 +1884,10 @@
                                             <constraint firstAttribute="height" constant="100" id="t2G-xx-ska"/>
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
-                                        <state key="normal" title="安卓" backgroundImage="icon_android_nor.png">
+                                        <state key="normal" title="Android" backgroundImage="icon_android_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" title="安卓" backgroundImage="icon_android_sel.png"/>
+                                        <state key="highlighted" backgroundImage="icon_android_sel.png"/>
                                         <connections>
                                             <action selector="openBrowser" destination="wyG-mA-yyP" eventType="touchUpInside" id="GPQ-wc-2mM"/>
                                         </connections>
@@ -1899,10 +1899,10 @@
                                             <constraint firstAttribute="height" constant="99" id="pxm-fn-jVE"/>
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
-                                        <state key="normal" title="网络" backgroundImage="icon_internet_nor.png">
+                                        <state key="normal" title="Internet" backgroundImage="icon_internet_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" title="网络" backgroundImage="icon_internet_sel.png"/>
+                                        <state key="highlighted" backgroundImage="icon_internet_sel.png"/>
                                         <connections>
                                             <action selector="openMaps" destination="wyG-mA-yyP" eventType="touchUpInside" id="hBv-Vs-8Pa"/>
                                         </connections>
