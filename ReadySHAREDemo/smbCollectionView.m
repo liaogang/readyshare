@@ -42,9 +42,6 @@ CGSize szCoverIphone ={260.,300.};
     NSMutableArray *scaledImages;
     NSInteger _indexSelected;
     
-    UIBarButtonItem * _rightBarSave;
-    UIBarButtonItem * _rightBarChange;
-    
     CCoverflowCollectionViewLayout *_layoutCover;
     UICollectionViewFlowLayout *_layoutNormal;
     
@@ -114,8 +111,6 @@ CGSize szCoverIphone ={260.,300.};
     
     _indexSelected= -1;
     
-//    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self.navigationController action:@selector(dismissModalViewControllerAnimated:)];
-
     
     bool isIPad = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
     
@@ -138,8 +133,6 @@ CGSize szCoverIphone ={260.,300.};
         
         [self.view addSubview:_collectViewCover.view];
         
-        _rightBarChange = [[UIBarButtonItem alloc]initWithTitle:@"Change" style:UIBarButtonItemStylePlain target:self action:@selector(changeFlow)];
-        self.navigationItem.rightBarButtonItem = _rightBarChange;
     }
     
     NSString * cellxibname;
@@ -165,9 +158,6 @@ CGSize szCoverIphone ={260.,300.};
 
 -(void)setPhotoImages:(NSArray*)imageArray_
 {
-//    NSAssert(imageArray_.count>0, @"empty array.");
-//    NSAssert([[imageArray_ firstObject]isKindOfClass:[KxSMBItemFile class]], @"pass a KxSMBItemFile array");
-    
     if (imageArray_.count>0 && [imageArray_.firstObject isKindOfClass:[KxSMBItemFile class]])
     {
         
@@ -267,11 +257,8 @@ CGSize szCoverIphone ={260.,300.};
 }
 
 // the user tapped a collection item, load and set the image on the detail view controller
-//
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self ShowRightBar:NO];
-    
     _indexSelected = -1;
 }
 
@@ -283,29 +270,12 @@ CGSize szCoverIphone ={260.,300.};
     NSIndexPath *selectedIndexPath = [[collectionView indexPathsForSelectedItems] objectAtIndex:0];
 
     
-    
-    //点击没有选中的项，选中项目，显示菜单
-    //点击已选中的项才弹出全屏相册
-    if(_indexSelected != selectedIndexPath.row)
-    {
-        _indexSelected = selectedIndexPath.row;
-        
-        //show download menu.
-        [self ShowRightBar:YES];
-
-        return;
-    }
-    else//clicked on the selected item.
+    // 直接弹出全屏
+    // clicked on the selected item.
     {
         int indexDisplay = selectedIndexPath.row;
         
-        
-        //clear all selection when large photo viewer will display
-        [collectionView deselectItemAtIndexPath:indexPath animated:NO];
         _indexSelected = -1 ;
-        //show download menu.
-        [self ShowRightBar:NO];
-        
         
         
         // 1.封装图片数据
@@ -362,147 +332,6 @@ CGSize szCoverIphone ={260.,300.};
         [browser show:self.navigationController];
     }
 }
-
-
-
-
--(void)ShowRightBar:(BOOL)bShow
-{
-    if(!_rightBarSave)
-    {
-        _rightBarSave = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(Save2Local)];
-    
-        if(!_rightBarChange)
-            _rightBarChange = [[UIBarButtonItem alloc]initWithTitle:@"Change" style:UIBarButtonItemStylePlain target:self action:@selector(changeFlow)];
-    }
-    
-    if(_enableCoverFlow)
-        self.navigationItem.rightBarButtonItems = @[_rightBarChange,_rightBarSave];
-    else
-        self.navigationItem.rightBarButtonItem = bShow ? _rightBarSave : nil ;
-    
-}
-
--(BOOL)Save2Local
-{
-    NSAssert(_indexSelected != -1, @"failed to save to local , selected nothing.");
-    
-    KxSMBItemFile *smbItem = _smbItemFiles[_indexSelected];
-    
-    return [self Save2Local:smbItem];
-}
-
-
-//save smbItem to local .
--(BOOL)Save2Local:(KxSMBItemFile*)_smbFile
-{
-    
-    NSFileManager *fm =[[NSFileManager alloc]init];
-    
-    NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                            NSUserDomainMask,
-                                                            YES) lastObject];
-    folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
-    
-    //确认downloads目录存在。
-    [fm createDirectoryAtURL:[NSURL fileURLWithPath:folder]
- withIntermediateDirectories:YES attributes:nil error:nil ];
-    
-    NSString *filename = _smbFile.path.lastPathComponent;
-    
-    __block NSString *path2 = [folder stringByAppendingPathComponent:filename];
-    
-    
-    //是否存在相同文件?
-    if([fm fileExistsAtPath:path2])
-    {
-        __weak typeof(self) weakSelf = self ;
-        UIAlertViewBlock *alert = [[UIAlertViewBlock alloc] initWithTitle:NSLocalizedString(@"exists file", nil)
-                                                                  message:nil
-                                                        cancelButtonTitle:NSLocalizedString(@"cancel", nil) cancelledBlock:^(UIAlertViewBlock *alert){
-                                                        }
-                                                           okButtonTitles:NSLocalizedString(@"ok", nil) okBlock:^(UIAlertViewBlock *alert){
-                                                               [[NSFileManager defaultManager] removeItemAtPath:path2 error:nil];
-                                                               
-                                                               [weakSelf SaveSmbFile:_smbFile toLocal:path2];
-                                                               
-                                                           }];
-        
-        
-        [alert show];
-    }
-    else
-        [self SaveSmbFile:_smbFile toLocal:path2];
-    
-    return  YES;
-}
-
-
-
--(void)SaveSmbFile:(KxSMBItemFile*)_smbFile  toLocal:(NSString*)path2
-{
-#ifdef DEBUG
-    NSLog(@"Save File From :%@ to :%@",_smbFile.path,path2);
-#endif
-
-    NSString *title;
-
-    id result =   [_smbFile readDataToEndOfFile];
-
-    if ([result isKindOfClass:[NSError class]])
-    {
-        title = [result description] ;
-    }
-    else if ([result isKindOfClass:[NSData class]])
-    {
-        NSData *data = result;
-        
-        if(data.length != _smbFile.stat.size)
-        {
-            title = @"Download Failed.";
-        }
-        else  //Download Finished.
-        {
-            NSError *error = [[NSError alloc]init];
-            
-            [[NSFileManager defaultManager] createFileAtPath:path2 contents:nil attributes:nil];
-            
-            NSFileHandle *_fileHandle = [NSFileHandle fileHandleForWritingToURL:[NSURL fileURLWithPath:path2]
-                                                            error:&error];
-            if(_fileHandle){
-            [_fileHandle writeData:result];
-            [_fileHandle closeFile];
-            _fileHandle = nil;
-                
-                NSArray *pathComponents =path2.pathComponents;
-                
-                title = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"File Saved to :",nil),pathComponents[pathComponents.count-2]];
-            }
-            else
-            {
-                NSLog(@"%@",error);
-                title = [error description];
-            }
-
-        }
-        
-    }
-    
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"refreshLocalViewer" object:nil];
-
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok",nil), nil];
-    [alert show];
-    
-}
-
-
-
-
-
-
-
-
 
 //cell的最小行间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
