@@ -81,7 +81,9 @@ static NSString * const reuseIdentifier = @"bookCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     bookCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    KxSMBItemFile *file = self.files[indexPath.row];
+    int index = indexPath.row + indexPath.section * [self itemPerLine];
+    
+    KxSMBItemFile *file = self.files[index];
     
     cell.title.text = [file.path.lastPathComponent stringByDeletingPathExtension];
     
