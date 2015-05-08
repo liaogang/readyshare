@@ -475,6 +475,14 @@ void valueToMinSec(double d, int *m , int *s)
         UIImage *mask = [UIImage imageNamed:@"cd_mask"];
         self.placeHolder.image = maskImage(image , mask);
     }
+    else
+    {
+        self.imageAlbumItem.hidden = NO;
+        
+        self.placeHolder.hidden = YES;
+        self.placeHolder.image = nil;
+    }
+
     
     self.labelTitle.text = compressTitle(r.playingTrack);
 }
