@@ -500,79 +500,32 @@
     
     textLabel.text = item.path.lastPathComponent;
     
-    //is folder
-    if ([item isKindOfClass:[KxSMBItemTree class]]) {
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    NSString *unit;
+    CGFloat value;
+    unsigned long long size = item.stat.size ;
+    if (size < 1024) {
+        value = size;
+        unit = @"B";
         
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else if (size < 1048576) {
         
-        UIImage* image = [UIImage imageNamed:@"folder.png"];
-        imageView.image = image;
+        value = size / 1024.f;
+        unit = @"KB";
         
-    } else //is file
-    {
-        KxSMBItemFile *smbFile = (KxSMBItemFile*)item ;
+    } else {
         
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        
-        NSString *unit;
-        CGFloat value;
-        unsigned long long size = item.stat.size ;
-        if (size < 1024) {
-            value = size;
-            unit = @"B";
-            
-        } else if (size < 1048576) {
-            
-            value = size / 1024.f;
-            unit = @"KB";
-            
-        } else {
-            
-            value = size / 1048576.f;
-            unit = @"MB";
-        }
-        
-        detailTextLabel.text=[NSString stringWithFormat:@"%.1f%@",value,unit];
-        
-        //If is a image file , show it in cell's left .
-        if([arrayPictureTypes containsObject:[[smbFile.path pathExtension] lowercaseString]]
-           && smbFile.stat.size < 1.2 * 1024 * 1024)
-            //小于3M才加载
-            //加载图片太大时出错
-        {
-            //empty size
-            if(smbFile.stat.size == 0)
-            {
-                imageView.image = [UIImage imageNamed:@"Placeholder_null"];
-            }
-            else
-            {
-                if(_isScrolling)
-                {
-                    imageView.image = [UIImage imageNamed:@"Placeholder_null"];
-                }
-                else
-                {
-                    [self updateCellImage:cell Row:indexPath.row];
-                }
-            }
-            
-        }
-        else if ( [arrayMusicTypes containsObject:[[smbFile.path pathExtension] lowercaseString] ] )
-        {
-            imageView.image = [UIImage imageNamed:@"music.png"];
-        }
-        else if ( [arrayMovieTypes containsObject:[[smbFile.path pathExtension] lowercaseString] ] )
-        {
-            imageView.image = [UIImage imageNamed:@"video.png"];
-        }
-        else
-        {
-            imageView.image = _fileImage;
-        }
-        
+        value = size / 1048576.f;
+        unit = @"MB";
     }
-
+    
+    detailTextLabel.text=[NSString stringWithFormat:@"%.1f%@",value,unit];
+    
+    
+    imageView.image = [UIImage imageNamed:@"video.png"];
+    
+    
     
     return cell;
 }
