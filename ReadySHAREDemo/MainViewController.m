@@ -75,6 +75,7 @@
     
     self.navigationItem.rightBarButtonItems = @[ self.barReload];//self.barAuth
 
+    /*
     if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
     {
         self.viewLanscape.hidden=YES;
@@ -85,7 +86,7 @@
         self.viewLanscape.hidden=FALSE;
         self.viewPortrait.hidden=YES;
     }
-    
+    */
     
     [self figureOutRootPath];
     
@@ -122,6 +123,7 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    /*
     if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation))
     {
         self.viewLanscape.hidden=YES;
@@ -131,7 +133,7 @@
     {
         self.viewLanscape.hidden=false;
         self.viewPortrait.hidden=YES;
-    }
+    }*/
 }
 
 #pragma mark -
