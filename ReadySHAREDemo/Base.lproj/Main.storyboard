@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D130a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2eM-ZJ-zQh">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -1794,74 +1795,62 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="cez-8B-VGj">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                     </imageView>
-                                    <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrK-qC-irG">
-                                        <rect key="frame" x="180" y="88" width="120" height="120"/>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6bu-fd-4sL">
+                                        <rect key="frame" x="0.0" y="0.0" width="79" height="268"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="35g-kX-79P"/>
-                                            <constraint firstAttribute="height" constant="120" id="r7c-4L-XEj"/>
+                                            <constraint firstAttribute="width" constant="79" id="fU5-kx-ln0"/>
                                         </constraints>
-                                        <state key="normal" image="icon_video_nor.png">
+                                    </imageView>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LT6-vq-nfa">
+                                        <rect key="frame" x="0.0" y="268" width="79" height="268"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="79" id="dvO-d4-QCY"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrK-qC-irG">
+                                        <rect key="frame" x="49" y="160" width="243" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="243" id="m9B-nB-E5w"/>
+                                            <constraint firstAttribute="height" constant="100" id="t83-Vz-apn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
+                                        <state key="normal" title="电影 " backgroundImage="icon_video_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" image="icon_video_sel.png"/>
+                                        <state key="highlighted" title="电影" backgroundImage="icon_video_sel.png"/>
                                         <connections>
                                             <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="z7n-fV-Fnh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05M-mY-ArD">
-                                        <rect key="frame" x="300" y="88" width="120" height="120"/>
+                                    <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05M-mY-ArD">
+                                        <rect key="frame" x="312" y="160" width="111" height="100"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="4xU-jY-qLI"/>
-                                            <constraint firstAttribute="height" constant="120" id="Qnd-Ok-DbD"/>
+                                            <constraint firstAttribute="height" constant="100" id="Agx-v2-x2J"/>
+                                            <constraint firstAttribute="width" constant="111" id="BnD-1m-VCF"/>
                                         </constraints>
-                                        <state key="normal" image="icon_music_nor.png">
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
+                                        <state key="normal" title="音乐" backgroundImage="icon_music_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" image="icon_music_sel.png"/>
+                                        <state key="highlighted" title="音乐" backgroundImage="icon_music_sel.png"/>
                                         <connections>
                                             <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="z6a-hn-l1N"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vh5-20-bhJ">
-                                        <rect key="frame" x="180" y="208" width="120" height="120"/>
+                                    <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vh5-20-bhJ">
+                                        <rect key="frame" x="186" y="276" width="111" height="99"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="SmD-Rj-0DV"/>
-                                            <constraint firstAttribute="width" constant="120" id="s0w-Az-KYq"/>
+                                            <constraint firstAttribute="height" constant="99" id="3L6-qE-5az"/>
+                                            <constraint firstAttribute="width" constant="111" id="zBh-UT-Uza"/>
                                         </constraints>
-                                        <state key="normal" image="icon_photos_nor.png">
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
+                                        <state key="normal" title="照片" backgroundImage="icon_photos_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" image="icon_photos_sel.png"/>
+                                        <state key="highlighted" title="照片" backgroundImage="icon_photos_sel.png"/>
                                         <connections>
                                             <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="Xsd-Xw-ruh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1005" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gd-MM-4kA">
-                                        <rect key="frame" x="300" y="328" width="120" height="120"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="1Hw-xr-29t"/>
-                                            <constraint firstAttribute="height" constant="120" id="qbv-wv-XuC"/>
-                                        </constraints>
-                                        <state key="normal" image="icon_android_nor.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" image="icon_android_sel.png"/>
-                                        <connections>
-                                            <action selector="openBrowser" destination="wyG-mA-yyP" eventType="touchUpInside" id="GPQ-wc-2mM"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7r-b2-KsY">
-                                        <rect key="frame" x="180" y="328" width="120" height="120"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="fsW-al-OVx"/>
-                                            <constraint firstAttribute="height" constant="120" id="jAp-P9-gHc"/>
-                                        </constraints>
-                                        <state key="normal" image="icon_internet_nor.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" image="icon_internet_sel.png"/>
-                                        <connections>
-                                            <action selector="openMaps" destination="wyG-mA-yyP" eventType="touchUpInside" id="hBv-Vs-8Pa"/>
                                         </connections>
                                     </button>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hpi-nY-nL9">
@@ -1873,190 +1862,90 @@
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IMf-ga-I1u">
                                         <rect key="frame" x="300" y="0.0" width="300" height="39"/>
                                     </imageView>
-                                    <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byu-TI-rjC">
-                                        <rect key="frame" x="300" y="208" width="120" height="120"/>
+                                    <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byu-TI-rjC">
+                                        <rect key="frame" x="49" y="276" width="111" height="99"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="UzH-Do-trx"/>
-                                            <constraint firstAttribute="height" constant="120" id="tDN-Aw-ebZ"/>
+                                            <constraint firstAttribute="height" constant="99" id="kf8-mC-2pg"/>
+                                            <constraint firstAttribute="width" constant="111" id="p4k-8A-R2D"/>
                                         </constraints>
-                                        <state key="normal" image="icon_ebooks_nor.png">
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
+                                        <state key="normal" title="电子书" backgroundImage="icon_ebooks_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" image="icon_ebooks_sel.png"/>
+                                        <state key="highlighted" title="电子书" backgroundImage="icon_ebooks_sel.png"/>
                                         <connections>
                                             <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="vOK-Id-hCK"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" tag="1005" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gd-MM-4kA">
+                                        <rect key="frame" x="443" y="160" width="111" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="111" id="4JI-i5-S8Y"/>
+                                            <constraint firstAttribute="height" constant="100" id="t2G-xx-ska"/>
+                                        </constraints>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
+                                        <state key="normal" title="安卓" backgroundImage="icon_android_nor.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" title="安卓" backgroundImage="icon_android_sel.png"/>
+                                        <connections>
+                                            <action selector="openBrowser" destination="wyG-mA-yyP" eventType="touchUpInside" id="GPQ-wc-2mM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7r-b2-KsY">
+                                        <rect key="frame" x="322" y="276" width="232" height="99"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="232" id="8Vd-vW-uBW"/>
+                                            <constraint firstAttribute="height" constant="99" id="pxm-fn-jVE"/>
+                                        </constraints>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="6"/>
+                                        <state key="normal" title="网络" backgroundImage="icon_internet_nor.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" title="网络" backgroundImage="icon_internet_sel.png"/>
+                                        <connections>
+                                            <action selector="openMaps" destination="wyG-mA-yyP" eventType="touchUpInside" id="hBv-Vs-8Pa"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="hpi-nY-nL9" firstAttribute="trailing" secondItem="wrK-qC-irG" secondAttribute="trailing" id="1TG-1w-Hjw"/>
-                                    <constraint firstItem="IMf-ga-I1u" firstAttribute="leading" secondItem="3gd-MM-4kA" secondAttribute="leading" id="1Vu-5z-pQs"/>
+                                    <constraint firstItem="byu-TI-rjC" firstAttribute="top" secondItem="wrK-qC-irG" secondAttribute="bottom" constant="16" id="2Cz-3q-fAW"/>
                                     <constraint firstAttribute="trailing" secondItem="IMf-ga-I1u" secondAttribute="trailing" id="3p1-8W-XtL"/>
-                                    <constraint firstItem="vh5-20-bhJ" firstAttribute="top" secondItem="wrK-qC-irG" secondAttribute="bottom" id="5It-p3-fJf"/>
-                                    <constraint firstAttribute="centerY" secondItem="byu-TI-rjC" secondAttribute="centerY" id="7iV-WL-6dP"/>
                                     <constraint firstItem="cez-8B-VGj" firstAttribute="leading" secondItem="7TN-fY-Car" secondAttribute="leading" id="8U9-ka-weh"/>
-                                    <constraint firstAttribute="centerY" secondItem="vh5-20-bhJ" secondAttribute="centerY" id="8cg-CW-OYL"/>
-                                    <constraint firstItem="IMf-ga-I1u" firstAttribute="leading" secondItem="byu-TI-rjC" secondAttribute="leading" id="AyH-kr-C0v"/>
-                                    <constraint firstItem="3gd-MM-4kA" firstAttribute="top" secondItem="n7r-b2-KsY" secondAttribute="top" id="Aza-Ca-pek"/>
-                                    <constraint firstItem="byu-TI-rjC" firstAttribute="top" secondItem="05M-mY-ArD" secondAttribute="bottom" id="Ea4-Ru-Dh3"/>
+                                    <constraint firstItem="wrK-qC-irG" firstAttribute="trailing" secondItem="hpi-nY-nL9" secondAttribute="trailing" constant="-8" id="ATh-uQ-cbL"/>
                                     <constraint firstItem="IMf-ga-I1u" firstAttribute="bottom" secondItem="hpi-nY-nL9" secondAttribute="bottom" id="FaX-u9-tol"/>
-                                    <constraint firstItem="n7r-b2-KsY" firstAttribute="top" secondItem="vh5-20-bhJ" secondAttribute="bottom" id="FyF-9a-rIX"/>
-                                    <constraint firstItem="IMf-ga-I1u" firstAttribute="leading" secondItem="05M-mY-ArD" secondAttribute="leading" id="KbH-0e-yNa"/>
-                                    <constraint firstItem="hpi-nY-nL9" firstAttribute="trailing" secondItem="n7r-b2-KsY" secondAttribute="trailing" id="VWf-2h-QR7"/>
+                                    <constraint firstItem="LT6-vq-nfa" firstAttribute="top" secondItem="6bu-fd-4sL" secondAttribute="bottom" id="Gd5-gv-8qn"/>
+                                    <constraint firstItem="byu-TI-rjC" firstAttribute="leading" secondItem="wrK-qC-irG" secondAttribute="leading" id="Jhu-a8-Q96"/>
+                                    <constraint firstItem="6bu-fd-4sL" firstAttribute="leading" secondItem="7TN-fY-Car" secondAttribute="leading" id="Sai-mp-kzK"/>
                                     <constraint firstItem="IMf-ga-I1u" firstAttribute="top" secondItem="7TN-fY-Car" secondAttribute="top" id="VmX-1y-brT"/>
                                     <constraint firstItem="IMf-ga-I1u" firstAttribute="leading" secondItem="hpi-nY-nL9" secondAttribute="trailing" id="WNM-go-fhI"/>
                                     <constraint firstItem="hpi-nY-nL9" firstAttribute="top" secondItem="IMf-ga-I1u" secondAttribute="top" id="XfU-aM-8zh"/>
-                                    <constraint firstItem="hpi-nY-nL9" firstAttribute="trailing" secondItem="vh5-20-bhJ" secondAttribute="trailing" id="dm3-Iw-Ayq"/>
+                                    <constraint firstItem="LT6-vq-nfa" firstAttribute="leading" secondItem="7TN-fY-Car" secondAttribute="leading" id="cV6-SS-W8t"/>
+                                    <constraint firstItem="6bu-fd-4sL" firstAttribute="height" secondItem="LT6-vq-nfa" secondAttribute="height" id="dpB-ju-4Uf"/>
                                     <constraint firstItem="IMf-ga-I1u" firstAttribute="width" secondItem="hpi-nY-nL9" secondAttribute="width" id="eIt-WN-rwX"/>
+                                    <constraint firstItem="byu-TI-rjC" firstAttribute="top" secondItem="vh5-20-bhJ" secondAttribute="top" id="fnw-z7-iJH"/>
+                                    <constraint firstItem="wrK-qC-irG" firstAttribute="bottom" secondItem="6bu-fd-4sL" secondAttribute="bottom" constant="-8" id="iLz-FU-vuQ"/>
                                     <constraint firstAttribute="bottom" secondItem="cez-8B-VGj" secondAttribute="bottom" id="l9B-Ft-mGi"/>
+                                    <constraint firstItem="05M-mY-ArD" firstAttribute="leading" secondItem="wrK-qC-irG" secondAttribute="trailing" constant="20" id="p76-GZ-HXh"/>
                                     <constraint firstAttribute="trailing" secondItem="cez-8B-VGj" secondAttribute="trailing" id="qlf-H8-glG"/>
+                                    <constraint firstItem="wrK-qC-irG" firstAttribute="top" secondItem="3gd-MM-4kA" secondAttribute="top" id="sjv-hb-WII"/>
+                                    <constraint firstItem="vh5-20-bhJ" firstAttribute="leading" secondItem="byu-TI-rjC" secondAttribute="trailing" constant="26" id="tSI-mm-OWO"/>
                                     <constraint firstItem="cez-8B-VGj" firstAttribute="top" secondItem="7TN-fY-Car" secondAttribute="top" id="tTl-IG-ra1"/>
+                                    <constraint firstAttribute="bottom" secondItem="LT6-vq-nfa" secondAttribute="bottom" id="uit-5c-XQc"/>
+                                    <constraint firstItem="05M-mY-ArD" firstAttribute="top" secondItem="wrK-qC-irG" secondAttribute="top" id="vUd-ys-KM0"/>
+                                    <constraint firstItem="n7r-b2-KsY" firstAttribute="top" secondItem="byu-TI-rjC" secondAttribute="top" id="vab-zM-xRb"/>
                                     <constraint firstItem="hpi-nY-nL9" firstAttribute="leading" secondItem="7TN-fY-Car" secondAttribute="leading" id="yAc-Bw-GET"/>
-                                </constraints>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-EY-dDX">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="lkc-RT-Ig9">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
-                                    </imageView>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S6B-5G-K0j">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="268"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="600" id="7CJ-at-PwZ"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f2R-NR-GWW">
-                                        <rect key="frame" x="0.0" y="268" width="600" height="268"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="600" id="Zkz-LQ-53U"/>
-                                        </constraints>
-                                    </imageView>
-                                    <button opaque="NO" tag="1000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szt-M5-6iI">
-                                        <rect key="frame" x="119" y="148" width="120" height="120"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="5Km-Bb-yNq"/>
-                                            <constraint firstAttribute="height" constant="120" id="Lsw-8g-0fP"/>
-                                            <constraint firstAttribute="width" constant="120" id="WZv-Ih-X2v"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="huS-Op-ejy"/>
-                                        </constraints>
-                                        <state key="normal" image="icon_video_nor.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" image="icon_video_sel.png"/>
-                                        <connections>
-                                            <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="7C4-VI-Ri5"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1001" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hg6-Oa-6tY">
-                                        <rect key="frame" x="239" y="148" width="120" height="120"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="Akl-YD-kru"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="crW-uC-7mu"/>
-                                            <constraint firstAttribute="width" constant="120" id="tHw-y3-fiC"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="vra-X6-hXK"/>
-                                        </constraints>
-                                        <state key="normal" image="icon_music_nor.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" image="icon_music_sel.png"/>
-                                        <connections>
-                                            <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="sQ4-Kb-g6Y"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1002" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kC8-9X-odc">
-                                        <rect key="frame" x="358" y="148" width="120" height="120"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="NyX-F9-n9v"/>
-                                            <constraint firstAttribute="height" constant="120" id="qJ8-BD-QgC"/>
-                                        </constraints>
-                                        <state key="normal" image="icon_photos_nor.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" image="icon_photos_sel.png"/>
-                                        <connections>
-                                            <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="JSd-jK-HGt"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1003" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZc-vc-Aqa">
-                                        <rect key="frame" x="119" y="299" width="120" height="120"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="FWR-qi-0y4"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Nlz-qC-MGz"/>
-                                            <constraint firstAttribute="height" constant="120" id="UI9-Je-ZPI"/>
-                                            <constraint firstAttribute="width" constant="120" id="iLe-hJ-F0U"/>
-                                        </constraints>
-                                        <state key="normal" image="icon_ebooks_nor.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" image="icon_ebooks_sel.png"/>
-                                        <connections>
-                                            <action selector="btnClicked:" destination="wyG-mA-yyP" eventType="touchUpInside" id="kFW-Em-dXb"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1005" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XaN-hC-gis">
-                                        <rect key="frame" x="358" y="267" width="120" height="120"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="8mU-CY-jB7"/>
-                                            <constraint firstAttribute="width" constant="120" id="EBM-PL-AjP"/>
-                                            <constraint firstAttribute="height" constant="120" id="Q9j-lu-t0W"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="nCd-R9-dUS"/>
-                                        </constraints>
-                                        <state key="normal" image="icon_android_nor.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" image="icon_android_sel.png"/>
-                                    </button>
-                                    <button opaque="NO" tag="1004" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFk-eM-xGT">
-                                        <rect key="frame" x="239" y="267" width="120" height="120"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="2Te-dj-2YT"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="T80-1A-1OH"/>
-                                            <constraint firstAttribute="width" constant="120" id="ZTd-sZ-K8U"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="pRO-om-ALL"/>
-                                        </constraints>
-                                        <state key="normal" image="icon_internet_nor.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted" image="icon_internet_sel.png"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="SFk-eM-xGT" firstAttribute="top" secondItem="hg6-Oa-6tY" secondAttribute="bottom" constant="-1" id="0hu-2o-eQy"/>
-                                    <constraint firstItem="SFk-eM-xGT" firstAttribute="leading" secondItem="KZc-vc-Aqa" secondAttribute="trailing" id="4M8-2Y-VwB"/>
-                                    <constraint firstAttribute="trailing" secondItem="S6B-5G-K0j" secondAttribute="trailing" id="4kK-VJ-6Qc"/>
-                                    <constraint firstAttribute="centerX" secondItem="SFk-eM-xGT" secondAttribute="centerX" id="8K4-El-LSN"/>
-                                    <constraint firstItem="lkc-RT-Ig9" firstAttribute="top" secondItem="Gdw-EY-dDX" secondAttribute="top" id="A1w-lz-rTK"/>
-                                    <constraint firstItem="KZc-vc-Aqa" firstAttribute="top" secondItem="hg6-Oa-6tY" secondAttribute="bottom" id="HRW-it-dCV"/>
-                                    <constraint firstItem="XaN-hC-gis" firstAttribute="top" secondItem="SFk-eM-xGT" secondAttribute="top" id="Iwb-gi-odm"/>
-                                    <constraint firstItem="S6B-5G-K0j" firstAttribute="height" secondItem="f2R-NR-GWW" secondAttribute="height" id="NCs-Qg-pQT"/>
-                                    <constraint firstAttribute="bottom" secondItem="f2R-NR-GWW" secondAttribute="bottom" id="TVu-M6-HLb"/>
-                                    <constraint firstAttribute="centerX" secondItem="hg6-Oa-6tY" secondAttribute="centerX" id="WiM-rf-7jN"/>
-                                    <constraint firstItem="XaN-hC-gis" firstAttribute="leading" secondItem="SFk-eM-xGT" secondAttribute="trailing" constant="-1" id="X5r-EW-rmh"/>
-                                    <constraint firstItem="hg6-Oa-6tY" firstAttribute="leading" secondItem="szt-M5-6iI" secondAttribute="trailing" id="XNJ-rr-Cq6"/>
-                                    <constraint firstItem="f2R-NR-GWW" firstAttribute="top" secondItem="hg6-Oa-6tY" secondAttribute="bottom" id="c4f-Dq-BoE"/>
-                                    <constraint firstItem="kC8-9X-odc" firstAttribute="leading" secondItem="hg6-Oa-6tY" secondAttribute="trailing" constant="-1" id="cee-xR-ZyC"/>
-                                    <constraint firstItem="lkc-RT-Ig9" firstAttribute="leading" secondItem="Gdw-EY-dDX" secondAttribute="leading" id="dh3-kb-ukb"/>
-                                    <constraint firstItem="f2R-NR-GWW" firstAttribute="top" secondItem="kC8-9X-odc" secondAttribute="bottom" id="efd-FO-ql6"/>
-                                    <constraint firstItem="f2R-NR-GWW" firstAttribute="top" secondItem="S6B-5G-K0j" secondAttribute="bottom" id="gEk-Mi-Mo7"/>
-                                    <constraint firstItem="f2R-NR-GWW" firstAttribute="top" secondItem="szt-M5-6iI" secondAttribute="bottom" id="iEh-Yt-m2k"/>
-                                    <constraint firstItem="f2R-NR-GWW" firstAttribute="leading" secondItem="Gdw-EY-dDX" secondAttribute="leading" id="j7M-Eu-wH2"/>
-                                    <constraint firstAttribute="bottom" secondItem="lkc-RT-Ig9" secondAttribute="bottom" id="saE-g6-Twh"/>
-                                    <constraint firstAttribute="trailing" secondItem="lkc-RT-Ig9" secondAttribute="trailing" id="thH-uI-STr"/>
-                                    <constraint firstItem="S6B-5G-K0j" firstAttribute="top" secondItem="Gdw-EY-dDX" secondAttribute="top" id="x39-AJ-Too"/>
+                                    <constraint firstItem="3gd-MM-4kA" firstAttribute="leading" secondItem="05M-mY-ArD" secondAttribute="trailing" constant="20" id="zMZ-Pv-4zK"/>
+                                    <constraint firstItem="3gd-MM-4kA" firstAttribute="trailing" secondItem="n7r-b2-KsY" secondAttribute="trailing" id="zmW-DX-E3L"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="8TK-Og-OKd" firstAttribute="top" secondItem="Gdw-EY-dDX" secondAttribute="bottom" id="3jI-Bl-ySv"/>
-                            <constraint firstItem="Gdw-EY-dDX" firstAttribute="leading" secondItem="t13-YI-5pV" secondAttribute="leading" id="CIa-8m-pcP"/>
-                            <constraint firstAttribute="trailing" secondItem="Gdw-EY-dDX" secondAttribute="trailing" id="DF1-yQ-sg9"/>
-                            <constraint firstItem="Gdw-EY-dDX" firstAttribute="top" secondItem="t13-YI-5pV" secondAttribute="top" id="Lec-YJ-Jj5"/>
                             <constraint firstItem="7TN-fY-Car" firstAttribute="top" secondItem="t13-YI-5pV" secondAttribute="top" id="SVB-2W-KTM"/>
                             <constraint firstAttribute="trailing" secondItem="7TN-fY-Car" secondAttribute="trailing" id="VQP-3I-rFk"/>
+                            <constraint firstItem="6bu-fd-4sL" firstAttribute="top" secondItem="ff6-vg-7UF" secondAttribute="bottom" id="h14-k2-IvS"/>
                             <constraint firstAttribute="bottom" secondItem="7TN-fY-Car" secondAttribute="bottom" id="jgc-Ku-kiU"/>
                             <constraint firstItem="7TN-fY-Car" firstAttribute="leading" secondItem="t13-YI-5pV" secondAttribute="leading" id="qtB-Pg-EKz"/>
                         </constraints>
@@ -2064,24 +1953,17 @@
                     <navigationItem key="navigationItem" id="9fv-LK-0q0"/>
                     <connections>
                         <outlet property="btnBook" destination="byu-TI-rjC" id="LGa-I0-ZU6"/>
-                        <outlet property="btnBook2" destination="KZc-vc-Aqa" id="UbQ-xG-eIn"/>
                         <outlet property="btnFileBrowse" destination="3gd-MM-4kA" id="L3Q-eE-Q5b"/>
-                        <outlet property="btnFileBrowse2" destination="XaN-hC-gis" id="dkx-rz-sog"/>
                         <outlet property="btnInternet" destination="n7r-b2-KsY" id="LbE-7i-Yka"/>
-                        <outlet property="btnInternet2" destination="SFk-eM-xGT" id="dWm-ve-f8p"/>
                         <outlet property="btnMovie" destination="wrK-qC-irG" id="mad-Ng-WEr"/>
-                        <outlet property="btnMovie2" destination="szt-M5-6iI" id="ZVt-GG-KdE"/>
                         <outlet property="btnMusic" destination="05M-mY-ArD" id="7Jb-xg-BBu"/>
-                        <outlet property="btnMusic2" destination="hg6-Oa-6tY" id="4Mx-y6-ewm"/>
                         <outlet property="btnPhoto" destination="vh5-20-bhJ" id="WBs-MZ-9wu"/>
-                        <outlet property="btnPhoto2" destination="kC8-9X-odc" id="OEC-PS-N27"/>
-                        <outlet property="viewLanscape" destination="Gdw-EY-dDX" id="TIb-jn-7uT"/>
                         <outlet property="viewPortrait" destination="7TN-fY-Car" id="JiM-R9-9je"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mWB-0g-6zK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4468" y="-656"/>
+            <point key="canvasLocation" x="-4537" y="-661"/>
         </scene>
     </scenes>
     <resources>
