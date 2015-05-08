@@ -23,6 +23,9 @@
 #import "constStrings.h"
 #import "MBProgressHUD+Add.h"
 
+#import "PlayerMessage.h"
+#import "PlayerEngine.h"
+
 /**
  * in iphone.os.sdk ==> #define TARGET_IPHONE_SIMULATOR     0
  * in iphone.simulator.sdk ==> #define TARGET_IPHONE_SIMULATOR     1
@@ -116,6 +119,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     
     long   _lastDownloadedBytes;
+    
+    NSMutableData * _md;
     
 #if !(TARGET_IPHONE_SIMULATOR)
     VDLViewController *_vcMoviePlayer;
@@ -507,6 +512,57 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     }
 }
 
+-(void)updateProgressLabel
+{
+    NSTimeInterval time = -[_timestamp timeIntervalSinceNow];
+    
+    
+    _downloadProgress.progress = (float)_downloadedBytes / (float)_smbFile.stat.size;
+    
+    CGFloat value;
+    NSString *unit;
+    
+    
+    if (_downloadedBytes < _smbFile.stat.size)
+    {
+        
+        
+        if (_downloadedBytes < 1024) {
+            
+            value = _downloadedBytes;
+            unit = @"B";
+            
+        } else if (_downloadedBytes < 1048576) {
+            
+            value = _downloadedBytes / 1024.f;
+            unit = @"KB";
+            
+        } else {
+            value = _downloadedBytes / 1048576.f;
+            unit = @"MB";
+        }
+        
+        NSTimeInterval timeRequire = (_smbFile.stat.size - _downloadedBytes) * time / _downloadedBytes ;
+        
+        // downloaded d(S) c(P) c(s)
+        _downloadLabel.text = [NSString stringWithFormat
+                               :NSLocalizedString(@"downloaded %.1f%@ (%.1f%%) %.2f%@s      require %@",nil),
+                               value, unit,
+                               _downloadProgress.progress * 100.f,
+                               value / time, unit  , stringFromTimeInterval(timeRequire)];
+    }
+    else
+    {
+        //download complete
+        _downloadLabel.text =[NSString stringWithFormat:
+                              NSLocalizedString(@"download completed in %@",nil) , stringFromTimeInterval(time) ];
+    }
+    
+    
+    
+    //[_fileHandle synchronizeFile];
+}
+
 -(void) updateDownloadStatus: (id) result
 {
     if ([result isKindOfClass:[NSError class]]) {
@@ -532,7 +588,13 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
             }
             else
             {
-                self.navigationItem.title=NSLocalizedString(@"File is Empty",nil);
+                //提醒用户文件为空
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.labelText = NSLocalizedString(@"File is Empty",nil);
+                // 再设置模式
+                hud.mode = MBProgressHUDModeCustomView;
+                // 隐藏时候从父控件中移除
+                hud.removeFromSuperViewOnHide = YES;
                 
                 
                 _downloadLabel.text = nil ;
@@ -543,41 +605,24 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
             }
         } else
         {
-            NSTimeInterval time = -[_timestamp timeIntervalSinceNow];
-            
             _downloadedBytes += data.length;
-            _downloadProgress.progress = (float)_downloadedBytes / (float)_smbFile.stat.size;
-            
-            CGFloat value;
-            NSString *unit;
-            
-            if (_downloadedBytes < 1024) {
-                
-                value = _downloadedBytes;
-                unit = @"B";
-                
-            } else if (_downloadedBytes < 1048576) {
-                
-                value = _downloadedBytes / 1024.f;
-                unit = @"KB";
-                
-            } else {
-                
-                value = _downloadedBytes / 1048576.f;
-                unit = @"MB";
-            }
-            
-            
+
             if (_fileHandle)
             {
-                
-                _downloadLabel.text = [NSString stringWithFormat:@"downloaded %.1f%@ (%.1f%%) %.2f%@s",
-                                       value, unit,
-                                       _downloadProgress.progress * 100.f,
-                                       value / time, unit];
+                //下载 完毕
+                if(_downloadedBytes == _smbFile.stat.size) {
+                    [self updateProgressLabel];
+                    [self closeFiles];
+                    [self downloadComplete];
+                    
+                } else
+                {
+                    //[self download];
+                    [self updateProgressLabel];
+                }
                 
                 [_fileHandle writeData:data];
-                [_fileHandle synchronizeFile];
+                
                 
                 //下载 完毕
                 if(_downloadedBytes == _smbFile.stat.size) {
@@ -590,7 +635,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
                     }
                 } else
                 {
-                    [self download];
+                    [self updateProgressLabel];
                 }
                
                 
@@ -764,17 +809,59 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 
 
+-(void)downloadThread
+{
+    NSCondition *condition ;
+    condition = [[NSCondition alloc]init];
+    
+    _md = [NSMutableData data];
+    
+    static BOOL bEnd ;
+    bEnd = FALSE;
+    
+    [_smbFile readDataToEndOfFileEx:_md condition:condition bEnd:&bEnd];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    while (1)
+    {
+        if (!weakSelf || [self isViewRemoved] )
+        {
+            bEnd = READ_DATA_FLAG_END;
+            _md  = nil ;
+            if(_fileHandle)
+                [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
+            
+            [self closeFiles];
+            break;
+        }
+        
+        [condition lock];
+        
+        while (bEnd<=0)
+            [condition wait];
+        
+        if (bEnd--==READ_DATA_FLAG_END)
+        {
+            [self performSelectorOnMainThread:@selector(updateDownloadStatus:) withObject:_md waitUntilDone:FALSE];
+            [condition unlock];
+            break;
+        }
+        else
+        {
+            NSMutableData *data = [NSMutableData dataWithData:_md];
+            [self performSelectorOnMainThread:@selector(updateDownloadStatus:) withObject:data waitUntilDone:FALSE];
+            
+            [condition unlock];
+        }
+    }
+    
+}
+
+
 - (void) download
 {
-    __weak __typeof(self) weakSelf = self;
-    [_smbFile readDataOfLength:32768
-                         block:^(id result)
-     {
-         FileViewController *p = weakSelf;
-         if (p) {
-             [p updateDownloadStatus:result];
-         }
-     }];
+    [self performSelectorInBackground:@selector(downloadThread) withObject:nil];
 }
 
 
@@ -817,6 +904,11 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 #if !(TARGET_IPHONE_SIMULATOR)
     if(httpfileUrl)
         return;
+    
+    // Pause music playing when play video.
+    if ([[PlayerEngine shared] isPlaying])
+        postEvent(EventID_to_play_pause_resume, nil);
+    
     
     httpfileUrl = [NSURL fileURLWithPath:_filePath];
     float ivW=self.view.frame.size.width,ivH=self.view.frame.size.height- 150;
