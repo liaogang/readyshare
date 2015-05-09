@@ -17,8 +17,27 @@
 #import "MusicViewController.h"
 #import "smbCollectionView.h"
 
+@interface UINavigationControllerMy : UINavigationController
+-(BOOL)shouldAutorotate;
+-(NSUInteger)supportedInterfaceOrientations;
 
+@end
 
+@implementation UINavigationControllerMy
+-(BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+        return UIInterfaceOrientationMaskAll;
+    else
+        return UIInterfaceOrientationMaskLandscape;
+}
+
+@end
 
 @interface MainViewController ()
 <KxSMBProviderDelegate>
@@ -65,7 +84,7 @@
     
     self.barReload = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(figureOutRootPath)];
     
-    self.navigationItem.rightBarButtonItems = @[ self.barReload];//self.barAuth
+    self.navigationItem.rightBarButtonItem =  self.barReload;
 
 
     
@@ -73,7 +92,20 @@
 
 }
 
+#pragma mark - UIViewControllerRotation
 
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+        return UIInterfaceOrientationMaskAll;
+    else
+        return UIInterfaceOrientationMaskLandscape;
+}
 
 #pragma mark -
 -(void)updateBtnState
