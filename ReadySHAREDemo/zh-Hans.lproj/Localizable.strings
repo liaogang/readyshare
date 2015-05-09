@@ -70,3 +70,5 @@
 "SMB No Space left on device" = "设备没有足够的空间";
 "SMB Operation Timed Out" = "操作超时";
 //readyshare
+
+"downloaded " = "缓冲中";
