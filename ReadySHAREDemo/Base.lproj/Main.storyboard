@@ -1761,10 +1761,11 @@
             </objects>
             <point key="canvasLocation" x="-3823" y="-481"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller My-->
         <scene sceneID="4pc-XX-Z8E">
             <objects>
-                <navigationController id="2eM-ZJ-zQh" sceneMemberID="viewController">
+                <navigationController id="2eM-ZJ-zQh" customClass="UINavigationControllerMy" sceneMemberID="viewController">
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="aXJ-3e-pQX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1775,7 +1776,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bvj-g7-ZLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5218" y="-656"/>
+            <point key="canvasLocation" x="-5407" y="-807"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hYl-hh-80h">
