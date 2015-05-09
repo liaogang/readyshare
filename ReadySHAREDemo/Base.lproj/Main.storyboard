@@ -93,6 +93,9 @@
                                         <exclude reference="vg6-XA-ecg"/>
                                     </mask>
                                 </variation>
+                                <variation key="heightClass=compact" ambiguous="YES">
+                                    <rect key="frame" x="0.0" y="-64" width="0.0" height="0.0"/>
+                                </variation>
                                 <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="16" y="19" width="176" height="373"/>
                                     <mask key="constraints">

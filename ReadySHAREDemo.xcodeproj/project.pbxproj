@@ -224,7 +224,6 @@
 		9A034F081AFCAF7900AD5C99 /* Reader-Print@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A034EED1AFCAF7900AD5C99 /* Reader-Print@2x.png */; };
 		9A034F091AFCAF7900AD5C99 /* Reader-Thumbs.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A034EEE1AFCAF7900AD5C99 /* Reader-Thumbs.png */; };
 		9A034F0A1AFCAF7900AD5C99 /* Reader-Thumbs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A034EEF1AFCAF7900AD5C99 /* Reader-Thumbs@2x.png */; };
-		9A034F0C1AFCBB0A00AD5C99 /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A034F0B1AFCBB0A00AD5C99 /* Images-2.xcassets */; };
 		9A1D669E1ADA6B2D00A84B41 /* book_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D665F1ADA6B2D00A84B41 /* book_background.png */; };
 		9A1D669F1ADA6B2D00A84B41 /* cd_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D66601ADA6B2D00A84B41 /* cd_bg.png */; };
 		9A1D66A01ADA6B2D00A84B41 /* cd_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1D66611ADA6B2D00A84B41 /* cd_icon.png */; };
@@ -619,7 +618,6 @@
 		9A034EED1AFCAF7900AD5C99 /* Reader-Print@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Reader-Print@2x.png"; path = "Reader/Graphics/Reader-Print@2x.png"; sourceTree = "<group>"; };
 		9A034EEE1AFCAF7900AD5C99 /* Reader-Thumbs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Reader-Thumbs.png"; path = "Reader/Graphics/Reader-Thumbs.png"; sourceTree = "<group>"; };
 		9A034EEF1AFCAF7900AD5C99 /* Reader-Thumbs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Reader-Thumbs@2x.png"; path = "Reader/Graphics/Reader-Thumbs@2x.png"; sourceTree = "<group>"; };
-		9A034F0B1AFCBB0A00AD5C99 /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
 		9A1D665F1ADA6B2D00A84B41 /* book_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = book_background.png; path = Resource/book_background.png; sourceTree = "<group>"; };
 		9A1D66601ADA6B2D00A84B41 /* cd_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_bg.png; path = Resource/cd_bg.png; sourceTree = "<group>"; };
 		9A1D66611ADA6B2D00A84B41 /* cd_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cd_icon.png; path = Resource/cd_icon.png; sourceTree = "<group>"; };
@@ -1096,7 +1094,6 @@
 				1E3853651AEF92EB004E6A8B /* Photo */,
 				1E47071E1ACD44470052D2EF /* Images.xcassets */,
 				1E4707201ACD44470052D2EF /* LaunchScreen.xib */,
-				9A034F0B1AFCBB0A00AD5C99 /* Images-2.xcassets */,
 				1E4707111ACD44470052D2EF /* Supporting Files */,
 			);
 			path = ReadySHAREDemo;
@@ -1535,7 +1532,6 @@
 				9A1D66D21ADA6B2D00A84B41 /* seek_sel.9.png in Resources */,
 				9A1D66D61ADA6B2D00A84B41 /* volume_level_01.png in Resources */,
 				9A034EFB1AFCAF7900AD5C99 /* Reader-Button-H.png in Resources */,
-				9A034F0C1AFCBB0A00AD5C99 /* Images-2.xcassets in Resources */,
 				9A1D66BF1ADA6B2D00A84B41 /* mode_order_nor.png in Resources */,
 				1E3977CF1ACD4C4C0049E391 /* slidermaximumTrack.png in Resources */,
 				9A034F061AFCAF7900AD5C99 /* Reader-Mark-Y@2x.png in Resources */,

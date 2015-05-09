@@ -17,6 +17,10 @@
 
 @interface bookViewController ()<ReaderViewControllerDelegate>
 @property (nonatomic,strong) NSArray *files;// KxSMBItemFile
+
+@property (nonatomic,assign) int itemPerLine,
+    sections, // 排满的行数
+    left;
 @end
 
 @implementation bookViewController
@@ -29,18 +33,18 @@ static NSString * const reuseIdentifier = @"bookCell";
     
     
     self.files = [[RootData shared]getDataOfCurrMediaTypeVerifyFiltered];
+    
+    
+
 }
 
--(int)itemPerLine
+-(int)calcItemPerLine
 {
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
     
-    
     int s = layout.itemSize.width + layout.minimumInteritemSpacing;
     
-    
     int itemPerLine = (self.view.bounds.size.width - layout.sectionInset.left - layout.sectionInset.right - layout.minimumInteritemSpacing) / s;
-    
     
     return itemPerLine;
 }
@@ -55,37 +59,44 @@ static NSString * const reuseIdentifier = @"bookCell";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
+    int count = self.files.count;
+    self.itemPerLine = [self calcItemPerLine];
+    self.sections = (count / self.itemPerLine ) ;
+    self.left = count - self.sections  * self.itemPerLine ;
+    
+    NSLog(@"Reload===> itemPerLine: %d, section: %d, left: %d",_itemPerLine,_sections,_left);
+    
+    
     [self.collectionViewLayout invalidateLayout];
 
     if (self.files.count == 0) {
         return 0;
     }
     
-    int itemPerLine = [self itemPerLine];
-    int sections = (self.files.count / itemPerLine ) ;
-    int left = self.files.count - sections  * itemPerLine ;
-    
-    return sections + (left == 0 ? 0 : 1);
+    return self.sections + (self.left == 0 ? 0 : 1);
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
-    int itemPerLine = [self itemPerLine];
-    int sections = (self.files.count / itemPerLine ) + 1;
-    int left = self.files.count - (sections - 1)  * itemPerLine ;
-    
-    if ( section + 1 == sections )
-        return left;
+    if ( section == self.sections )
+        return self.left;
     else
-        return itemPerLine;
+        return self.itemPerLine;
 }
 
+-(int)indexFromIndexPath:(NSIndexPath*)indexPath
+{
+    return indexPath.row + indexPath.section * self.itemPerLine;
+}
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     bookCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    int index = indexPath.row + indexPath.section * [self itemPerLine];
+    
+    
+    int index = [self indexFromIndexPath:indexPath];
+    
+    NSLog(@"section: %d,row: %d,index: %d",indexPath.section,indexPath.row,index);
     
     KxSMBItemFile *file = self.files[index];
     
@@ -100,7 +111,7 @@ static NSString * const reuseIdentifier = @"bookCell";
 {
     [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     
-    KxSMBItemFile *file = self.files[indexPath.row];
+    KxSMBItemFile *file = self.files[[self indexFromIndexPath:indexPath]];
     
     UIActivityIndicatorView *av = [[UIActivityIndicatorView alloc]init];
     av.center=self.view.center;
@@ -116,20 +127,8 @@ static NSString * const reuseIdentifier = @"bookCell";
         {
             NSString *localFilePath = result;
             
-//            if ([PdfPreviewViewController canPreviewItem:[NSURL fileURLWithPath: localFilePath]])
-//            {
-//                PdfPreviewViewController *pdf =[[PdfPreviewViewController alloc]initWithFilePaths:@[[NSURL fileURLWithPath: localFilePath]]];
-//                
-//                [self.navigationController pushViewController:pdf animated:YES];
-//            }
             
             NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
-            
-            NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:@"pdf" inDirectory:nil];
-            
-            NSString *filePath = [pdfs firstObject]; assert(filePath != nil); // Path to first PDF file
-            
-            //ReaderDocument *document = [ReaderDocument withDocumentFilePath:filePath password:phrase];
             
             ReaderDocument *document = [ReaderDocument withDocumentFilePath:localFilePath password:phrase];
             
@@ -154,7 +153,7 @@ static NSString * const reuseIdentifier = @"bookCell";
             }
             else // Log an error so that we know that something went wrong
             {
-                NSLog(@"%s [ReaderDocument withDocumentFilePath:'%@' password:'%@'] failed.", __FUNCTION__, filePath, phrase);
+//                NSLog(@"%s [ReaderDocument withDocumentFilePath:'%@' password:'%@'] failed.", __FUNCTION__, filePath, phrase);
             }
 
             
