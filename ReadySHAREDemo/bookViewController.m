@@ -21,6 +21,8 @@
 @property (nonatomic,assign) int itemPerLine,
     sections, // 排满的行数
     left;
+
+@property (nonatomic,assign) BOOL isLoading;
 @end
 
 @implementation bookViewController
@@ -30,12 +32,7 @@ static NSString * const reuseIdentifier = @"bookCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
     self.files = [[RootData shared]getDataOfCurrMediaTypeVerifyFiltered];
-    
-    
-
 }
 
 -(int)calcItemPerLine
@@ -64,7 +61,6 @@ static NSString * const reuseIdentifier = @"bookCell";
     self.sections = (count / self.itemPerLine ) ;
     self.left = count - self.sections  * self.itemPerLine ;
     
-    NSLog(@"Reload===> itemPerLine: %d, section: %d, left: %d",_itemPerLine,_sections,_left);
     
     
     [self.collectionViewLayout invalidateLayout];
@@ -92,11 +88,7 @@ static NSString * const reuseIdentifier = @"bookCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     bookCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    
-    
     int index = [self indexFromIndexPath:indexPath];
-    
-    NSLog(@"section: %d,row: %d,index: %d",indexPath.section,indexPath.row,index);
     
     KxSMBItemFile *file = self.files[index];
     
@@ -109,62 +101,99 @@ static NSString * const reuseIdentifier = @"bookCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.isLoading == true) {
+        return;
+    }
+    
+    
     [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     
     KxSMBItemFile *file = self.files[[self indexFromIndexPath:indexPath]];
     
-    UIActivityIndicatorView *av = [[UIActivityIndicatorView alloc]init];
+    UIActivityIndicatorView *av = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     av.center=self.view.center;
+    av.autoresizingMask = ~0;
     [av startAnimating];
     [self.view addSubview:av];
     
-    [[RootData shared] getSmbFileCached:file callback:^(id result)
-    {
-        [av stopAnimating];
-        [av removeFromSuperview];
-        
-        if ([result isKindOfClass:[NSString class]])
-        {
-            NSString *localFilePath = result;
-            
-            
-            NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
-            
-            ReaderDocument *document = [ReaderDocument withDocumentFilePath:localFilePath password:phrase];
-            
-            if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
-            {
-                ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
-                
-                readerViewController.delegate = self; // Set the ReaderViewCont`roller delegate to self
-                
-#if (DEMO_VIEW_CONTROLLER_PUSH == TRUE)
-                
-                [self.navigationController pushViewController:readerViewController animated:YES];
-                
-#else // present in a modal view controller
-                
-                readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
-                
-                [self presentViewController:readerViewController animated:YES completion:NULL];
-                
-#endif // DEMO_VIEW_CONTROLLER_PUSH
-            }
-            else // Log an error so that we know that something went wrong
-            {
-//                NSLog(@"%s [ReaderDocument withDocumentFilePath:'%@' password:'%@'] failed.", __FUNCTION__, filePath, phrase);
-            }
 
-            
-        }
-        else
-        {
-            NSError *error = result;
-            NSString *shortName = [file.path.lastPathComponent stringByDeletingPathExtension];
-            [[[UIAlertViewBlock alloc]initWithTitle: [NSString stringWithFormat: NSLocalizedString(@"Error downloading file: %@", nil) , shortName] message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
-        }
-    }];
+    
+    self.isLoading = true;
+    
+    NSLog(@"start Loading.");
+    __weak typeof (self) weakSelf = self;
+    __weak typeof (av) weakAv = av;
+    [[RootData shared] getSmbFileCached:file callback:^(id result)
+     {
+         NSLog(@"stop Loading.");
+         
+         if (weakSelf)
+         {
+             weakSelf.isLoading = false;
+             
+             [weakAv stopAnimating];
+             [weakAv removeFromSuperview];
+             
+             
+             if ([result isKindOfClass:[NSString class]])
+             {
+                 NSString *localFilePath = result;
+                 
+                 
+                 // Pdf ? txt,doc ?
+                 if ([localFilePath.lastPathComponent.pathExtension.lowercaseString isEqualToString:@"pdf"])
+                 {
+                     NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
+                     
+                     ReaderDocument *document = [ReaderDocument withDocumentFilePath:localFilePath password:phrase];
+                     
+                     if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
+                     {
+                         ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
+                         
+                         readerViewController.delegate = weakSelf; // Set the ReaderViewCont`roller delegate to self
+                         
+#if (DEMO_VIEW_CONTROLLER_PUSH == TRUE)
+                         
+                         [self.navigationController pushViewController:readerViewController animated:YES];
+                         
+#else // present in a modal view controller
+                         
+                         readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                         readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+                         
+                         [weakSelf presentViewController:readerViewController animated:YES completion:NULL];
+                         
+#endif // DEMO_VIEW_CONTROLLER_PUSH
+                     }
+                     else // Log an error so that we know that something went wrong
+                     {
+                         //                NSLog(@"%s [ReaderDocument withDocumentFilePath:'%@' password:'%@'] failed.", __FUNCTION__, filePath, phrase);
+                     }
+                     
+                 }
+                 else
+                 {
+                     if ([PdfPreviewViewController canPreviewItem:[NSURL fileURLWithPath: localFilePath]])
+                     {
+                         PdfPreviewViewController *pdf =[[PdfPreviewViewController alloc]initWithFilePaths:@[[NSURL fileURLWithPath: localFilePath]]];
+                         
+                         [weakSelf.navigationController pushViewController:pdf animated:YES];
+                     }
+                 }
+                 
+                 
+                 
+                 
+             }
+             else
+             {
+                 NSError *error = result;
+                 NSString *shortName = [file.path.lastPathComponent stringByDeletingPathExtension];
+                 [[[UIAlertViewBlock alloc]initWithTitle: [NSString stringWithFormat: NSLocalizedString(@"Error downloading file: %@", nil) , shortName] message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
+             }
+         }
+     }];
     
 
 }
