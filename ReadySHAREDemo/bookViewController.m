@@ -61,7 +61,11 @@ static NSString * const reuseIdentifier = @"bookCell";
         return 0;
     }
     
-    return 1 + self.files.count / [self itemPerLine];
+    int itemPerLine = [self itemPerLine];
+    int sections = (self.files.count / itemPerLine ) ;
+    int left = self.files.count - sections  * itemPerLine ;
+    
+    return sections + (left == 0 ? 0 : 1);
 }
 
 
