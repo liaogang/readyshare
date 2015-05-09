@@ -24,6 +24,7 @@
 @end
 
 @implementation UINavigationControllerMy
+/*
 -(BOOL)shouldAutorotate
 {
     return YES;
@@ -35,6 +36,23 @@
         return UIInterfaceOrientationMaskAll;
     else
         return UIInterfaceOrientationMaskLandscape;
+}
+ */
+
+
+-(BOOL)shouldAutorotate
+{
+    return [[self.viewControllers lastObject] shouldAutorotate];
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return [[self.viewControllers lastObject] supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return [[self.viewControllers lastObject] preferredInterfaceOrientationForPresentation];
 }
 
 @end
@@ -94,6 +112,20 @@
 
 #pragma mark - UIViewControllerRotation
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    // Iphone 下强制横屏
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        if ( UIInterfaceOrientationIsPortrait (self.interfaceOrientation ) )
+        {
+            NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+        }
+    }
+    
+}
+
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -106,6 +138,8 @@
     else
         return UIInterfaceOrientationMaskLandscape;
 }
+
+
 
 #pragma mark -
 -(void)updateBtnState
