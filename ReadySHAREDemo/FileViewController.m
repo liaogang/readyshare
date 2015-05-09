@@ -463,8 +463,10 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         NSTimeInterval timeRequire = (_smbFile.stat.size - _downloadedBytes) * time / _downloadedBytes ;
         
         // downloaded d(S) c(P) c(s)
+        
         _downloadLabel.text = [NSString stringWithFormat
-                               :NSLocalizedString(@"downloaded %.1f%@ (%.1f%%) %.2f%@s      require %@",nil),
+                               :NSLocalizedString(@"%@ %.1f%@ (%.1f%%) %.2f%@s      require %@",nil),
+                               NSLocalizedString(@"downloaded ", nil),
                                value, unit,
                                _downloadProgress.progress * 100.f,
                                value / time, unit  , stringFromTimeInterval(timeRequire)];
