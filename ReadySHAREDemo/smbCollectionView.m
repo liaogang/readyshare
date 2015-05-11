@@ -196,19 +196,23 @@ CGSize szCoverIphone ={260.,300.};
     
     cell.label.text =  smbItem.path.lastPathComponent;
     
-    
-    
+
     //is scaledimage cached?
     UIImage *scaledImage = scaledImages[indexPath.row];
     if( [scaledImage isKindOfClass:[UIImage class]])
     {
         [cell.imageV setImage:scaledImage ];
     }
-    else
-    {
-    __block __weak Cell2 *_weakCell = cell;
+    
+    return cell;
+}
 
-    [cell.imageV  setImageWithSmbFile:smbItem placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(8_0)
+{
+    KxSMBItemFile *smbItem = _smbItemFiles [indexPath.row];
+    __block __weak Cell2 *_weakCell = (Cell2*)cell;
+    
+    [_weakCell.imageV  setImageWithSmbFile:smbItem placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         if(_weakCell )
         {
             if (image)
@@ -234,9 +238,6 @@ CGSize szCoverIphone ={260.,300.};
             }
         }
     } needRefresh:NO];
-    }
-    
-    return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
