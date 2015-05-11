@@ -48,16 +48,6 @@
     self.view.frame = [UIScreen mainScreen].bounds;
     
     //by lg
-    BOOL isLandscape = UIDeviceOrientationIsLandscape(self.interfaceOrientation);
-    if(isLandscape){
-        CGRect rc = self.view.frame;
-        CGSize sz = rc.size;
-        sz.width=sz.height;
-        sz.height=rc.size.width;
-        rc.size=sz;
-        [self.view setFrame:rc];
-    }
-    
 	self.view.backgroundColor = [UIColor clearColor];
     self.view.autoresizingMask=~0;
 }
@@ -110,6 +100,7 @@
 - (void)show:(UIViewController*)vc
 {
     [vc.view addSubview:self.view];
+//    [self.view setFrame:vc.view.bounds];
     [vc addChildViewController:self];
     
     
