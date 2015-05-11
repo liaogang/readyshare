@@ -12,7 +12,6 @@
 #import "PlayerEngine.h"
 #import "PlayerMessage.h"
 
-
 @interface PlayerEngine ()
 {
     PlayState _state;
@@ -360,16 +359,17 @@
 @end
 
 
-int getNext(enum PlayOrder order , int curr , int from , int to)
+int getNext(enum PlayOrder order , int curr , int lower , int upper
+)
 {
     if (order == playorder_single)
     {
-        return to - 1;
+        return lower - 1;
     }
     else if (order == playorder_default)
     {
-        if (curr + 1 == to)
-            return from - 1;
+        if (curr + 1 == upper)
+            return lower - 1;
         else
             return curr +1;
     }
@@ -379,9 +379,7 @@ int getNext(enum PlayOrder order , int curr , int from , int to)
         if(s++==0)
             srand((uint )time(NULL));
         
-        int r = rand();
-        int result = (r % (to - from) )+ to - 1;
-        return result;
+        return rand() % (upper - lower) + lower - 1;
     }
     else if(order == playorder_repeat_single)
     {
@@ -389,8 +387,8 @@ int getNext(enum PlayOrder order , int curr , int from , int to)
     }
     else if(order == playorder_repeat_list)
     {
-        if (curr +1 == to)
-            return from;
+        if (curr +1 == upper)
+            return lower;
         else
             return curr +1;
     }
