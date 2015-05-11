@@ -57,6 +57,11 @@ CGSize szCoverIphone ={260.,300.};
 
 @implementation smbCollectionViewController
 
+-(void)dealloc
+{
+    [[SDWebImageManager sharedManager] cancelAll];
+}
+
 -(void)didReceiveMemoryWarning
 {
     [self.navigationController dismissViewControllerAnimated:NO completion:nil];
@@ -211,6 +216,8 @@ CGSize szCoverIphone ={260.,300.};
 {
     KxSMBItemFile *smbItem = _smbItemFiles [indexPath.row];
     __block __weak Cell2 *_weakCell = (Cell2*)cell;
+    
+    NSLog(@"start download: %@",smbItem);
     
     [_weakCell.imageV  setImageWithSmbFile:smbItem placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         if(_weakCell )
