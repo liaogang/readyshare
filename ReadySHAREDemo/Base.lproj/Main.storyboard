@@ -300,7 +300,7 @@
                                             <constraint firstAttribute="width" constant="24" id="rJj-lE-f96"/>
                                             <constraint firstAttribute="width" constant="24" id="xEx-gY-3Sn"/>
                                         </constraints>
-                                        <state key="normal" title="Random" image="mode_random_nor.png"/>
+                                        <state key="normal" image="mode_random_nor.png"/>
                                         <state key="selected" image="mode_random_sel.png"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -489,7 +489,7 @@
                                             <constraint firstAttribute="height" constant="24" id="ggJ-AT-Z8t"/>
                                             <constraint firstAttribute="height" constant="24" id="rif-1L-JAN"/>
                                         </constraints>
-                                        <state key="normal" title="Order" image="mode_order_nor.png">
+                                        <state key="normal" image="mode_order_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="mode_order_sel.png"/>
@@ -608,7 +608,7 @@
                                             <constraint firstAttribute="height" constant="24" id="ObP-zo-kPK"/>
                                             <constraint firstAttribute="width" constant="24" id="aii-gk-I8D"/>
                                         </constraints>
-                                        <state key="normal" title="Single" image="mode_single_nor.png">
+                                        <state key="normal" image="mode_single_nor.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="mode_single_sel.png"/>
