@@ -48,6 +48,8 @@ CGSize szCoverIphone ={260.,300.};
     UICollectionViewController *_collectViewNormal;
     UICollectionViewController *_collectViewCover;
     UICollectionViewController *_collectViewCurr;
+    
+    CGSize rcImage;
 }
 @property (nonatomic,strong) NSArray *smbItemFiles;
 @end
@@ -195,6 +197,7 @@ CGSize szCoverIphone ={260.,300.};
     cell.label.text =  smbItem.path.lastPathComponent;
     
     
+    
     //is scaledimage cached?
     UIImage *scaledImage = scaledImages[indexPath.row];
     if( [scaledImage isKindOfClass:[UIImage class]])
@@ -222,6 +225,7 @@ CGSize szCoverIphone ={260.,300.};
                     scaledImages[indexPath.row]=image;
                     [_weakCell.imageV setImage:image];
                     [_weakCell.imageV setNeedsLayout];
+                    rcImage = _weakCell.imageV.bounds.size;
                 }
                 else
                 {
@@ -317,7 +321,7 @@ CGSize szCoverIphone ={260.,300.};
             
             rc = CGRectOffset(rc, cell.imageV.frame.origin.x, cell.imageV.frame.origin.y);
             
-            rc.size = cell.imageV.frame.size;
+            rc.size = rcImage;
             
             photo.srcImageFrame = rc;
         }
