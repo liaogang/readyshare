@@ -354,7 +354,7 @@
 
 -(void)playNext
 {
-    int next = getNext(_order,  _playingIndex, 0, self.itemsMusic.count );
+    int next = getNext(_order,  _playingIndex, 0, self.itemsMusic.count - 1 );
     
     if (next != -1)
     {

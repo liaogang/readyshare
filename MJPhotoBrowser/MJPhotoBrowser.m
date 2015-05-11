@@ -100,7 +100,6 @@
 - (void)show:(UIViewController*)vc
 {
     [vc.view addSubview:self.view];
-//    [self.view setFrame:vc.view.bounds];
     [vc addChildViewController:self];
     
     

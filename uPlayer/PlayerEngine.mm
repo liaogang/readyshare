@@ -375,7 +375,13 @@ int getNext(enum PlayOrder order , int curr , int from , int to)
     }
     else if(order == playorder_random)
     {
-        return rand() % (to - from) + to;
+        static int s=0;
+        if(s++==0)
+            srand((uint )time(NULL));
+        
+        int r = rand();
+        int result = (r % (to - from) )+ to - 1;
+        return result;
     }
     else if(order == playorder_repeat_single)
     {
