@@ -37,6 +37,8 @@
 
 
 
+#if !(TARGET_IPHONE_SIMULATOR)
+
 CGRect rectRorientation(CGRect r)
 {
     CGRect t = {r.origin.y ,r.origin.x ,r.size.height , r.size.width};
@@ -537,3 +539,5 @@ CGRect rectRorientation(CGRect r)
 
 
 @end
+
+#endif

@@ -238,6 +238,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 {
     self.navigationItem.rightBarButtonItem = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
+    
+    [_vcMoviePlayer actionFullScreen:nil];
 }
 
 -(void)figureOutMediaType
@@ -612,8 +614,10 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 -(void)updateRightBarItem
 {
+#if !(TARGET_IPHONE_SIMULATOR)
     if ( [_vcMoviePlayer willPlay] ||  [_vcMoviePlayer isPlaying])
         self.navigationItem.rightBarButtonItem = nil;
+#endif
 }
 
 -(void)downloadComplete
@@ -622,13 +626,14 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     [MBProgressHUD showSuccess:NSLocalizedString(@"download finished", nil ) toView:self.navigationController.view];
     [self tryPlay];
    
+#if !(TARGET_IPHONE_SIMULATOR)
     if (_mediaType == video) {
         if(_vcMoviePlayer.isPlaying)
         {
             return;
         }
     }
-    
+#endif
     self.navigationItem.rightBarButtonItem = nil;
 }
 

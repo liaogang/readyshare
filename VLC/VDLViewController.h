@@ -24,6 +24,7 @@
  * POSSIBILITY OF SUCH DAMAGE. */
 
 #import <UIKit/UIKit.h>
+#if !(TARGET_IPHONE_SIMULATOR)
 #import "OBSlider.h"
 #import "MobileVLCKit.h"
 
@@ -52,4 +53,8 @@ typedef void(^FullScreenCallBack)(BOOL bWillConvertToFullScreen );
 
 -(BOOL)isPlaying;
 -(BOOL)willPlay;
+
+- (void)actionFullScreen:(id)sender ;
 @end
+
+#endif
