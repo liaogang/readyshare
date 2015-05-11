@@ -181,12 +181,11 @@
     UIActivityIndicatorView *av = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     av.hidesWhenStopped=YES;
     av.center=self.view.center;
+    av.autoresizingMask = ~0;
     [self.view addSubview:av];
     [av startAnimating];
     
-    //self.barAuth.enabled = false;
     self.barReload.enabled = false;
-    
     
     [self updateBtnState:FALSE];
     
