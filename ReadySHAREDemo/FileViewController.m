@@ -239,7 +239,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     self.navigationItem.rightBarButtonItem = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
     
-    [_vcMoviePlayer actionFullScreen:nil];
+    [_vcMoviePlayer performSelector:@selector(actionFullScreen:) withObject:nil afterDelay:0.3];
 }
 
 -(void)figureOutMediaType
