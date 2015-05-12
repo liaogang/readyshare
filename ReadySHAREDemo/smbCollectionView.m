@@ -199,15 +199,58 @@ CGSize szCoverIphone ={260.,300.};
     
     KxSMBItemFile *smbItem = _smbItemFiles [indexPath.row];
     
+    __block __weak Cell2 *_weakCell = (Cell2*)cell;
+    
     cell.label.text =  smbItem.path.lastPathComponent;
     
-
     //is scaledimage cached?
     UIImage *scaledImage = scaledImages[indexPath.row];
-    if( [scaledImage isKindOfClass:[UIImage class]])
+    NSString *systemVersion = [UIDevice currentDevice].systemVersion;
+    if([systemVersion intValue] >= 8.0 )
     {
-        [cell.imageV setImage:scaledImage ];
+        if( [scaledImage isKindOfClass:[UIImage class]])
+        {
+            [cell.imageV setImage:scaledImage ];
+        }
     }
+    else
+    {
+        if( [scaledImage isKindOfClass:[UIImage class]])
+        {
+            [cell.imageV setImage:scaledImage ];
+        }
+        else
+        {
+            [_weakCell.imageV  setImageWithSmbFile:smbItem placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                if(_weakCell )
+                {
+                    if (image)
+                    {
+                        NSLog(@"%@",image);
+                        
+                        image = [image  resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:_weakCell.imageV.bounds.size interpolationQuality:kCGInterpolationMedium];
+                        
+                        if (image)
+                        {
+                            //image = [image imageByScalingAndCroppingForSize:_weakCell.imageV.bounds.size];
+                            
+                            //cache it.
+                            scaledImages[indexPath.row]=image;
+                            [_weakCell.imageV setImage:image];
+                            [_weakCell.imageV setNeedsLayout];
+                            rcImage = _weakCell.imageV.bounds.size;
+                        }
+                        else
+                        {
+                            NSLog(@"ResizedImageWithContentMode failed.");
+                        }
+                    }
+                }
+            } needRefresh:NO];
+        }
+        
+    }
+    
     
     return cell;
 }
