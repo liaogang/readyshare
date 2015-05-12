@@ -16,8 +16,6 @@
 
 #import "TreeViewController.h"
 
-//#import "MJPhotoBrowser.h"
-//#import "MJPhoto.h"
 #include <math.h>
 
 #import "constStrings.h"
@@ -45,7 +43,6 @@
 
 
 #import "PdfPreviewViewController.h"
-//#import "RSHelper.h"
 
 
 NSString *stringFromTimeInterval(NSTimeInterval t)
@@ -87,7 +84,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     UILabel         *_nameLabel;
     UILabel         *_sizeLabel;
-    UILabel         *_dateLabel;
+//    UILabel         *_dateLabel;
     UIButton        *_downloadButton;
     UIProgressView  *_downloadProgress;
     UILabel         *_downloadLabel;
@@ -130,9 +127,14 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 @synthesize readyshareHomeVC;
 - (void) dealloc
 {
+    [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
+    [self closeMovie];
+    [self closeFiles];
+    
+    
     _nameLabel= nil ;
     _sizeLabel= nil ;
-    _dateLabel= nil ;
+//    _dateLabel= nil ;
     _downloadButton= nil ;
     _downloadProgress= nil ;
     _downloadLabel= nil ;
@@ -140,12 +142,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     _filePath = nil ;
     web=nil;
     
-    
-    [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
-    [self closeMovie];
-    [self closeFiles];
-    
-
     
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
     
@@ -190,14 +186,21 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     _sizeLabel.backgroundColor = [UIColor clearColor];
     _sizeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
+    /*
     _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, W - 20, 30)];
     _dateLabel.font = [UIFont systemFontOfSize:14];;
     _dateLabel.textColor = [UIColor darkTextColor];
     _dateLabel.opaque = NO;
     _dateLabel.backgroundColor = [UIColor clearColor];
     _dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    */
+    // 60 100 110
+    _downloadProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    _downloadProgress.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    _downloadProgress.frame = CGRectMake(10, 70, W - 20, 30);
+    _downloadProgress.hidden = YES;
     
-    _downloadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 110, W - 20, 30)];
+    _downloadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 72, W - 20, 30)];
     _downloadLabel.font = [UIFont systemFontOfSize:14];;
     _downloadLabel.textColor = [UIColor darkTextColor];
     _downloadLabel.opaque = NO;
@@ -205,15 +208,12 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     _downloadLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _downloadLabel.numberOfLines = 2;
     
-    _downloadProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    _downloadProgress.autoresizingMask=UIViewAutoresizingFlexibleWidth;
-    _downloadProgress.frame = CGRectMake(10, 100, W - 20, 30);
-    _downloadProgress.hidden = YES;
+
     
     
     [self.view addSubview:_nameLabel];
     [self.view addSubview:_sizeLabel];
-    [self.view addSubview:_dateLabel];
+//    [self.view addSubview:_dateLabel];
     [self.view addSubview:_downloadLabel];
     [self.view addSubview:_downloadProgress];
 }
@@ -222,6 +222,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 {
     [super viewDidLoad];
     
+    NSLog(@"viewdidLoad: %p",self);
     
     self.navigationItem.title = self.smbFile.path.lastPathComponent;
     
@@ -239,7 +240,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     self.navigationItem.rightBarButtonItem = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
     
-    [_vcMoviePlayer performSelector:@selector(actionFullScreen:) withObject:nil afterDelay:0.3];
+    [_vcMoviePlayer performSelector:@selector(actionFullScreen:) withObject:nil afterDelay:0.6];
 }
 
 -(void)figureOutMediaType
@@ -359,6 +360,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         
         _fileHandle = nil;
     }
+    
+    NSLog(@"cloase Files.");
     
     [_smbFile close];
 }
@@ -700,29 +703,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 
 
--(void)showPdf
-{
-    PdfPreviewViewController *pdf =[[PdfPreviewViewController alloc]initWithFilePaths:@[[NSURL fileURLWithPath: _filePath]]];
-    [self.navigationController pushViewController:pdf animated:YES];
-}
-
--(void)playMusic
-{
-    if(moviePlay)
-        return;
-    
-    moviePlay=[[MPMoviePlayerController alloc]initWithContentURL:[NSURL fileURLWithPath:_filePath]];
-    moviePlay.view.frame = CGRectMake(0, 160, self.view.frame.size.width, self.view.frame.size.height-160);
-    moviePlay.shouldAutoplay = YES;
-    moviePlay.scalingMode = MPMovieScalingModeAspectFit;
-    
-    moviePlay.repeatMode=MPMovieRepeatModeOne;
-    [moviePlay prepareToPlay];
-    moviePlay.view.autoresizingMask = 0xffffffff & ~UIViewAutoresizingFlexibleTopMargin;
-    
-    [self.view addSubview:moviePlay.view];
-}
-
 
 -(BOOL)isDataAvaliable:(CGFloat)curr
 {
@@ -744,20 +724,25 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     
     httpfileUrl = [NSURL fileURLWithPath:_filePath];
-    float ivW=self.view.frame.size.width,ivH=self.view.frame.size.height- 150;
+
+    const CGFloat h = 100;
+    
+    float ivW=self.view.bounds.size.width,ivH=self.view.bounds.size.height- h;
     
     
     _vcMoviePlayer = [[VDLViewController alloc]initWithNibName:@"VDLViewController" bundle:nil];
-    [_vcMoviePlayer.view setFrame:CGRectMake(0, 150, ivW, ivH)];
+    [_vcMoviePlayer.view setFrame:CGRectMake(0, h, ivW, ivH)];
     _vcMoviePlayer.view.autoresizingMask = 0xffffffff & ~UIViewAutoresizingFlexibleTopMargin;
     _vcMoviePlayer.delegate=self;
     
     [_vcMoviePlayer setMedia:httpfileUrl];
-    [_vcMoviePlayer play];
     
     [self updateRightBarItem];
     
     [self.view addSubview:_vcMoviePlayer.view];
+    
+    [_vcMoviePlayer play];
+    
 #endif
 }
 
