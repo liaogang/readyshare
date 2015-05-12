@@ -437,7 +437,8 @@ CGRect rectRorientation(CGRect r)
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
-    
+    UISlider *slider = sender;
+    NSLog(@"highlighted: %d",slider.highlighted);
     
     //notify pos will changed.
     
@@ -463,7 +464,7 @@ CGRect rectRorientation(CGRect r)
 ///用户正在拖动
 -(BOOL)isUserSliding
 {
-    return _posSlider.state!=UIControlStateNormal;
+    return _posSlider.state != UIControlStateNormal && _posSlider.highlighted == false;
 }
 
 -(void)mediaPlayerTimeChanged:(NSNotification *)aNotification

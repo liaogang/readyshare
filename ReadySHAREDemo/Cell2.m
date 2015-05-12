@@ -20,8 +20,8 @@
     if (self)
     {
         // change to our custom selected background view
-        CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
-        self.selectedBackgroundView = backgroundView;
+//        CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
+//        self.selectedBackgroundView = backgroundView;
         self.imageV.contentMode= UIViewContentModeScaleAspectFit;
         
         self.autoresizingMask = ~0;

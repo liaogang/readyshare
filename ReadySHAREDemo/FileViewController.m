@@ -423,15 +423,11 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         if(_fileHandle)
             [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
         
-        [self closeFiles];
-        [self refreshLocalViewer];
-        
         _downloadLabel.text = @"";
         _downloadProgress.progress = 0;
         _downloadProgress.hidden = YES;
         _downloadLabel.text = @"Cancelled";
         [self closeFiles];
-        //[_downloadButton setTitle:@"Download" forState:UIControlStateNormal];
     }
 }
 
@@ -545,8 +541,19 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
                     //[self download];
                     [self updateProgressLabel];
                 }
+               
+
+                @try {
+                    [_fileHandle writeData:data];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"exception: %@",exception);
+                }
+                @finally {
+                    return;
+                }
                 
-                [_fileHandle writeData:data];
+                
                 
                 
                 //下载 完毕
@@ -583,27 +590,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     }
 }
 
--(void)clearNavPromptWithDelay:(int)times
-{
-    __weak id wself = self;
-    
-    [self performSelector:@selector(clearNavPrompt:) withObject:wself afterDelay:times];
-}
 
--(void)clearNavPromptWithDelay
-{
-    __weak id wself = self;
-    
-    [self performSelector:@selector(clearNavPrompt:) withObject:wself afterDelay:3];
-}
-
--(void)clearNavPrompt:(__weak id)sender
-{
-    __strong __typeof__(self) sself = sender ;
-    
-    if(sself)
-        sself.navigationItem.prompt = nil ;
-}
 
 -(void)tryPlay
 {
@@ -741,7 +728,9 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     [self.view addSubview:_vcMoviePlayer.view];
     
-    [_vcMoviePlayer play];
+    BOOL result = [_vcMoviePlayer play];
+    
+    NSLog(@"playing: %d",result);
     
 #endif
 }
@@ -753,8 +742,5 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     moviePlay=nil;
 }
 
--(void)refreshLocalViewer
-{
-    
-}
+
 @end
