@@ -45,6 +45,7 @@ const char *arrEvent[] =
     "to_stop",
     "track_stopped_playnext",
     "to_play_next",
+    "to_play_prev",
     "to_play_random",
     "to_play_item",
     "to_love_item"

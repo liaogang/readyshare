@@ -574,7 +574,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
                 //kSupportedFileExtensions
                 if (_smbFile.stat.size >= 50*1024*1024)
                 {
-                    if(   _mediaType  == video && !httpfileUrl)
+                    if( _mediaType  == video && !httpfileUrl)
                     {
                         //大于50或%10，播放预览
                         if( _downloadedBytes > 50*1024*1024 || _downloadProgress.progress *100 > 10 )

@@ -17,7 +17,8 @@ typedef NS_ENUM(int, PlayOrder)
     playorder_repeat_single ,
     playorder_repeat_list ,
     playorder_shuffle,
-    playorder_single
+    playorder_single,
+    playorder_reverse//前一首
 };
 
 
@@ -28,6 +29,7 @@ NSLocalizedString(@"repeat-single" ,nil),\
 NSLocalizedString(@"repeat-list" ,nil),\
 NSLocalizedString(@"shuffle",nil),\
 NSLocalizedString(@"single",nil),\
+NSLocalizedString(@"reverse",nil),\
 ])
 
 
@@ -64,7 +66,12 @@ enum PlayerListType
 
 
 /** 
-    Get target number index by given order at area [from,to).
+    Get target number index by given order at area [lower,upper].
     @return (to -1) if failed.
  */
-int getNext(enum PlayOrder order , int curr, int from , int to);
+int getNext(enum PlayOrder order , int lower, int curr, int upper);
+
+
+/** from [lower,upper]
+ */
+int getPrev(int lower,int curr,int upper);

@@ -392,8 +392,18 @@ int getNext(enum PlayOrder order , int curr , int lower , int upper
         else
             return curr +1;
     }
+    else if(order == playorder_reverse)
+    {
+        return getPrev(lower, curr, upper);
+    }
     
     
     assert(false);
     return -1;
 }
+
+int getPrev(int lower,int curr,int upper)
+{
+    return (curr == lower) ? upper : curr - 1;
+}
+

@@ -63,7 +63,7 @@ enum MediaType
 @property (nonatomic) enum PlayOrder order;
 -(void)playItemAtIndex:(int)index;
 -(void)playNext;
-
+-(void)playPrev;
 @end
 
 

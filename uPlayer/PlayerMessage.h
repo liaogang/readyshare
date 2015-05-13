@@ -50,6 +50,7 @@ typedef enum : NSUInteger {
     EventID_to_stop,
     EventID_track_stopped_playnext , // play next by track ended.
     EventID_to_play_next, // play next by user
+    EventID_to_play_prev,
     EventID_to_play_random,
     EventID_to_play_item, // PlayerTrack* item;
     EventID_to_love_item // PlayerTrack* item; nil to love the playing item
