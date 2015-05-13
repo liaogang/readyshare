@@ -71,6 +71,7 @@
         
         addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
         addObserverForEvent(self, @selector(playNext), EventID_to_play_next);
+        addObserverForEvent(self, @selector(playPrev), EventID_to_play_prev);
     }
     
     return self;
@@ -355,6 +356,16 @@
 -(void)playNext
 {
     int next = getNext(_order,  _playingIndex, 0, self.itemsMusic.count - 1 );
+    
+    if (next != -1)
+    {
+        [[RootData shared] playItemAtIndex: next ];
+    }
+}
+
+-(void)playPrev
+{
+    int next = getNext(playorder_reverse,  _playingIndex, 0, self.itemsMusic.count - 1 );
     
     if (next != -1)
     {

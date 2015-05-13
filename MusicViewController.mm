@@ -545,6 +545,7 @@ void valueToMinSec(double d, int *m , int *s)
 }
 
 - (IBAction)actionPrev:(id)sender {
+    postEvent(EventID_to_play_prev, nil);
 }
 
 - (IBAction)actionPause:(id)sender {

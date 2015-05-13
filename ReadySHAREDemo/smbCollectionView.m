@@ -222,7 +222,7 @@ CGSize szCoverIphone ={260.,300.};
         else
         {
             [_weakCell.imageV  setImageWithSmbFile:smbItem placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                if(_weakCell )
+                if( _weakCell && _weakCell.superview)
                 {
                     if (image)
                     {
