@@ -547,11 +547,11 @@
     KxSMBItem *item = _items[indexPath.row];
     if ([item isKindOfClass:[KxSMBItemFile class]])
     {
-        FileViewController *vc = [[FileViewController alloc] init];
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        FileViewController *vc = [sb instantiateViewControllerWithIdentifier:@"fileViewVCID"];
         vc.smbFile = (KxSMBItemFile *)item;
-        
         vc.parentVC = self;
-        
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
