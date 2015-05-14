@@ -172,6 +172,9 @@
 		1EF396E81AFCC68F00A2ADCC /* musicTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EF396EA1AFCC68F00A2ADCC /* musicTableHeader.xib */; };
 		1EFEC0CB1ADA78E700478346 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEC0CA1ADA78E700478346 /* MainViewController.m */; };
 		1EFEC0CD1ADA7F1D00478346 /* RootData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEC0CC1ADA7F1D00478346 /* RootData.mm */; };
+		9A0050BA1B0313E7007620A2 /* LocaFileSelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0050B51B0313E7007620A2 /* LocaFileSelectedViewController.m */; };
+		9A0050BB1B0313E7007620A2 /* LocalLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0050B71B0313E7007620A2 /* LocalLibraryViewController.m */; };
+		9A0050BC1B0313E7007620A2 /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0050B91B0313E7007620A2 /* LocalViewController.m */; };
 		9A034EB71AFCAF4E00AD5C99 /* CGPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A034E901AFCAF4E00AD5C99 /* CGPDFDocument.m */; };
 		9A034EB81AFCAF4E00AD5C99 /* ReaderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A034E921AFCAF4E00AD5C99 /* ReaderConstants.m */; };
 		9A034EB91AFCAF4E00AD5C99 /* ReaderContentPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A034E941AFCAF4E00AD5C99 /* ReaderContentPage.m */; };
@@ -546,6 +549,12 @@
 		1EFEC0CA1ADA78E700478346 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		1EFEC0CC1ADA7F1D00478346 /* RootData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RootData.mm; path = ReadySHAREDemo/RootData.mm; sourceTree = "<group>"; };
 		1EFEC0CE1ADA7F2900478346 /* RootData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RootData.h; path = ReadySHAREDemo/RootData.h; sourceTree = "<group>"; };
+		9A0050B41B0313E7007620A2 /* LocaFileSelectedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocaFileSelectedViewController.h; sourceTree = "<group>"; };
+		9A0050B51B0313E7007620A2 /* LocaFileSelectedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocaFileSelectedViewController.m; sourceTree = "<group>"; };
+		9A0050B61B0313E7007620A2 /* LocalLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalLibraryViewController.h; sourceTree = "<group>"; };
+		9A0050B71B0313E7007620A2 /* LocalLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalLibraryViewController.m; sourceTree = "<group>"; };
+		9A0050B81B0313E7007620A2 /* LocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalViewController.h; sourceTree = "<group>"; };
+		9A0050B91B0313E7007620A2 /* LocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalViewController.m; sourceTree = "<group>"; };
 		9A034E8F1AFCAF4E00AD5C99 /* CGPDFDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGPDFDocument.h; path = Reader/Source/CGPDFDocument.h; sourceTree = "<group>"; };
 		9A034E901AFCAF4E00AD5C99 /* CGPDFDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGPDFDocument.m; path = Reader/Source/CGPDFDocument.m; sourceTree = "<group>"; };
 		9A034E911AFCAF4E00AD5C99 /* ReaderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReaderConstants.h; path = Reader/Source/ReaderConstants.h; sourceTree = "<group>"; };
@@ -1083,6 +1092,7 @@
 		1E4707101ACD44470052D2EF /* ReadySHAREDemo */ = {
 			isa = PBXGroup;
 			children = (
+				9A0050B31B031390007620A2 /* Local */,
 				1E4707151ACD44470052D2EF /* AppDelegate.h */,
 				1E4707161ACD44470052D2EF /* AppDelegate.mm */,
 				1EFEC0C91ADA78E700478346 /* MainViewController.h */,
@@ -1138,6 +1148,19 @@
 			);
 			name = Music;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		9A0050B31B031390007620A2 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				9A0050B41B0313E7007620A2 /* LocaFileSelectedViewController.h */,
+				9A0050B51B0313E7007620A2 /* LocaFileSelectedViewController.m */,
+				9A0050B61B0313E7007620A2 /* LocalLibraryViewController.h */,
+				9A0050B71B0313E7007620A2 /* LocalLibraryViewController.m */,
+				9A0050B81B0313E7007620A2 /* LocalViewController.h */,
+				9A0050B91B0313E7007620A2 /* LocalViewController.m */,
+			);
+			name = Local;
 			sourceTree = "<group>";
 		};
 		9A034E8B1AFCAEE100AD5C99 /* Reader */ = {
@@ -1648,6 +1671,7 @@
 				1E39773F1ACD4B7F0049E391 /* SDWebImageDecoder.m in Sources */,
 				9A034EBC1AFCAF4E00AD5C99 /* ReaderDocument.m in Sources */,
 				1E3AF20D1ADF9D55004AA408 /* MBProgressHUD.m in Sources */,
+				9A0050BB1B0313E7007620A2 /* LocalLibraryViewController.m in Sources */,
 				1E3AF2031ADF9D04004AA408 /* MJPhotoToolbar.m in Sources */,
 				1E0739AB1AE609CD000DCB9E /* MAAssert.m in Sources */,
 				1E39773C1ACD4B7F0049E391 /* NSData+ImageContentType.m in Sources */,
@@ -1660,6 +1684,7 @@
 				9A034ECA1AFCAF4E00AD5C99 /* UIXToolbarView.m in Sources */,
 				1EA831C31AE8FD4A006642C5 /* PlayerTrack.m in Sources */,
 				1E39774F1ACD4B910049E391 /* SDWebImageDownloaderOperation+SMB.m in Sources */,
+				9A0050BC1B0313E7007620A2 /* LocalViewController.m in Sources */,
 				9A034EC21AFCAF4E00AD5C99 /* ReaderThumbQueue.m in Sources */,
 				1E3977511ACD4B910049E391 /* SDWebImageManager+SMB.m in Sources */,
 				1ED794711ACE44AA0080FCA8 /* sheetTableViewController.m in Sources */,
@@ -1669,6 +1694,7 @@
 				9A034EBE1AFCAF4E00AD5C99 /* ReaderMainPagebar.m in Sources */,
 				9A034EC81AFCAF4E00AD5C99 /* ThumbsMainToolbar.m in Sources */,
 				1E3AF1E71ADF82FD004AA408 /* smbCollectionView.m in Sources */,
+				9A0050BA1B0313E7007620A2 /* LocaFileSelectedViewController.m in Sources */,
 				1E4707171ACD44470052D2EF /* AppDelegate.mm in Sources */,
 				1E85F7A01AF769E2008CB2FE /* serializeTool.mm in Sources */,
 				1E4707391ACD46190052D2EF /* KxSMBProvider.m in Sources */,
@@ -1832,7 +1858,6 @@
 		1E4707321ACD44470052D2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
@@ -1862,8 +1887,8 @@
 					"-lMobileVLCKit",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "457ff2b8-f24a-4e9c-8171-a37a454afcae";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -1871,7 +1896,6 @@
 		1E4707331ACD44470052D2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
@@ -1900,8 +1924,8 @@
 					"-lMobileVLCKit",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "457ff2b8-f24a-4e9c-8171-a37a454afcae";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;

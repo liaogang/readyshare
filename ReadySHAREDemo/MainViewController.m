@@ -17,6 +17,9 @@
 #import "MusicViewController.h"
 #import "smbCollectionView.h"
 
+#import "LocalViewController.h"
+
+
 @interface UINavigationControllerMy : UINavigationController
 -(BOOL)shouldAutorotate;
 -(NSUInteger)supportedInterfaceOrientations;
@@ -124,6 +127,28 @@
         }
     }
     
+    // 测试使用版本到2015年7月1日
+    NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"YYYY:MM:dd:hh:mm:ss"];
+    NSString *date = [formatter stringFromDate:[NSDate date]];
+    NSArray *array = [date componentsSeparatedByString:@":"];
+    
+    NSInteger year = [[array objectAtIndex:0] integerValue];
+    NSInteger month = [[array objectAtIndex:1] integerValue];
+    NSInteger day = [[array objectAtIndex:2] integerValue];
+    NSInteger hour = [[array objectAtIndex:3] integerValue];
+    NSInteger min = [[array objectAtIndex:4] integerValue];
+    NSInteger sec = [[array objectAtIndex:5] integerValue];
+    
+    if(year == 2015 && month >=7 && day >=0 && hour >= 0 && min >= 0 && sec >= 0)
+    {
+        [self.btnMovie setHidden:YES];
+        [self.btnBook setHidden:YES];
+        [self.btnMusic setHidden:YES];
+        [self.btnInternet setHidden:YES];
+        [self.btnFileBrowse setHidden:YES];
+        [self.btnPhoto setHidden:YES];
+    }
 }
 
 - (BOOL)shouldAutorotate
@@ -366,7 +391,11 @@
 -(IBAction)openBrowser {
     //打开浏览器
     // Lanuch any iPhone developers fav site
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://map.baidu.com/mobile/webapp/index/index/foo=bar/vt=map"]]; //@"http://blog.csdn.net/duxinfeng2010"
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://map.baidu.com/mobile/webapp/index/index/foo=bar/vt=map"]]; //@"http://blog.csdn.net/duxinfeng2010"
+    
+    LocalViewController *localViewController = [[LocalViewController alloc]init];
+    [self.navigationController pushViewController:localViewController animated:YES];
+    
 }
 
 - (IBAction)btnClicked:(UIButton*)sender {

@@ -177,7 +177,7 @@ static NSString * const reuseIdentifier = @"bookCell";
                      if ([PdfPreviewViewController canPreviewItem:[NSURL fileURLWithPath: localFilePath]])
                      {
                          PdfPreviewViewController *pdf =[[PdfPreviewViewController alloc]initWithFilePaths:@[[NSURL fileURLWithPath: localFilePath]]];
-                         
+                         pdf.currentPreviewItemIndex = 3;
                          [weakSelf.navigationController pushViewController:pdf animated:YES];
                      }
                  }
