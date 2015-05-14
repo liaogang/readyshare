@@ -127,6 +127,13 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 @synthesize readyshareHomeVC;
 - (void) dealloc
 {
+#if !(TARGET_IPHONE_SIMULATOR)
+    [_vcMoviePlayer stop];
+    _vcMoviePlayer = nil;
+#endif
+    
+    [self closeFiles];
+    
     [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
     
     _nameLabel= nil ;
@@ -138,13 +145,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     web=nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
-    
-#if !(TARGET_IPHONE_SIMULATOR)
-    [_vcMoviePlayer stop];
-    _vcMoviePlayer = nil;
-#endif
-    
-    [self closeFiles];
+
     placeHolder= nil;
 }
 
