@@ -1969,6 +1969,85 @@
             </objects>
             <point key="canvasLocation" x="-4537" y="-661"/>
         </scene>
+        <!--File View Controller-->
+        <scene sceneID="lKE-Hl-Jhp">
+            <objects>
+                <viewController storyboardIdentifier="fileViewVCID" id="iTv-Xl-Mfs" customClass="FileViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="A6t-KZ-wMB"/>
+                        <viewControllerLayoutGuide type="bottom" id="qzG-Cr-JiM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pqC-Ob-RvU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="smb://192.168.0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRl-iY-Jld">
+                                <rect key="frame" x="16" y="24" width="568" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="n0S-oV-Ux1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="size: 3.9MB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTB-Kq-FwI">
+                                <rect key="frame" x="16" y="49" width="568" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="SaL-lm-20j"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="download completed in  00:01" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOM-cR-487">
+                                <rect key="frame" x="16" y="80" width="568" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="DSk-aI-L0b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="39t-36-QPq">
+                                <rect key="frame" x="16" y="74" width="568" height="2"/>
+                            </progressView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKc-De-nJx">
+                                <rect key="frame" x="0.0" y="105" width="600" height="495"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kOM-cR-487" firstAttribute="trailing" secondItem="pqC-Ob-RvU" secondAttribute="trailingMargin" id="62l-Pe-Et9"/>
+                            <constraint firstItem="39t-36-QPq" firstAttribute="trailing" secondItem="pqC-Ob-RvU" secondAttribute="trailingMargin" id="91J-MN-88J"/>
+                            <constraint firstItem="aRl-iY-Jld" firstAttribute="trailing" secondItem="pqC-Ob-RvU" secondAttribute="trailingMargin" id="Hhk-wu-JYE"/>
+                            <constraint firstItem="kOM-cR-487" firstAttribute="leading" secondItem="pqC-Ob-RvU" secondAttribute="leadingMargin" id="Hhl-t3-KNq"/>
+                            <constraint firstItem="kTB-Kq-FwI" firstAttribute="trailing" secondItem="pqC-Ob-RvU" secondAttribute="trailingMargin" id="I6v-gw-hNR"/>
+                            <constraint firstAttribute="trailing" secondItem="yKc-De-nJx" secondAttribute="trailing" id="JZZ-sJ-3jJ"/>
+                            <constraint firstItem="aRl-iY-Jld" firstAttribute="leading" secondItem="pqC-Ob-RvU" secondAttribute="leadingMargin" id="Nf3-iZ-pln"/>
+                            <constraint firstItem="yKc-De-nJx" firstAttribute="top" secondItem="kOM-cR-487" secondAttribute="bottom" constant="4" id="R2P-rN-cKl"/>
+                            <constraint firstItem="aRl-iY-Jld" firstAttribute="top" secondItem="A6t-KZ-wMB" secondAttribute="bottom" constant="4" id="Wcv-vw-yv1"/>
+                            <constraint firstItem="yKc-De-nJx" firstAttribute="leading" secondItem="pqC-Ob-RvU" secondAttribute="leading" id="der-e2-2ax"/>
+                            <constraint firstItem="kOM-cR-487" firstAttribute="top" secondItem="39t-36-QPq" secondAttribute="bottom" constant="4" id="haS-ed-81C"/>
+                            <constraint firstItem="39t-36-QPq" firstAttribute="leading" secondItem="pqC-Ob-RvU" secondAttribute="leadingMargin" id="kcU-t7-3GH"/>
+                            <constraint firstItem="39t-36-QPq" firstAttribute="top" secondItem="kTB-Kq-FwI" secondAttribute="bottom" constant="4" id="oOu-QA-5D8"/>
+                            <constraint firstItem="qzG-Cr-JiM" firstAttribute="top" secondItem="yKc-De-nJx" secondAttribute="bottom" id="pJ7-pj-dHQ"/>
+                            <constraint firstItem="kTB-Kq-FwI" firstAttribute="top" secondItem="aRl-iY-Jld" secondAttribute="bottom" constant="4" id="pTQ-6i-2qY"/>
+                            <constraint firstItem="kTB-Kq-FwI" firstAttribute="leading" secondItem="pqC-Ob-RvU" secondAttribute="leadingMargin" id="w0E-lu-e6l"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="downloadLabel" destination="kOM-cR-487" id="YNV-vV-sIX"/>
+                        <outlet property="downloadProgress" destination="39t-36-QPq" id="RlE-Me-QCN"/>
+                        <outlet property="nameLabel" destination="aRl-iY-Jld" id="o1F-dz-pmd"/>
+                        <outlet property="placeHolderView" destination="yKc-De-nJx" id="Brd-dJ-PwZ"/>
+                        <outlet property="sizeLabel" destination="kTB-Kq-FwI" id="dcd-EG-b7B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oh6-nd-9vb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4166" y="196"/>
+        </scene>
     </scenes>
     <resources>
         <image name="book_background.png" width="800" height="480"/>

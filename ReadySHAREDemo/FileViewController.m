@@ -78,22 +78,22 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 <VLCViewData>
 #endif
 
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
+
+@property (weak, nonatomic) IBOutlet UIProgressView *downloadProgress;
+
+@property (weak, nonatomic) IBOutlet UILabel *downloadLabel;
+@property (weak, nonatomic) IBOutlet UIView *placeHolderView;
+
 @end
 
 @implementation FileViewController {
-    
-    UILabel         *_nameLabel;
-    UILabel         *_sizeLabel;
-//    UILabel         *_dateLabel;
-    UIButton        *_downloadButton;
-    UIProgressView  *_downloadProgress;
-    UILabel         *_downloadLabel;
     NSString        *_filePath;
     NSFileHandle    *_fileHandle;
     long            _downloadedBytes;
     NSDate          *_timestamp;
     
-    MPMoviePlayerController *moviePlay;
     bool isAddedBySuperView;
     CGRect rcNormal;
     
@@ -128,20 +128,14 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 - (void) dealloc
 {
     [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
-    [self closeMovie];
-    [self closeFiles];
-    
     
     _nameLabel= nil ;
     _sizeLabel= nil ;
-//    _dateLabel= nil ;
-    _downloadButton= nil ;
     _downloadProgress= nil ;
     _downloadLabel= nil ;
     _smbFile = nil;
     _filePath = nil ;
     web=nil;
-    
     
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
     
@@ -149,74 +143,11 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     [_vcMoviePlayer stop];
     _vcMoviePlayer = nil;
 #endif
+    
+    [self closeFiles];
     placeHolder= nil;
 }
 
-- (id)init
-{
-    self = [super initWithNibName:nil bundle:nil];
-    if (self) {
-        self.hidesBottomBarWhenPushed = YES;
-    }
-    return self;
-}
-
-
-
-- (void) loadView
-{
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    const float W = self.view.bounds.size.width;
-    
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, W - 20, 40)];
-    _nameLabel.font = [UIFont systemFontOfSize:14];
-    _nameLabel.textColor = [UIColor darkTextColor];
-    _nameLabel.opaque = NO;
-    _nameLabel.backgroundColor = [UIColor clearColor];
-    _nameLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _nameLabel.numberOfLines = 2;
-    _nameLabel.lineBreakMode=NSLineBreakByTruncatingMiddle;
-    
-    _sizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 40, W - 20, 30)];
-    _sizeLabel.font = [UIFont systemFontOfSize:14];
-    _sizeLabel.textColor = [UIColor darkTextColor];
-    _sizeLabel.opaque = NO;
-    _sizeLabel.backgroundColor = [UIColor clearColor];
-    _sizeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    
-    /*
-    _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, W - 20, 30)];
-    _dateLabel.font = [UIFont systemFontOfSize:14];;
-    _dateLabel.textColor = [UIColor darkTextColor];
-    _dateLabel.opaque = NO;
-    _dateLabel.backgroundColor = [UIColor clearColor];
-    _dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    */
-    // 60 100 110
-    _downloadProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    _downloadProgress.autoresizingMask=UIViewAutoresizingFlexibleWidth;
-    _downloadProgress.frame = CGRectMake(10, 70, W - 20, 30);
-    _downloadProgress.hidden = YES;
-    
-    _downloadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 72, W - 20, 30)];
-    _downloadLabel.font = [UIFont systemFontOfSize:14];;
-    _downloadLabel.textColor = [UIColor darkTextColor];
-    _downloadLabel.opaque = NO;
-    _downloadLabel.backgroundColor = [UIColor clearColor];
-    _downloadLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _downloadLabel.numberOfLines = 2;
-    
-
-    
-    
-    [self.view addSubview:_nameLabel];
-    [self.view addSubview:_sizeLabel];
-//    [self.view addSubview:_dateLabel];
-    [self.view addSubview:_downloadLabel];
-    [self.view addSubview:_downloadProgress];
-}
 
 - (void)viewDidLoad
 {
@@ -231,8 +162,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     [self performSelector:@selector(downloadAction) withObject:nil afterDelay:0.3];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStarted) name:@"VDLViewControllerAboutToPlay" object:nil];
-    
-    
 }
 
 -(void)videoStarted
@@ -320,17 +249,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    //not poped
-    if([self isViewRemoved])
-    {
-        [self closeMovie];
-        
-    }
-}
+
 
 - (void) viewDidDisappear:(BOOL)animated
 {
@@ -339,7 +258,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     //is unlinked from superview?
     if([self isViewRemoved])
     {
-        [self closeMovie];
 #if !(TARGET_IPHONE_SIMULATOR)
         [_vcMoviePlayer stop];
 #endif
@@ -490,7 +408,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         
         NSError *error = result;
         
-        [_downloadButton setTitle:@"Download" forState:UIControlStateNormal];
         _downloadLabel.text = [NSString stringWithFormat:@"failed: %@", error.localizedDescription];
         _downloadProgress.hidden = YES;
         [self closeFiles];
@@ -548,9 +465,10 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
                 }
                 @catch (NSException *exception) {
                     NSLog(@"exception: %@",exception);
+                    
                 }
                 @finally {
-                    return;
+                    
                 }
                 
                 
@@ -712,21 +630,17 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     httpfileUrl = [NSURL fileURLWithPath:_filePath];
 
-    const CGFloat h = 100;
-    
-    float ivW=self.view.bounds.size.width,ivH=self.view.bounds.size.height- h;
-    
     
     _vcMoviePlayer = [[VDLViewController alloc]initWithNibName:@"VDLViewController" bundle:nil];
-    [_vcMoviePlayer.view setFrame:CGRectMake(0, h, ivW, ivH)];
-    _vcMoviePlayer.view.autoresizingMask = 0xffffffff & ~UIViewAutoresizingFlexibleTopMargin;
+    [_vcMoviePlayer.view setFrame:self.placeHolderView.bounds];
+    _vcMoviePlayer.view.autoresizingMask = ~0;
     _vcMoviePlayer.delegate=self;
     
     [_vcMoviePlayer setMedia:httpfileUrl];
     
     [self updateRightBarItem];
     
-    [self.view addSubview:_vcMoviePlayer.view];
+    [self.placeHolderView addSubview:_vcMoviePlayer.view];
     
     BOOL result = [_vcMoviePlayer play];
     
@@ -736,11 +650,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 }
 
 
--(void)closeMovie
-{
-    [moviePlay stop];
-    moviePlay=nil;
-}
+
 
 
 @end
