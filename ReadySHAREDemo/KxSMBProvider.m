@@ -1758,73 +1758,6 @@ static KxSMBProvider *gSmbProvider;
     
 }
 
-//by lg
-- (id)readDataToEndOfFileEx:(NSMutableData*)md condition:(NSCondition*)condition bEnd:(BOOL*)bEnd
-{
-    if (!_file) {
-        NSError *error = [self openFile];
-        if (error)
-        {
-            [condition lock];
-            *bEnd = READ_DATA_FLAG_END;
-            [condition signal];
-            [condition unlock];
-            return error;
-        }
-    }
-    
-    
-    
-    Byte buffer[32768];
-    
-    smbc_read_fn readFn = smbc_getFunctionRead(_context);
-    while (1) {
-        int r = readFn(_context, _file, buffer, sizeof(buffer));
-        
-        if (r == 0)
-            break;
-        
-        //ended by caller.
-        if (READ_DATA_FLAG_END==*bEnd)
-        {
-#ifdef DEBUG
-            NSLog(@"download thread ended.");
-#endif
-            return nil;
-        }
-        
-        if (r < 0) {
-            printf("\n\n\n\n<0\n");
-            [condition lock];
-            *bEnd = READ_DATA_FLAG_END;
-            [condition signal];
-            [condition unlock];
-            const int err = errno;
-            return mkKxSMBError(errnoToSMBErr(err),
-                                NSLocalizedString(@"Unable read file:%@ (errno:%d)", nil), _path, err);
-        }
-        
-        [condition lock];
-        (*bEnd)++;
-        [md setData:[NSData data]];
-        [md appendBytes:buffer length:r];
-        
-        [condition signal];
-        [condition unlock];
-    }
-    
-    [condition lock];
-    *bEnd = READ_DATA_FLAG_END;
-    [condition signal];
-    [condition unlock];
-    
-#ifdef DEBUG
-    printf(" read data   [condition unlock];%p",condition);
-#endif
-    
-    return nil;
-}
-//end
 
 - (id)seekToFileOffset:(off_t)offset
                 whence:(NSInteger)whence
@@ -1969,19 +1902,7 @@ static KxSMBProvider *gSmbProvider;
     return result;
 }
 
-//by lg
-- (void)readDataToEndOfFileEx:(NSMutableData *)md condition:(NSCondition *)condition bEnd:(BOOL*)bEnd
-{
-    if (!_impl)
-        _impl = [[KxSMBFileImpl alloc] initWithPath:self.path];
-    
-    KxSMBFileImpl *p = _impl;
-    KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
-    [provider dispatchAsync:^{
-        [p readDataToEndOfFileEx:md condition:condition bEnd:bEnd];
-    }];
-}
-//end
+
 
 - (void)seekToFileOffset:(off_t)offset
                   whence:(NSInteger)whence

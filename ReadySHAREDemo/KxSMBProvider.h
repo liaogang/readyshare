@@ -113,9 +113,7 @@ typedef void (^KxSMBBlockProgress)(KxSMBItem *item, unsigned long transferred);
 
 - (void)readDataToEndOfFile:(KxSMBBlock) block;
 - (id)readDataToEndOfFile;
-//by lg
-#define READ_DATA_FLAG_END (8)
-- (void)readDataToEndOfFileEx:(NSMutableData *)md condition:(NSCondition *)condition bEnd:(BOOL*)bEnd;
+
 
 
 - (void)seekToFileOffset:(off_t)offset whence:(NSInteger)whence block:(KxSMBBlock) block;
