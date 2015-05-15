@@ -86,6 +86,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 @property (weak, nonatomic) IBOutlet UILabel *downloadLabel;
 @property (weak, nonatomic) IBOutlet UIView *placeHolderView;
 
+@property (nonatomic) BOOL playStarted;
 @end
 
 @implementation FileViewController {
@@ -115,7 +116,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     long   _lastDownloadedBytes;
     
-    NSMutableData * _md;
     
 #if !(TARGET_IPHONE_SIMULATOR)
     VDLViewController *_vcMoviePlayer;
@@ -167,6 +167,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 -(void)videoStarted
 {
+    self.playStarted = TRUE;
     self.navigationItem.rightBarButtonItem = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
     
@@ -421,7 +422,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         {
             if(_downloadedBytes != _smbFile.stat.size)
             {
-                
                 if(errorDownload++<3)
                     [self download];
             }
@@ -452,11 +452,19 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
                 if(_downloadedBytes == _smbFile.stat.size) {
                     [self updateProgressLabel];
                     [self closeFiles];
-                    [self downloadComplete];
-                    
+
+    		//提醒用户下载完毕
+    		[MBProgressHUD showSuccess:NSLocalizedString(@"download finished", nil ) toView:self.navigationController.view];
+		[self tryPlay];
+
+                    if (_mediaType == video) {
+                        if (self.playStarted == FALSE) {
+                            self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(tryPlay)];
+                        }
+                    }
                 } else
                 {
-                    //[self download];
+                    [self download];
                     [self updateProgressLabel];
                 }
                
@@ -466,29 +474,10 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
                 }
                 @catch (NSException *exception) {
                     NSLog(@"exception: %@",exception);
-                    
                 }
                 @finally {
-                    
                 }
-                
-                
-                
-                
-                //下载 完毕
-                if(_downloadedBytes == _smbFile.stat.size) {
-                    
-                    [self closeFiles];
-                    [self downloadComplete];
-                    
-                    if (_mediaType == video) {
-                        self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(tryPlay)];
-                    }
-                } else
-                {
-                    [self updateProgressLabel];
-                }
-               
+                              
                 
                 //kSupportedFileExtensions
                 if (_smbFile.stat.size >= 50*1024*1024)
@@ -513,97 +502,22 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 -(void)tryPlay
 {
-    //is a video? played in vlc.
-    if( !httpfileUrl )
-        if ( _mediaType == video )
-            [self playVideo];
-    
-    [self updateRightBarItem];
+    [self playVideo];
 }
 
--(void)updateRightBarItem
-{
-#if !(TARGET_IPHONE_SIMULATOR)
-    if ( [_vcMoviePlayer willPlay] ||  [_vcMoviePlayer isPlaying])
-        self.navigationItem.rightBarButtonItem = nil;
-#endif
-}
-
--(void)downloadComplete
-{
-    //提醒用户下载完毕
-    [MBProgressHUD showSuccess:NSLocalizedString(@"download finished", nil ) toView:self.navigationController.view];
-    [self tryPlay];
-   
-#if !(TARGET_IPHONE_SIMULATOR)
-    if (_mediaType == video) {
-        if(_vcMoviePlayer.isPlaying)
-        {
-            return;
-        }
-    }
-#endif
-    self.navigationItem.rightBarButtonItem = nil;
-}
-
-
-
-
-
-
--(void)downloadThread
-{
-    NSCondition *condition ;
-    condition = [[NSCondition alloc]init];
-    
-    _md = [NSMutableData data];
-    
-    static BOOL bEnd ;
-    bEnd = FALSE;
-    
-    [_smbFile readDataToEndOfFileEx:_md condition:condition bEnd:&bEnd];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    while (1)
-    {
-        if (!weakSelf || [self isViewRemoved] )
-        {
-            bEnd = READ_DATA_FLAG_END;
-            _md  = nil ;
-            if(_fileHandle)
-                [[NSFileManager defaultManager] removeItemAtPath:_filePath error:nil];
-            
-            [self closeFiles];
-            break;
-        }
-        
-        [condition lock];
-        
-        while (bEnd<=0)
-            [condition wait];
-        
-        if (bEnd--==READ_DATA_FLAG_END)
-        {
-            [self performSelectorOnMainThread:@selector(updateDownloadStatus:) withObject:_md waitUntilDone:FALSE];
-            [condition unlock];
-            break;
-        }
-        else
-        {
-            NSMutableData *data = [NSMutableData dataWithData:_md];
-            [self performSelectorOnMainThread:@selector(updateDownloadStatus:) withObject:data waitUntilDone:FALSE];
-            
-            [condition unlock];
-        }
-    }
-    
-}
 
 
 - (void) download
 {
-    [self performSelectorInBackground:@selector(downloadThread) withObject:nil];
+    __weak __typeof(self) weakSelf = self;
+    [_smbFile readDataOfLength:32768
+                         block:^(id result)
+     {
+         FileViewController *p = weakSelf;
+         if (p) {
+             [p updateDownloadStatus:result];
+         }
+     }];
 }
 
 
@@ -621,7 +535,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 -(void)playVideo
 {
 #if !(TARGET_IPHONE_SIMULATOR)
-    if(httpfileUrl)
+    if(self.playStarted == TRUE)
         return;
     
     // Pause music playing when play video.
@@ -638,8 +552,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     _vcMoviePlayer.delegate=self;
     
     [_vcMoviePlayer setMedia:httpfileUrl];
-    
-    [self updateRightBarItem];
     
     [self.placeHolderView addSubview:_vcMoviePlayer.view];
     
