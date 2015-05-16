@@ -455,7 +455,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
     		//提醒用户下载完毕
     		[MBProgressHUD showSuccess:NSLocalizedString(@"download finished", nil ) toView:self.navigationController.view];
-		[self tryPlay];
+                    [self tryPlay];
 
                     if (_mediaType == video) {
                         if (self.playStarted == FALSE) {
@@ -471,6 +471,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
                 @try {
                     [_fileHandle writeData:data];
+                    [_fileHandle synchronizeFile];
                 }
                 @catch (NSException *exception) {
                     NSLog(@"exception: %@",exception);
@@ -555,9 +556,19 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     [self.placeHolderView addSubview:_vcMoviePlayer.view];
     
-    BOOL result = [_vcMoviePlayer play];
+    @try {
+        BOOL result = [_vcMoviePlayer play];
+        NSLog(@"playing: %d",result);
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
     
-    NSLog(@"playing: %d",result);
+    
     
 #endif
 }

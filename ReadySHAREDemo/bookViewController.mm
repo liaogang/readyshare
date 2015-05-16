@@ -14,6 +14,7 @@
 
 #import "ReaderViewController.h"
 
+#import "stringConv.h"
 
 @interface bookViewController ()<ReaderViewControllerDelegate>
 @property (nonatomic,strong) NSArray *files;// KxSMBItemFile
@@ -174,7 +175,44 @@ static NSString * const reuseIdentifier = @"bookCell";
                  }
                  else
                  {
-                     if ([PdfPreviewViewController canPreviewItem:[NSURL fileURLWithPath: localFilePath]])
+                     NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:localFilePath]];
+                     
+                     bool isutf8 = isUtf8((const char*)data.bytes, (int)data.length);
+                     
+                     enum ENCODETYPE encodeType = TellEncodeType((char*)data.bytes, (int)data.length);
+                     
+                     bool displayed = false;
+                     
+                     if (encodeType == GBK)
+                     {
+                         NSStringEncoding gbkEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+                         if(gbkEncoding != kCFStringEncodingInvalidId)
+                         {
+                             NSString *a = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:gbkEncoding];
+                             if ( a )
+                             {
+                                 NSString *b = [NSString stringWithUTF8String:a.UTF8String];
+                                 a = nil;
+                                 if( b)
+                                 {
+                                     displayed = YES;
+                                     UIViewController *vc = [[UIViewController alloc]init];
+                                     UITextView *tv = [[UITextView alloc]init];
+                                     vc.view = tv;
+                                     tv.text = b;
+                                     tv.selectable = YES;
+                                     tv.editable = false;
+                                     [self.navigationController pushViewController:vc animated:YES];
+                                     
+                                 }
+                             }
+                         }
+                     }
+                     
+
+                     
+                     
+                     if (!displayed && [PdfPreviewViewController canPreviewItem:[NSURL fileURLWithPath: localFilePath]])
                      {
                          PdfPreviewViewController *pdf =[[PdfPreviewViewController alloc]initWithFilePaths:@[[NSURL fileURLWithPath: localFilePath]]];
                          
