@@ -24,7 +24,7 @@
 		1E21D1951AEBAE4300386233 /* oper_previous_sel~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E21D18C1AEBAE4300386233 /* oper_previous_sel~iphone.png */; };
 		1E21D1971AEBAE8200386233 /* cd_bg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E21D1961AEBAE8200386233 /* cd_bg~iphone.png */; };
 		1E21D1991AEBB00200386233 /* cd_mask~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E21D1981AEBB00200386233 /* cd_mask~iphone.png */; };
-		1E3853601AEF777D004E6A8B /* bookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E38535F1AEF777D004E6A8B /* bookViewController.m */; };
+		1E3853601AEF777D004E6A8B /* bookViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E38535F1AEF777D004E6A8B /* bookViewController.mm */; };
 		1E3853631AEF785B004E6A8B /* bookCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3853621AEF785B004E6A8B /* bookCollectionViewCell.m */; };
 		1E3977111ACD47ED0049E391 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977101ACD47ED0049E391 /* libiconv.dylib */; };
 		1E3977131ACD47F50049E391 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977121ACD47F50049E391 /* libresolv.dylib */; };
@@ -169,6 +169,7 @@
 		1ED794791ACE54CF0080FCA8 /* UIPopoverControllerBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED794781ACE54CF0080FCA8 /* UIPopoverControllerBlock.m */; };
 		1ED7947C1ACE552C0080FCA8 /* UIAlertViewBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7947B1ACE552C0080FCA8 /* UIAlertViewBlock.m */; };
 		1ED7947F1ACE553C0080FCA8 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7947E1ACE553C0080FCA8 /* FileViewController.m */; };
+		1EEA57701B074C5800B30480 /* stringConv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EEA576F1B074C5800B30480 /* stringConv.cpp */; };
 		1EF396E81AFCC68F00A2ADCC /* musicTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EF396EA1AFCC68F00A2ADCC /* musicTableHeader.xib */; };
 		1EFEC0CB1ADA78E700478346 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEC0CA1ADA78E700478346 /* MainViewController.m */; };
 		1EFEC0CD1ADA7F1D00478346 /* RootData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEC0CC1ADA7F1D00478346 /* RootData.mm */; };
@@ -322,7 +323,7 @@
 		1E21D1961AEBAE8200386233 /* cd_bg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cd_bg~iphone.png"; path = "Resource/cd_bg~iphone.png"; sourceTree = "<group>"; };
 		1E21D1981AEBB00200386233 /* cd_mask~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cd_mask~iphone.png"; path = "Resource/cd_mask~iphone.png"; sourceTree = "<group>"; };
 		1E38535E1AEF777D004E6A8B /* bookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bookViewController.h; sourceTree = "<group>"; };
-		1E38535F1AEF777D004E6A8B /* bookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bookViewController.m; sourceTree = "<group>"; };
+		1E38535F1AEF777D004E6A8B /* bookViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = bookViewController.mm; sourceTree = "<group>"; };
 		1E3853611AEF785B004E6A8B /* bookCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bookCollectionViewCell.h; sourceTree = "<group>"; };
 		1E3853621AEF785B004E6A8B /* bookCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bookCollectionViewCell.m; sourceTree = "<group>"; };
 		1E3977101ACD47ED0049E391 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
@@ -539,6 +540,8 @@
 		1ED7947D1ACE553C0080FCA8 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewController.h; sourceTree = "<group>"; };
 		1ED7947E1ACE553C0080FCA8 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileViewController.m; sourceTree = "<group>"; };
 		1ED794811ACE60370080FCA8 /* constStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constStrings.h; sourceTree = "<group>"; };
+		1EEA576E1B074C5800B30480 /* stringConv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringConv.h; sourceTree = "<group>"; };
+		1EEA576F1B074C5800B30480 /* stringConv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stringConv.cpp; sourceTree = "<group>"; };
 		1EF396E71AFCC5BA00A2ADCC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		1EF396E91AFCC68F00A2ADCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/musicTableHeader.xib; sourceTree = "<group>"; };
 		1EF396EC1AFCC69200A2ADCC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/musicTableHeader.strings"; sourceTree = "<group>"; };
@@ -761,7 +764,7 @@
 			isa = PBXGroup;
 			children = (
 				1E38535E1AEF777D004E6A8B /* bookViewController.h */,
-				1E38535F1AEF777D004E6A8B /* bookViewController.m */,
+				1E38535F1AEF777D004E6A8B /* bookViewController.mm */,
 				1E3853611AEF785B004E6A8B /* bookCollectionViewCell.h */,
 				1E3853621AEF785B004E6A8B /* bookCollectionViewCell.m */,
 			);
@@ -1143,6 +1146,8 @@
 		9A034E8B1AFCAEE100AD5C99 /* Reader */ = {
 			isa = PBXGroup;
 			children = (
+				1EEA576E1B074C5800B30480 /* stringConv.h */,
+				1EEA576F1B074C5800B30480 /* stringConv.cpp */,
 				9A034E8E1AFCAEF800AD5C99 /* Source */,
 				9A034E8D1AFCAEF400AD5C99 /* Resource */,
 				9A034E8C1AFCAEF000AD5C99 /* Graphics */,
@@ -1658,6 +1663,7 @@
 				1E0739A71AE609AB000DCB9E /* PlayerMessage.mm in Sources */,
 				1E3AF2001ADF9D04004AA408 /* MJPhotoBrowser.m in Sources */,
 				9A034ECA1AFCAF4E00AD5C99 /* UIXToolbarView.m in Sources */,
+				1EEA57701B074C5800B30480 /* stringConv.cpp in Sources */,
 				1EA831C31AE8FD4A006642C5 /* PlayerTrack.m in Sources */,
 				1E39774F1ACD4B910049E391 /* SDWebImageDownloaderOperation+SMB.m in Sources */,
 				9A034EC21AFCAF4E00AD5C99 /* ReaderThumbQueue.m in Sources */,
@@ -1684,7 +1690,7 @@
 				9A034EC71AFCAF4E00AD5C99 /* ReaderViewController.m in Sources */,
 				1E3AF20B1ADF9D55004AA408 /* MBProgressHUD+Add.m in Sources */,
 				1E6B81F31AE4E8120078C52B /* musicTableViewCell.m in Sources */,
-				1E3853601AEF777D004E6A8B /* bookViewController.m in Sources */,
+				1E3853601AEF777D004E6A8B /* bookViewController.mm in Sources */,
 				1E4707141ACD44470052D2EF /* main.m in Sources */,
 				1E3AF21E1ADF9E63004AA408 /* CBetterCollectionViewCell.m in Sources */,
 				1E39773D1ACD4B7F0049E391 /* SDImageCache.m in Sources */,
