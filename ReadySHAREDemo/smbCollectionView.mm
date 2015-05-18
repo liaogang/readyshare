@@ -18,8 +18,6 @@
 
 #import "RootData.h"
 
-#import "BOSImageResizeOperation.h"
-#import <CoreData/CoreData.h>
 #import "ThreadJob.h"
 
 
