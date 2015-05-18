@@ -13,7 +13,8 @@
 
 //changed by lg
 //@property (nonatomic, strong) NSURL *url;
-@property (nonatomic , strong ) KxSMBItemFile *smbItem;
+//@property (nonatomic , strong ) KxSMBItemFile *smbItem;
+@property (nonatomic , strong) NSString *filePath;
 
 @property (nonatomic, strong) UIImage *image; // 完整的图片
 

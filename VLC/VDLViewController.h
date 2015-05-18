@@ -55,6 +55,9 @@ typedef void(^FullScreenCallBack)(BOOL bWillConvertToFullScreen );
 -(BOOL)willPlay;
 
 - (void)actionFullScreen:(id)sender ;
+
+- (void)_toggleControlsVisible:(BOOL)bControlsHiden;
+
 @end
 
 #endif

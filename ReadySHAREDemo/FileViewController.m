@@ -85,7 +85,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 @property (weak, nonatomic) IBOutlet UILabel *downloadLabel;
 @property (weak, nonatomic) IBOutlet UIView *placeHolderView;
-
+@property (nonatomic,strong) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic) BOOL playStarted;
 @end
 
@@ -162,16 +162,42 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     [self performSelector:@selector(downloadAction) withObject:nil afterDelay:0.3];
     
+    
+    
+    
+    _vcMoviePlayer = [[VDLViewController alloc]initWithNibName:@"VDLViewController" bundle:nil];
+    [_vcMoviePlayer.view setFrame:self.placeHolderView.bounds];
+    _vcMoviePlayer.view.autoresizingMask = ~0;
+    _vcMoviePlayer.delegate=self;
+    
+    [_vcMoviePlayer setMedia:httpfileUrl];
+    
+    [self.placeHolderView addSubview:_vcMoviePlayer.view];
+    
+    [_vcMoviePlayer actionFullScreen:nil];
+    [_vcMoviePlayer _toggleControlsVisible:FALSE];
+    
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicatorView.autoresizingMask = ~0 & ~UIViewAutoresizingFlexibleWidth & ~ UIViewAutoresizingFlexibleHeight;
+    self.activityIndicatorView.center = _vcMoviePlayer.view.center;
+    [self.activityIndicatorView startAnimating];
+    [_vcMoviePlayer.view addSubview: self.activityIndicatorView];
+    
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStarted) name:@"VDLViewControllerAboutToPlay" object:nil];
 }
 
 -(void)videoStarted
 {
+    [self.activityIndicatorView stopAnimating];
+    self.activityIndicatorView.hidden = YES;
+    
     self.playStarted = TRUE;
     self.navigationItem.rightBarButtonItem = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
     
-    [_vcMoviePlayer performSelector:@selector(actionFullScreen:) withObject:nil afterDelay:0.6];
+//    [_vcMoviePlayer performSelector:@selector(actionFullScreen:) withObject:nil afterDelay:0.6];
 }
 
 -(void)figureOutMediaType
@@ -546,15 +572,17 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     httpfileUrl = [NSURL fileURLWithPath:_filePath];
 
-    
+    /*
     _vcMoviePlayer = [[VDLViewController alloc]initWithNibName:@"VDLViewController" bundle:nil];
     [_vcMoviePlayer.view setFrame:self.placeHolderView.bounds];
     _vcMoviePlayer.view.autoresizingMask = ~0;
     _vcMoviePlayer.delegate=self;
+    */
+    
     
     [_vcMoviePlayer setMedia:httpfileUrl];
     
-    [self.placeHolderView addSubview:_vcMoviePlayer.view];
+    //[self.placeHolderView addSubview:_vcMoviePlayer.view];
     
     @try {
         BOOL result = [_vcMoviePlayer play];

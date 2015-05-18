@@ -30,4 +30,17 @@
 }
 
 
+
+
+-(void)didMoveToSuperview
+{
+    [super didMoveToSuperview];
+    NSLog(@"didMoveToSuperview: %p",self);
+    
+//    [self.imageV setImage:[UIImage imageWithContentsOfFile:self.imageFilePath]];
+//    [self.imageV setNeedsLayout];
+}
+
+
+
 @end
