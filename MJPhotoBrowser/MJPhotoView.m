@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SDWebImageManager+SMB.h"
 //#import "CoreAnimationEffect.h"
+#import "BOSImageResizeOperation.h"
 
 @interface MJPhotoView ()
 {
@@ -80,14 +81,41 @@
         {
             __weak MJPhotoView *photoView = self;
             __weak MJPhoto *photo = _photo;
+            photo.image = [UIImage imageWithContentsOfFile:photo.filePath];
+            _imageView.image = photo.image;
             
+            // 调整frame参数
+            [photoView adjustFrame];
+            [_imageView setNeedsLayout];
+            
+            /*
             [_imageView setImageWithSmbFile:photo.smbItem placeholderImage:_photo.placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType)  {
-                photo.image = image;
-                
+                                    CGSize rcScr = [UIScreen mainScreen].bounds.size;
+                    if (image.size.height * image.size.width > rcScr.width * rcScr.height)
+                    {
+                        BOSImageResizeOperation* op = [[BOSImageResizeOperation alloc] initWithImage:image];
+                        [op resizeToFitWithinSize:[UIScreen mainScreen].bounds.size];
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                            [op start];
+                            UIImage* smallerImage = op.result;
+                            if (smallerImage) {
+                                //cache it.
+                                
+                                photo.image = image;
+                            }
+                        });
+                    }
+                else
+                    photo.image = image;
+            
+            
                 // 调整frame参数
                 [photoView adjustFrame];
             } needRefresh:YES];
             
+                */
+            
+
         }
     } else
     {
@@ -116,9 +144,12 @@
         //__weak MJPhotoLoadingView *loading = _photoLoadingView;
         
         //by lg
+        /*
         [_imageView setImageWithSmbFile:_photo.smbItem placeholderImage:_photo.srcImageView.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
             [photoView photoDidFinishLoadWithImage:image];
-        } needRefresh:YES];
+        } needRefresh:YES];*/
+        
+        _imageView.image = [UIImage imageWithContentsOfFile:_photo.filePath];
         
     }
 }

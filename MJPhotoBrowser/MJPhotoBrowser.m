@@ -311,6 +311,7 @@
 - (void)loadImageNearIndex:(int)index
 {
     //by lg
+    /*
     if (index > 0) {
         MJPhoto *photo = _photos[index - 1];
         [[SDWebImageManager  sharedManager]downloadWithSmbItem:photo.smbItem options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
@@ -324,17 +325,20 @@
             
         }];
     }
+    */
     
     
-//    if (index > 0) {
-//        MJPhoto *photo = _photos[index - 1];
+    if (index > 0) {
+        MJPhoto *photo = _photos[index - 1];
+        photo.image = [UIImage imageWithContentsOfFile:photo.filePath];
 //        [SDWebImageManager downloadWithURL:photo.url];
-//    }
-//    
-//    if (index < _photos.count - 1) {
-//        MJPhoto *photo = _photos[index + 1];
+    }
+    
+    if (index < _photos.count - 1) {
+        MJPhoto *photo = _photos[index + 1];
+        photo.image = [UIImage imageWithContentsOfFile:photo.filePath];
 //        [SDWebImageManager downloadWithURL:photo.url];
-//    }
+    }
 }
 
 #pragma mark index这页是否正在显示

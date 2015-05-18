@@ -19,6 +19,7 @@
 
 #import "LocalViewController.h"
 
+#import "CWPhotoViewerMasterViewController.h"
 
 @interface UINavigationControllerMy : UINavigationController
 -(BOOL)shouldAutorotate;
@@ -423,7 +424,13 @@
         }
         case MediaTypePhoto:
         {
+            
+//            CWPhotoViewerMasterViewController *masterViewController = [[CWPhotoViewerMasterViewController alloc] initWithNibName:@"CWPhotoViewerMasterViewController_iPhone" bundle:nil];
+//            
+//            nextViewController = masterViewController;
+            
             nextViewController = [[smbCollectionViewController alloc]init];
+            
             break;
         }
         case MediaTypeBook:
