@@ -68,22 +68,8 @@ CGSize szCoverIphone ={260.,300.};
 -(void)dealloc
 {
     [[SDWebImageManager sharedManager] cancelAll];
+    clearTempFolder();
 }
-
--(void)didReceiveMemoryWarning
-{
-//    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-
-    [super didReceiveMemoryWarning];
-    
-    
-    
-    
-    
-    [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Photo browser is quited",nil) message:NSLocalizedString(@"Current app received memory warning",nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ok", nil),nil] show];
-}
-
-
 
 -(id)init
 {
@@ -187,15 +173,14 @@ CGSize szCoverIphone ={260.,300.};
         scaledImagePathsThumbnail = [NSMutableArray arrayWithCapacity:count ];
         scaledImagePathsScreen = [NSMutableArray arrayWithCapacity:count ];
         
-        NSString *folder = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-        folder =[folder stringByAppendingPathComponent:@"Downloads"];
+        NSString *folder =  generateTempFolderName();
+        
         for (int i=0;i<count;++i)
         {
-            NSString* t =[folder stringByAppendingPathComponent:[@(i).stringValue stringByAppendingString:@"-thumbnail"] ];
-            t =[t stringByAppendingPathExtension:@"png"];
+            KxSMBItemFile *file = _smbItemFiles[i];
+            NSString* t =[folder stringByAppendingPathComponent:[@"thumbnail-" stringByAppendingString:file.path.lastPathComponent] ];
             
-            NSString* s =[folder stringByAppendingPathComponent:[@(i).stringValue stringByAppendingString:@"-screen"] ];
-            s =[s stringByAppendingPathExtension:@"png"];
+            NSString* s =[folder stringByAppendingPathComponent:[@"screen-" stringByAppendingString:file.path.lastPathComponent] ];
             
             [scaledImagePathsThumbnail addObject: t];
             [scaledImagePathsScreen addObject: s];
@@ -213,6 +198,13 @@ CGSize szCoverIphone ={260.,300.};
     return [_smbItemFiles  count];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    Cell2 *weakCell = (Cell2*)cell;
+    weakCell.imageV.image = nil;
+    NSLog(@"set nil. %d",indexPath.row);
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     Cell2 *cell = [cv dequeueReusableCellWithReuseIdentifier:kCellID forIndexPath:indexPath];
@@ -223,49 +215,10 @@ CGSize szCoverIphone ={260.,300.};
     
     cell.label.text =  smbItem.path.lastPathComponent;
     
-//    NSString *folder = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
-//                                                            NSUserDomainMask,
-//                                                            YES) lastObject];
-//    
-//    
-//    folder =[folder stringByAppendingPathComponent:@"Downloads"];
-//    
-//    folder =[folder stringByAppendingPathComponent:@(indexPath.row).stringValue];
-//    cell.imageV.image = [[UIImage alloc]initWithContentsOfFile: folder];
-//    return cell;
-    
-    //is scaledimage cached?
-//    UIImage *scaledImage = scaledImages[indexPath.row];
-    
-//    [[NSAttributeDescription alloc] setAllowsExternalBinaryDataStorage:YES];
-    
-//    if( [scaledImage isKindOfClass:[UIImage class]])
-//        [cell.imageV setImage:scaledImage ];
-//    else
-    {
-//        if ([scaledImagePaths isKindOfClass:[NSString class]]) {
-//            cell.imageV.image = [[UIImage alloc]initWithContentsOfFile:scaledImagePaths[indexPath.row]];
-//        }
-//        else
-        {
-//            NSString *systemVersion = [UIDevice currentDevice].systemVersion;
-//            if([systemVersion intValue] < 8.0 )
-//            {
-                [self prepareCell:cell forItemAtIndexPath:indexPath];
-//            }
-        }
-    }
+    [self prepareCell:cell forItemAtIndexPath:indexPath];
     
     return cell;
 }
-
-//- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    Cell2 *cell2 = (Cell2*)cell;
-//    cell2.imageV.image = nil;
-////    cell2.imageFilePath = scaledImagePaths[indexPath.row];
-//}
-
 
 -(void)prepareCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -276,7 +229,9 @@ CGSize szCoverIphone ={260.,300.};
     NSLog(@"start download: %@",smbItem);
     
     NSString *pathThumbnail = scaledImagePathsThumbnail[row];
-    NSString *pathScreen = scaledImagePathsScreen[row];
+    __block __weak NSString *pathScreen = scaledImagePathsScreen[row];
+    
+    BOOL bExist = false;
     
     if(![[NSFileManager defaultManager]fileExistsAtPath:pathThumbnail])
     {
@@ -294,118 +249,57 @@ CGSize szCoverIphone ={260.,300.};
             {
                 // Download Finished.
                 UIImage *image = [[UIImage alloc]initWithData:data];
-                image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:_weakCell.imageV.bounds.size interpolationQuality:kCGInterpolationMedium];
-                
                 
                 UIImage *imageScreen = image;
-                CGSize rcScr = [UIScreen mainScreen].bounds.size;
+                
+                BOOL useData = false;
+                
+                if ([smbItem.path.lastPathComponent.pathExtension isEqualToString:@"gif"])
+                {
+                    useData = true;
+                }
+                else
                 if (image.size.height + image.size.width > 1024. + 1024. )
                 {
-                    imageScreen = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:rcScr interpolationQuality:kCGInterpolationMedium];
+                    CGSize rcScr = [UIScreen mainScreen].bounds.size;
+                    imageScreen = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:rcScr interpolationQuality:kCGInterpolationHigh];
+                }
+                else
+                {
+                    
                 }
                 
+                image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFill bounds:_weakCell.imageV.bounds.size interpolationQuality:kCGInterpolationMedium];
+                
                 [UIImagePNGRepresentation(image) writeToFile:pathThumbnail atomically:YES];
-                [UIImagePNGRepresentation(imageScreen) writeToFile:pathScreen atomically:YES];
+                
+                if (useData)
+                    [data writeToFile:pathScreen atomically:YES];
+                else
+                {
+                    if ([smbItem.path.lowercaseString hasSuffix:@".jpg"])
+                        [UIImageJPEGRepresentation(imageScreen,0.8f) writeToFile:pathScreen atomically:YES];
+                    else
+                        [UIImagePNGRepresentation(imageScreen) writeToFile:pathScreen atomically:YES];
+                }
+                
             }
         }
     }, ^{
-       
-//        UIImage *image =  [UIImage imageWithContentsOfFile:folder];
-//        _weakCell.imageV.image = image;
+        UIImage *image =  [[UIImage alloc ]initWithContentsOfFile:pathThumbnail];
+        _weakCell.imageV.image = image;
+        rcImage = _weakCell.imageV.bounds.size;
     });
     }else
     {
         UIImage *image =  [[UIImage alloc ]initWithContentsOfFile:pathThumbnail];
         _weakCell.imageV.image = image;
         rcImage = _weakCell.imageV.bounds.size;
-        
     }
     
     return;
-    /*
-    
-    if (smbItem.stat.size < 12 * 1024 * 1024)
-    
-    [_weakCell.imageV  setImageWithSmbFile:smbItem placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(_weakCell )
-        {
-            if (image)
-            {
-                NSLog(@"%@",image);
-                
-                if (image)
-                {
-                    NSString *folder = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
-                                                                            NSUserDomainMask,
-                                                                            YES) lastObject];
-                    
-                    
-                    folder =[folder stringByAppendingPathComponent:@"Downloads"];
-                    
-                    folder =[folder stringByAppendingPathComponent:@(row).stringValue];
-                    
-                    
-                    //image = [image imageByScalingAndCroppingForSize:_weakCell.imageV.bounds.size];
-                    CGSize rcScr = [UIScreen mainScreen].bounds.size;
-                    rcScr.width = 100;
-                    rcScr.height = 100;
-                    if (image.size.height + image.size.width > rcScr.width + rcScr.height)
-                    {
-                        BOSImageResizeOperation* op = [[BOSImageResizeOperation alloc] initWithImage:image];
-                        [op resizeToFitWithinSize: rcScr];
-                        [op cropToAspectRatioWidth:rcScr.width height:rcScr.height];
-
-                        
-                        [op writeResultToPath: folder];
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                            [op start];
-                            scaledImagePaths[row] = folder;
-                            
-                            
-                            UIImage* smallerImage = [[UIImage alloc]initWithContentsOfFile:folder];
-                            if (smallerImage) {
-                                //cache it.
-                                //scaledImages[indexPath.row]=smallerImage;
-//                                [_weakCell.imageV setImage:smallerImage];
-//                                [_weakCell.imageV setNeedsLayout];
-                                rcImage = _weakCell.imageV.bounds.size;
-                                
-                            }
-                            
-                            
-                        });
-                    }
-                    else
-                    {
-                        image = [image  resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:_weakCell.imageV.bounds.size interpolationQuality:kCGInterpolationMedium];
-                        
-                        //cache it.
-                        //scaledImages[indexPath.row]=image;
-                        
-                        [UIImagePNGRepresentation(image) writeToFile:folder atomically:YES];
-                        
-//                        _weakCell.imageV.image = [[UIImage alloc]initWithContentsOfFile:folder];
-//                        [_weakCell.imageV setNeedsLayout];
-//                        rcImage = _weakCell.imageV.bounds.size;
-                    }
-                }
-                else
-                {
-                    NSLog(@"ResizedImageWithContentMode failed.");
-                }
-            }
-        }
-    } needRefresh:NO];
-*/
-    
 }
 
-
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(8_0)
-{
-//    [self prepareCell:cell forItemAtIndexPath:indexPath];
-}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -456,8 +350,6 @@ CGSize szCoverIphone ={260.,300.};
             for (int i = 0; i < [_smbItemFiles count]; i++)
             {
                 MJPhoto *photo = [[MJPhoto alloc] init];
-                
-//                photo.smbItem = _smbItemFiles[i];
                 
                 photo.filePath = scaledImagePathsScreen[i];
                 
