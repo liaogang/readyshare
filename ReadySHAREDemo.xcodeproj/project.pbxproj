@@ -154,7 +154,6 @@
 		1E4707601ACD473A0052D2EF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E47075F1ACD473A0052D2EF /* libz.dylib */; };
 		1E6B81F31AE4E8120078C52B /* musicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */; };
 		1E6B81F41AE4E8120078C52B /* musicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */; };
-		1E6BD7D81B087BBB005EA47D /* BOSImageResizeOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BD7D71B087BBB005EA47D /* BOSImageResizeOperation.m */; };
 		1E85F7A01AF769E2008CB2FE /* serializeTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E85F79F1AF769E2008CB2FE /* serializeTool.mm */; };
 		1E98F04A1ADB72320021C1C7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E98F04C1ADB72320021C1C7 /* Localizable.strings */; };
 		1EA831BE1AE8E8D3006642C5 /* auth.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA831BC1AE8E8D3006642C5 /* auth.png */; };
@@ -520,8 +519,6 @@
 		1E6B81F01AE4E8120078C52B /* musicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = musicTableViewCell.h; sourceTree = "<group>"; };
 		1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = musicTableViewCell.m; sourceTree = "<group>"; };
 		1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = musicTableViewCell.xib; sourceTree = "<group>"; };
-		1E6BD7D61B087BBB005EA47D /* BOSImageResizeOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOSImageResizeOperation.h; sourceTree = "<group>"; };
-		1E6BD7D71B087BBB005EA47D /* BOSImageResizeOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOSImageResizeOperation.m; sourceTree = "<group>"; };
 		1E85F79E1AF769E2008CB2FE /* serializeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serializeTool.h; sourceTree = "<group>"; };
 		1E85F79F1AF769E2008CB2FE /* serializeTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = serializeTool.mm; sourceTree = "<group>"; };
 		1E98F04B1ADB72320021C1C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1180,8 +1177,6 @@
 		9A034E8B1AFCAEE100AD5C99 /* Reader */ = {
 			isa = PBXGroup;
 			children = (
-				1E6BD7D61B087BBB005EA47D /* BOSImageResizeOperation.h */,
-				1E6BD7D71B087BBB005EA47D /* BOSImageResizeOperation.m */,
 				1EEA576E1B074C5800B30480 /* stringConv.h */,
 				1EEA576F1B074C5800B30480 /* stringConv.cpp */,
 				1EBC99BA1B0984C800833716 /* ThreadJob.h */,
@@ -1686,7 +1681,6 @@
 				1E3977411ACD4B7F0049E391 /* SDWebImageDownloaderOperation.m in Sources */,
 				1ED794791ACE54CF0080FCA8 /* UIPopoverControllerBlock.m in Sources */,
 				1E3AF2221ADF9E63004AA408 /* CReflectionView.m in Sources */,
-				1E6BD7D81B087BBB005EA47D /* BOSImageResizeOperation.m in Sources */,
 				1E3AF2011ADF9D04004AA408 /* MJPhotoLoadingView.m in Sources */,
 				1ED7947F1ACE553C0080FCA8 /* FileViewController.m in Sources */,
 				1E39773F1ACD4B7F0049E391 /* SDWebImageDecoder.m in Sources */,
