@@ -10,6 +10,4 @@
 @property (retain, nonatomic) IBOutlet UIImageView *imageV;
 @property (retain, nonatomic) IBOutlet UILabel *label;
 
-@property (strong,nonatomic) NSString *imageFilePath;
-
 @end

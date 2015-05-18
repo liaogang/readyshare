@@ -150,7 +150,8 @@
         } needRefresh:YES];*/
         
         _imageView.image = [UIImage imageWithContentsOfFile:_photo.filePath];
-        
+        [_imageView setNeedsDisplay];
+        [photoView photoDidFinishLoadWithImage:_imageView.image];
     }
 }
 

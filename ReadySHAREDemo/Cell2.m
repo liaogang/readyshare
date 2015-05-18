@@ -19,28 +19,12 @@
     self = [super initWithCoder:aDecoder];
     if (self)
     {
-        // change to our custom selected background view
-//        CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
-//        self.selectedBackgroundView = backgroundView;
         self.imageV.contentMode= UIViewContentModeScaleAspectFit;
         
         self.autoresizingMask = ~0;
     }
     return self;
 }
-
-
-
-
--(void)didMoveToSuperview
-{
-    [super didMoveToSuperview];
-    NSLog(@"didMoveToSuperview: %p",self);
-    
-//    [self.imageV setImage:[UIImage imageWithContentsOfFile:self.imageFilePath]];
-//    [self.imageV setNeedsLayout];
-}
-
 
 
 @end
