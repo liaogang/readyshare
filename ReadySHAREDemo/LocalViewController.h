@@ -13,10 +13,11 @@
 #include<AssetsLibrary/AssetsLibrary.h>
 
 #import "LocalLibraryViewController.h"
+#import "DoImagePickerController.h"
 
 @class TreeViewController;
 
-@interface LocalViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface LocalViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,DoImagePickerControllerDelegate>
 {
     int m_rowCurr;                         //index of cell current selected
     NSMutableArray*     m_filesArray;
