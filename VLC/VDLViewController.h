@@ -54,7 +54,11 @@ typedef void(^FullScreenCallBack)(BOOL bWillConvertToFullScreen );
 -(BOOL)isPlaying;
 -(BOOL)willPlay;
 
+
+-(BOOL)bFullScreen;
 - (void)actionFullScreen:(id)sender ;
+- (void)actionFullScreenBool:(BOOL)fullScreen;
+
 
 - (void)_toggleControlsVisible:(BOOL)bControlsHiden;
 
