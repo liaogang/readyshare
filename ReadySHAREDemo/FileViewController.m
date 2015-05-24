@@ -186,6 +186,18 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStarted) name:@"VDLViewControllerAboutToPlay" object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStopped) name:@"VDLViewControllerStopped" object:nil];
+    
+}
+
+-(void)videoStopped
+{
+    if ([_vcMoviePlayer bFullScreen]) {
+        [_vcMoviePlayer actionFullScreen:nil];
+    }
+    
 }
 
 -(void)videoStarted
@@ -196,8 +208,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     self.playStarted = TRUE;
     self.navigationItem.rightBarButtonItem = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
-    
-//    [_vcMoviePlayer performSelector:@selector(actionFullScreen:) withObject:nil afterDelay:0.6];
 }
 
 -(void)figureOutMediaType

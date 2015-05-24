@@ -316,9 +316,13 @@ CGRect rectRorientation(CGRect r)
     [_mediaplayer stop];
 }
 
-- (IBAction)actionFullScreen:(id)sender {
-    bFullScreen = !bFullScreen ;
-    
+-(BOOL)bFullScreen
+{
+    return bFullScreen;
+}
+
+- (void)actionFullScreenBool:(BOOL)fullScreen
+{
     //set view's auto resizing make to 'makeall' in fullscreen
     if(bFullScreen)
     {
@@ -407,6 +411,13 @@ CGRect rectRorientation(CGRect r)
     
     
     [UIView animateWithDuration:.5f animations:animationBlock completion:completionBlock];
+}
+
+
+- (IBAction)actionFullScreen:(id)sender {
+    bFullScreen = !bFullScreen ;
+    
+    [self actionFullScreenBool: bFullScreen];
 }
 
 
@@ -515,6 +526,10 @@ CGRect rectRorientation(CGRect r)
     else
     {
         [_btnPlayandPause setImage:[UIImage imageNamed:@"playIcon"] forState:UIControlStateNormal];
+    }
+    
+    if (_mediaplayer.state == VLCMediaPlayerStateStopped) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"VDLViewControllerStopped" object:nil];
     }
     
     
