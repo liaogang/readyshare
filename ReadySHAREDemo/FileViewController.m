@@ -165,6 +165,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     
     
     
+#if !(TARGET_IPHONE_SIMULATOR)
     _vcMoviePlayer = [[VDLViewController alloc]initWithNibName:@"VDLViewController" bundle:nil];
     [_vcMoviePlayer.view setFrame:self.placeHolderView.bounds];
     _vcMoviePlayer.view.autoresizingMask = ~0;
@@ -183,6 +184,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     [self.activityIndicatorView startAnimating];
     [_vcMoviePlayer.view addSubview: self.activityIndicatorView];
     
+#endif
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStarted) name:@"VDLViewControllerAboutToPlay" object:nil];
@@ -194,10 +196,11 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 
 -(void)videoStopped
 {
+#if !(TARGET_IPHONE_SIMULATOR)
     if ([_vcMoviePlayer bFullScreen]) {
         [_vcMoviePlayer actionFullScreen:nil];
     }
-    
+#endif
 }
 
 -(void)videoStarted
