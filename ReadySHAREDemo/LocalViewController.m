@@ -13,6 +13,7 @@
 
 #import "LocaFileSelectedViewController.h"
 //#import "audioTableViewController.h"
+#import "DoImagePickerController.h"
 
 #ifdef __llvm__
 #pragma GCC diagnostic ignored "-Wdangling-else"
@@ -65,8 +66,10 @@ static NSString *playFileName;
         
         NSString *photoFolder =
         [[NSString alloc] initWithFormat:@"%@/Local Photo Library", folder];
-        NSString *videoFolder =
-        [[NSString alloc] initWithFormat:@"%@/Local Video Library", folder];
+//        NSString *videoFolder =
+//        [[NSString alloc] initWithFormat:@"%@/Local Video Library", folder];
+        
+        
         //        NSString *audioFolder = [folder
         //        stringByAppendingPathComponent:@"Audio Library"];
         //        //暂时屏蔽audio目录，因为My media中没有music
@@ -75,10 +78,10 @@ static NSString *playFileName;
      withIntermediateDirectories:YES
                       attributes:nil
                            error:nil];
-        [fm createDirectoryAtURL:[NSURL fileURLWithPath:videoFolder]
-     withIntermediateDirectories:YES
-                      attributes:nil
-                           error:nil];
+//        [fm createDirectoryAtURL:[NSURL fileURLWithPath:videoFolder]
+//     withIntermediateDirectories:YES
+//                      attributes:nil
+//                           error:nil];
         
         //        [fm createDirectoryAtURL:[NSURL fileURLWithPath:audioFolder]
         //     withIntermediateDirectories:YES attributes:nil error:nil ];
@@ -251,17 +254,98 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark table delegate and data source
 
 //推出设置界面
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    
+//    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:nil message:@"将会在下个版本中支持，敬请关注"
+//                                                   delegate:self
+//                                          cancelButtonTitle:NSLocalizedString(@"确定",nil)
+//                                          otherButtonTitles:nil, nil];
+//    //                alert.tag = AlertView_RebootRouter_Tag;
+//    [alert show];
+//    //[alert release];
+//    return;
+//    
+//    NSInteger row = [indexPath row];
+//    NSString *newPath = [m_documentDirectory
+//                         stringByAppendingFormat:@"/%@", [m_filesArray objectAtIndex:row]];
+//    
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+//    backItem.title = NSLocalizedStringFromTable(@"back", @"Localizable", nil);
+//    self.navigationItem.backBarButtonItem = backItem;
+//    
+//    BOOL isDir, valid;
+//    valid = [[NSFileManager defaultManager] fileExistsAtPath:newPath
+//                                                 isDirectory:&isDir];
+//    
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    
+//    if (valid)
+//        if (isDir) {
+//            NSString *folderPhoto = [m_documentDirectory
+//                                     stringByAppendingFormat:@"/%@", @"Photo Library"];
+//            NSString *folderVideo = [m_documentDirectory
+//                                     stringByAppendingFormat:@"/%@", @"Video Library"];
+//            
+//            //            NSString *folderAudio = [m_documentDirectory
+//            //            stringByAppendingPathComponent:@"Audio Library"];
+//            
+//            // come to library
+//            if ([newPath isEqualToString:folderPhoto] ||
+//                [newPath isEqualToString:folderVideo]) {
+//                BOOL is_pic = NO;
+//                if ([newPath isEqualToString:folderPhoto]) {
+//                    is_pic = YES;
+//                } else {
+//                    is_pic = NO;
+//                }
+//                
+//                LocalLibraryViewController *libView =
+//                [[LocalLibraryViewController alloc] initWithTag:is_pic];
+//                libView.folderName = cell.textLabel.text;
+//                
+//                UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] init];
+//                backBtn.title = NSLocalizedStringFromTable(@"back", nil, nil);
+//                self.navigationItem.backBarButtonItem = backBtn;
+//                
+//                [self.navController pushViewController:libView animated:YES];
+//            }
+//            //            else if([newPath isEqualToString:folderAudio])
+//            //            {
+//            //                audioTableViewController *a =[[audioTableViewController
+//            //                alloc]init ];
+//            //                [a setDirectory:folderAudio];
+//            //                [self.navController pushViewController:a animated:YES];
+//            //            }
+//            else {
+//                LocalViewController *local =
+//                [[LocalViewController alloc] initWithDirectoryPaths:newPath];
+//                local.navController = self.navController;
+//                [self.navController pushViewController:local animated:YES];
+//                local.remoteViewC = self.remoteViewC;
+//            }
+//        } else // if file
+//        {
+//            playFileName = [m_filesArray objectAtIndex:row];
+//            
+//            [self uploadOrPlay:[m_documentDirectory
+//                                stringByAppendingFormat:
+//                                @"/%@", [m_filesArray objectAtIndex:row]]];
+//        }
+//}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:nil message:@"将会在下个版本中支持，敬请关注"
-                                                   delegate:self
-                                          cancelButtonTitle:NSLocalizedString(@"确定",nil)
-                                          otherButtonTitles:nil, nil];
-    //                alert.tag = AlertView_RebootRouter_Tag;
-    [alert show];
-    //[alert release];
-    return;
+//    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:nil message:@"将会在下个版本中支持，敬请关注"
+//                                                   delegate:self
+//                                          cancelButtonTitle:NSLocalizedString(@"确定",nil)
+//                                          otherButtonTitles:nil, nil];
+//    //                alert.tag = AlertView_RebootRouter_Tag;
+//    [alert show];
+//    //[alert release];
+//    return;
     
     NSInteger row = [indexPath row];
     NSString *newPath = [m_documentDirectory
@@ -297,15 +381,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                     is_pic = NO;
                 }
                 
-                LocalLibraryViewController *libView =
-                [[LocalLibraryViewController alloc] initWithTag:is_pic];
-                libView.folderName = cell.textLabel.text;
+//                LocalLibraryViewController *libView =
+//                [[LocalLibraryViewController alloc] initWithTag:is_pic];
+//                libView.folderName = cell.textLabel.text;
+                DoImagePickerController *cont = [[DoImagePickerController alloc] initWithNibName:@"DoImagePickerController" bundle:nil];
+                cont.delegate = self;
+                //    cont.nResultType = DO_PICKER_RESULT_UIIMAGE;
+                //    if (_sgMaxCount.selectedSegmentIndex == 0)
+                //        cont.nMaxCount = 1;
+                //    else if (_sgMaxCount.selectedSegmentIndex == 1)
+                //        cont.nMaxCount = 4;
+                //    else if (_sgMaxCount.selectedSegmentIndex == 2)
+                //    {
+                //        cont.nMaxCount = DO_NO_LIMIT_SELECT;
+                //        cont.nResultType = DO_PICKER_RESULT_ASSET;  // if you want to get lots photos, you'd better use this mode for memory!!!
+                //    }
+                cont.nMaxCount = DO_NO_LIMIT_SELECT;
+                cont.nResultType = DO_PICKER_RESULT_ASSET;
+                cont.nColumnCount = 2;//_sgColumnCount.selectedSegmentIndex + 2;
+                
+                //[self presentViewController:cont animated:YES completion:nil];
                 
                 UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] init];
                 backBtn.title = NSLocalizedStringFromTable(@"back", nil, nil);
                 self.navigationItem.backBarButtonItem = backBtn;
-                
-                [self.navController pushViewController:libView animated:YES];
+                //[self.navController pushViewController:libView animated:YES];
+                [self.navController pushViewController:cont animated:YES];
             }
             //            else if([newPath isEqualToString:folderAudio])
             //            {
@@ -315,11 +416,36 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             //                [self.navController pushViewController:a animated:YES];
             //            }
             else {
-                LocalViewController *local =
-                [[LocalViewController alloc] initWithDirectoryPaths:newPath];
-                local.navController = self.navController;
-                [self.navController pushViewController:local animated:YES];
-                local.remoteViewC = self.remoteViewC;
+//                LocalViewController *local =
+//                [[LocalViewController alloc] initWithDirectoryPaths:newPath];
+//                local.navController = self.navController;
+//                [self.navController pushViewController:local animated:YES];
+//                local.remoteViewC = self.remoteViewC;
+                
+                
+                DoImagePickerController *cont = [[DoImagePickerController alloc] initWithNibName:@"DoImagePickerController" bundle:nil];
+                cont.delegate = self;
+                //    cont.nResultType = DO_PICKER_RESULT_UIIMAGE;
+                //    if (_sgMaxCount.selectedSegmentIndex == 0)
+                //        cont.nMaxCount = 1;
+                //    else if (_sgMaxCount.selectedSegmentIndex == 1)
+                //        cont.nMaxCount = 4;
+                //    else if (_sgMaxCount.selectedSegmentIndex == 2)
+                //    {
+                //        cont.nMaxCount = DO_NO_LIMIT_SELECT;
+                //        cont.nResultType = DO_PICKER_RESULT_ASSET;  // if you want to get lots photos, you'd better use this mode for memory!!!
+                //    }
+                cont.nMaxCount = DO_NO_LIMIT_SELECT;
+                cont.nResultType = DO_PICKER_RESULT_ASSET;
+                cont.nColumnCount = 2;//_sgColumnCount.selectedSegmentIndex + 2;
+                
+                [self presentViewController:cont animated:YES completion:nil];
+                
+//                UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] init];
+//                backBtn.title = NSLocalizedStringFromTable(@"back", nil, nil);
+//                self.navigationItem.backBarButtonItem = backBtn;
+                //[self.navController pushViewController:libView animated:YES];
+                //[self.navController pushViewController:cont animated:YES];
             }
         } else // if file
         {
@@ -330,6 +456,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                                 @"/%@", [m_filesArray objectAtIndex:row]]];
         }
 }
+
+
+
+
+
+
 
 /*
  *  play media
@@ -602,5 +734,39 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 - (NSString *)GetDir {
     return m_documentDirectory;
 }
+
+
+
+#pragma mark - DoImagePickerControllerDelegate
+- (void)didCancelDoImagePickerController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)didSelectPhotosFromDoImagePickerController:(DoImagePickerController *)picker result:(NSArray *)aSelected
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+//    if (picker.nResultType == DO_PICKER_RESULT_UIIMAGE)
+//    {
+//        for (int i = 0; i < MIN(4, aSelected.count); i++)
+//        {
+//            UIImageView *iv = _aIVs[i];
+//            iv.image = aSelected[i];
+//        }
+//    }
+//    else if (picker.nResultType == DO_PICKER_RESULT_ASSET)
+//    {
+//        for (int i = 0; i < MIN(4, aSelected.count); i++)
+//        {
+//            UIImageView *iv = _aIVs[i];
+//            iv.image = [ASSETHELPER getImageFromAsset:aSelected[i] type:ASSET_PHOTO_SCREEN_SIZE];
+//        }
+//        
+//        [ASSETHELPER clearData];
+//    }
+}
+
+
 
 @end
