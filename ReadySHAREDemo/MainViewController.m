@@ -108,13 +108,31 @@
     
     self.navigationItem.rightBarButtonItem =  self.barReload;
 
-
-    
     [self figureOutRootPath];
+    
+    UIButton * btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [btn addTarget:self action:@selector(aboutBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * aboutBtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    self.navigationItem.leftBarButtonItem = aboutBtn;
+}
+#pragma mark - UIViewControllerRotation
 
+
+- (void) aboutBtnPress
+{
+    [self showAboutInfo];
 }
 
-#pragma mark - UIViewControllerRotation
+- (void) showAboutInfo
+{
+    NSMutableString* msg = [[NSMutableString alloc] init];
+    
+    [msg appendFormat:@"%@ %@",@"软件版本",[[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey]];
+    [msg appendString:@"\n"];
+    
+    [[[UIAlertView alloc]initWithTitle:@"关于" message:msg delegate:nil cancelButtonTitle:@"取消" otherButtonTitles: nil]show];
+}
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -150,6 +168,8 @@
         [self.btnFileBrowse setHidden:YES];
         [self.btnPhoto setHidden:YES];
     }
+    
+    
 }
 
 - (BOOL)shouldAutorotate
