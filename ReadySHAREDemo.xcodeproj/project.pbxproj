@@ -167,6 +167,10 @@
 		1EADC74C1AE39F94001E562F /* MusicViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EADC74B1AE39F94001E562F /* MusicViewController.mm */; };
 		1EBC99B81B097F0800833716 /* cellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EBC99B71B097F0800833716 /* cellViewController.m */; };
 		1EBC99BC1B0984C800833716 /* ThreadJob.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EBC99BB1B0984C800833716 /* ThreadJob.mm */; };
+		1ED646721B18575300CC1A67 /* IDZAQAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED6466F1B18575300CC1A67 /* IDZAQAudioPlayer.m */; };
+		1ED646731B18575300CC1A67 /* IDZOggVorbisFileDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1ED646711B18575300CC1A67 /* IDZOggVorbisFileDecoder.mm */; };
+		1ED646771B18581500CC1A67 /* Vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED646751B18581500CC1A67 /* Vorbis.framework */; };
+		1ED646781B18581500CC1A67 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ED646761B18581500CC1A67 /* Ogg.framework */; };
 		1ED794711ACE44AA0080FCA8 /* sheetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED794701ACE44AA0080FCA8 /* sheetTableViewController.m */; };
 		1ED794741ACE4A8F0080FCA8 /* ipTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED794731ACE4A8F0080FCA8 /* ipTool.m */; };
 		1ED794761ACE50640080FCA8 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED794751ACE50640080FCA8 /* folder.png */; };
@@ -543,6 +547,15 @@
 		1EBC99B71B097F0800833716 /* cellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellViewController.m; sourceTree = "<group>"; };
 		1EBC99BA1B0984C800833716 /* ThreadJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadJob.h; sourceTree = "<group>"; };
 		1EBC99BB1B0984C800833716 /* ThreadJob.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ThreadJob.mm; sourceTree = "<group>"; };
+		1ED6466E1B18575300CC1A67 /* IDZAQAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDZAQAudioPlayer.h; sourceTree = "<group>"; };
+		1ED6466F1B18575300CC1A67 /* IDZAQAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDZAQAudioPlayer.m; sourceTree = "<group>"; };
+		1ED646701B18575300CC1A67 /* IDZOggVorbisFileDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDZOggVorbisFileDecoder.h; sourceTree = "<group>"; };
+		1ED646711B18575300CC1A67 /* IDZOggVorbisFileDecoder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IDZOggVorbisFileDecoder.mm; sourceTree = "<group>"; };
+		1ED646741B18579100CC1A67 /* IDZTrace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDZTrace.h; sourceTree = "<group>"; };
+		1ED646751B18581500CC1A67 /* Vorbis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vorbis.framework; path = frameworks/Vorbis.framework; sourceTree = "<group>"; };
+		1ED646761B18581500CC1A67 /* Ogg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Ogg.framework; path = frameworks/Ogg.framework; sourceTree = "<group>"; };
+		1ED646791B18583F00CC1A67 /* IDZAudioPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDZAudioPlayer.h; sourceTree = "<group>"; };
+		1ED6467A1B18585300CC1A67 /* IDZAudioDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDZAudioDecoder.h; sourceTree = "<group>"; };
 		1ED7946F1ACE44AA0080FCA8 /* sheetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sheetTableViewController.h; sourceTree = "<group>"; };
 		1ED794701ACE44AA0080FCA8 /* sheetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sheetTableViewController.m; sourceTree = "<group>"; };
 		1ED794721ACE4A8F0080FCA8 /* ipTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ipTool.h; sourceTree = "<group>"; };
@@ -711,6 +724,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ED646771B18581500CC1A67 /* Vorbis.framework in Frameworks */,
+				1ED646781B18581500CC1A67 /* Ogg.framework in Frameworks */,
 				1E0739901AE5F477000DCB9E /* CoreMedia.framework in Frameworks */,
 				1E3977FC1ACD520D0049E391 /* CoreGraphics.framework in Frameworks */,
 				1E3977FA1ACD52050049E391 /* CoreText.framework in Frameworks */,
@@ -990,6 +1005,8 @@
 		1E3977FD1ACD56410049E391 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1ED646751B18581500CC1A67 /* Vorbis.framework */,
+				1ED646761B18581500CC1A67 /* Ogg.framework */,
 				1E07398F1AE5F477000DCB9E /* CoreMedia.framework */,
 				1E3977121ACD47F50049E391 /* libresolv.dylib */,
 				1E3977101ACD47ED0049E391 /* libiconv.dylib */,
@@ -1064,6 +1081,7 @@
 		1E4707051ACD44460052D2EF = {
 			isa = PBXGroup;
 			children = (
+				1ED6466D1B18573500CC1A67 /* OggPlayer */,
 				1E4707101ACD44470052D2EF /* ReadySHAREDemo */,
 				9A034E8B1AFCAEE100AD5C99 /* Reader */,
 				1EFEC0CE1ADA7F2900478346 /* RootData.h */,
@@ -1169,6 +1187,20 @@
 			);
 			name = Music;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		1ED6466D1B18573500CC1A67 /* OggPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				1ED646741B18579100CC1A67 /* IDZTrace.h */,
+				1ED646791B18583F00CC1A67 /* IDZAudioPlayer.h */,
+				1ED6467A1B18585300CC1A67 /* IDZAudioDecoder.h */,
+				1ED6466E1B18575300CC1A67 /* IDZAQAudioPlayer.h */,
+				1ED6466F1B18575300CC1A67 /* IDZAQAudioPlayer.m */,
+				1ED646701B18575300CC1A67 /* IDZOggVorbisFileDecoder.h */,
+				1ED646711B18575300CC1A67 /* IDZOggVorbisFileDecoder.mm */,
+			);
+			name = OggPlayer;
 			sourceTree = "<group>";
 		};
 		9A0050B31B031390007620A2 /* Local */ = {
@@ -1685,6 +1717,7 @@
 				1E3AF1EF1ADF9CD5004AA408 /* CustomCellBackground.m in Sources */,
 				1E39775D1ACD4BAB0049E391 /* UIImage+RoundedCorner.m in Sources */,
 				9A034EBD1AFCAF4E00AD5C99 /* ReaderDocumentOutline.m in Sources */,
+				1ED646721B18575300CC1A67 /* IDZAQAudioPlayer.m in Sources */,
 				1E3977171ACD49A30049E391 /* TreeViewController.m in Sources */,
 				9A034EC41AFCAF4E00AD5C99 /* ReaderThumbRequest.m in Sources */,
 				1E3AF1EC1ADF9CC0004AA408 /* Cell2.m in Sources */,
@@ -1728,6 +1761,7 @@
 				1E4707391ACD46190052D2EF /* KxSMBProvider.m in Sources */,
 				1E3AF2231ADF9E63004AA408 /* Interpolator.cpp in Sources */,
 				1E39775B1ACD4BAB0049E391 /* UIImage+Alpha.m in Sources */,
+				1ED646731B18575300CC1A67 /* IDZOggVorbisFileDecoder.mm in Sources */,
 				9A034EBF1AFCAF4E00AD5C99 /* ReaderMainToolbar.m in Sources */,
 				9A034EC31AFCAF4E00AD5C99 /* ReaderThumbRender.m in Sources */,
 				1E3977421ACD4B7F0049E391 /* SDWebImageManager.m in Sources */,
@@ -1892,6 +1926,10 @@
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/frameworks",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/include,
@@ -1935,6 +1973,10 @@
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/frameworks",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/include,

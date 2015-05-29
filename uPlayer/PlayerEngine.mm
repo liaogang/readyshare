@@ -12,13 +12,24 @@
 #import "PlayerEngine.h"
 #import "PlayerMessage.h"
 
+#import <MediaPlayer/MediaPlayer.h>
+
+#import "IDZTrace.h"
+#import "IDZOggVorbisFileDecoder.h"
+#import "IDZAudioPlayer.h"
+#import "IDZAQAudioPlayer.h"
+
 @interface PlayerEngine ()
+<IDZAudioPlayerDelegate>
 {
     PlayState _state;
     BOOL _playTimeEnded;
     dispatch_source_t	_timer;
 }
 @property (nonatomic,strong) AVPlayer *player;
+
+@property (nonatomic) bool isOgg;
+@property (nonatomic,strong) id<IDZAudioPlayer> oggPlayer;
 
 @end
 
@@ -45,6 +56,7 @@
         
         self.player = [[AVPlayer alloc]init];
         self.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
+ 
         
         
 //        addObserverForEvent(self, @selector(playNext), EventID_track_stopped_playnext);
@@ -186,17 +198,27 @@
 }
 
 -(BOOL)isPlaying
-{
+{    if (self.isOgg) {
+        return [self.oggPlayer isPlaying];
+    }
+    
     return  (_player.currentItem != nil) && (_player.rate == 1.0) ;
 }
 
 -(bool)isPaused
-{
+{    if (self.isOgg) {
+        return ![self.oggPlayer isPlaying];
+    }
+    
     return _player.rate == 0.0;
 }
 
 -(bool)isStopped
 {
+    if (self.isOgg) {
+        return  ![self.oggPlayer isPlaying];
+    }
+    
     return _player.currentItem == nil;
 }
 
@@ -241,12 +263,17 @@
 -(void)playPause
 {
     if (self.isPlaying) {
+            if (self.isOgg) {
+        [self.oggPlayer pause];
+    }else
         [_player pause];
         _state = playstate_paused ;
         postEvent(EventID_track_paused, nil);
     }
     else if (self.isPaused)
-    {
+    {    if (self.isOgg) {
+        [self.oggPlayer play];
+    }else
         [_player play];
         _state = playstate_playing ;
         _playTimeEnded = FALSE;
@@ -276,6 +303,25 @@
 
 -(BOOL)playURL:(NSURL *)url pauseAfterInit:(BOOL)pfi
 {
+    NSString *a = url.absoluteString;
+    if ([a.lastPathComponent.pathExtension.lowercaseString isEqualToString:@"ogg"]) {
+        self.isOgg = true;
+        
+        NSError *error;
+        IDZOggVorbisFileDecoder* decoder = [[IDZOggVorbisFileDecoder alloc] initWithContentsOfURL:url error:&error];
+        NSLog(@"Ogg Vorbis file duration is %g", decoder.duration);
+        self.oggPlayer = [[IDZAQAudioPlayer alloc] initWithDecoder:decoder error:nil];
+        self.oggPlayer.delegate = self;
+        [self.oggPlayer prepareToPlay];
+        
+       [self.oggPlayer play];
+    }
+    else
+        self.isOgg = false;
+    
+    
+    
+    
     AVURLAsset *asset = [AVURLAsset assetWithURL: url];
     
     Float64 duration = CMTimeGetSeconds(asset.duration);
@@ -307,10 +353,13 @@
 }
 
 -(void)stopInner
-{
+{    if (self.isOgg) {
+        [self.oggPlayer stop];
+    }
+else{
     [_player pause];
     [_player replaceCurrentItemWithPlayerItem:nil];
-    
+}
     
     postEvent(EventID_track_stopped, nil);
     postEvent(EventID_track_state_changed, nil);
@@ -319,9 +368,14 @@
 
 -(void)stop
 {
-    [_player pause];
-    [_player replaceCurrentItemWithPlayerItem:nil];
-    
+    if (self.isOgg) {
+        [self.oggPlayer stop];
+    }
+    else
+    {
+        [_player pause];
+        [_player replaceCurrentItemWithPlayerItem:nil];
+    }
     //player().playing = nil;
     
     postEvent(EventID_track_stopped, nil);
@@ -340,12 +394,30 @@
 
 - (void)setVolume:(float)volume
 {
-    _player.volume = volume;
+    MPMusicPlayerController *mpc = [MPMusicPlayerController applicationMusicPlayer];
+    mpc.volume = volume;  //0.0~1.0
 }
 
 - (float)volume
 {
-    return  _player.volume;
+    MPMusicPlayerController *mpc = [MPMusicPlayerController applicationMusicPlayer];
+    return  mpc.volume ;
+}
+
+
+#pragma mark - IDZAudioPlayerDelegate
+- (void)audioPlayerDidFinishPlaying:(id<IDZAudioPlayer>)player successfully:(BOOL)flag
+{
+    NSLog(@"%s successfully=%@", __PRETTY_FUNCTION__, flag ? @"YES"  : @"NO");
+    //[self stopTimer];
+    //[self updateDisplay];
+}
+
+- (void)audioPlayerDecodeErrorDidOccur:(id<IDZAudioPlayer>)player error:(NSError *)error
+{
+    NSLog(@"%s error=%@", __PRETTY_FUNCTION__, error);
+    //[self stopTimer];
+    //[self updateDisplay];
 }
 
 @end
