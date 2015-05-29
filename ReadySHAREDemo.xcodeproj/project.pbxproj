@@ -24,6 +24,8 @@
 		1E21D1951AEBAE4300386233 /* oper_previous_sel~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E21D18C1AEBAE4300386233 /* oper_previous_sel~iphone.png */; };
 		1E21D1971AEBAE8200386233 /* cd_bg~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E21D1961AEBAE8200386233 /* cd_bg~iphone.png */; };
 		1E21D1991AEBB00200386233 /* cd_mask~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E21D1981AEBB00200386233 /* cd_mask~iphone.png */; };
+		1E2587111B17FA8E0087FED1 /* audioTag2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E2587101B17FA8E0087FED1 /* audioTag2.mm */; };
+		1E2587141B17FD300087FED1 /* id3Info.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E2587121B17FD300087FED1 /* id3Info.mm */; };
 		1E3853601AEF777D004E6A8B /* bookViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E38535F1AEF777D004E6A8B /* bookViewController.mm */; };
 		1E3853631AEF785B004E6A8B /* bookCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3853621AEF785B004E6A8B /* bookCollectionViewCell.m */; };
 		1E3977111ACD47ED0049E391 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3977101ACD47ED0049E391 /* libiconv.dylib */; };
@@ -327,6 +329,10 @@
 		1E21D18C1AEBAE4300386233 /* oper_previous_sel~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "oper_previous_sel~iphone.png"; path = "Resource/oper_previous_sel~iphone.png"; sourceTree = "<group>"; };
 		1E21D1961AEBAE8200386233 /* cd_bg~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cd_bg~iphone.png"; path = "Resource/cd_bg~iphone.png"; sourceTree = "<group>"; };
 		1E21D1981AEBB00200386233 /* cd_mask~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cd_mask~iphone.png"; path = "Resource/cd_mask~iphone.png"; sourceTree = "<group>"; };
+		1E25870F1B17FA8E0087FED1 /* audioTag2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audioTag2.h; sourceTree = "<group>"; };
+		1E2587101B17FA8E0087FED1 /* audioTag2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = audioTag2.mm; sourceTree = "<group>"; };
+		1E2587121B17FD300087FED1 /* id3Info.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = id3Info.mm; sourceTree = "<group>"; };
+		1E2587131B17FD300087FED1 /* id3Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = id3Info.h; sourceTree = "<group>"; };
 		1E38535E1AEF777D004E6A8B /* bookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bookViewController.h; sourceTree = "<group>"; };
 		1E38535F1AEF777D004E6A8B /* bookViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = bookViewController.mm; sourceTree = "<group>"; };
 		1E3853611AEF785B004E6A8B /* bookCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bookCollectionViewCell.h; sourceTree = "<group>"; };
@@ -743,6 +749,10 @@
 				1E0739A31AE609AB000DCB9E /* PlayerMessage.h */,
 				1E0739A41AE609AB000DCB9E /* PlayerMessage.mm */,
 				1E0739A51AE609AB000DCB9E /* PlayerTypeDefines.h */,
+				1E25870F1B17FA8E0087FED1 /* audioTag2.h */,
+				1E2587101B17FA8E0087FED1 /* audioTag2.mm */,
+				1E2587121B17FD300087FED1 /* id3Info.mm */,
+				1E2587131B17FD300087FED1 /* id3Info.h */,
 			);
 			path = uPlayer;
 			sourceTree = SOURCE_ROOT;
@@ -1054,6 +1064,7 @@
 		1E4707051ACD44460052D2EF = {
 			isa = PBXGroup;
 			children = (
+				1E4707101ACD44470052D2EF /* ReadySHAREDemo */,
 				9A034E8B1AFCAEE100AD5C99 /* Reader */,
 				1EFEC0CE1ADA7F2900478346 /* RootData.h */,
 				1EFEC0CC1ADA7F1D00478346 /* RootData.mm */,
@@ -1067,7 +1078,6 @@
 				1E85F79F1AF769E2008CB2FE /* serializeTool.mm */,
 				1E0739A01AE609AB000DCB9E /* uPlayer */,
 				1E0739A81AE609CD000DCB9E /* MAAssert */,
-				1E4707101ACD44470052D2EF /* ReadySHAREDemo */,
 				1E3AF2111ADF9E63004AA408 /* Coverflow */,
 				1E3AF2051ADF9D55004AA408 /* MBProgressHUD */,
 				1E3AF1F01ADF9D04004AA408 /* MJPhotoBrowser */,
@@ -1703,6 +1713,7 @@
 				9A0050BC1B0313E7007620A2 /* LocalViewController.m in Sources */,
 				9A034EC21AFCAF4E00AD5C99 /* ReaderThumbQueue.m in Sources */,
 				1E3977511ACD4B910049E391 /* SDWebImageManager+SMB.m in Sources */,
+				1E2587111B17FA8E0087FED1 /* audioTag2.mm in Sources */,
 				1ED794711ACE44AA0080FCA8 /* sheetTableViewController.m in Sources */,
 				9A034EBA1AFCAF4E00AD5C99 /* ReaderContentTile.m in Sources */,
 				1E0739B31AE6405D000DCB9E /* fileTypes.mm in Sources */,
@@ -1733,6 +1744,7 @@
 				1E3AF21E1ADF9E63004AA408 /* CBetterCollectionViewCell.m in Sources */,
 				1E39773D1ACD4B7F0049E391 /* SDImageCache.m in Sources */,
 				1E3977E41ACD4C7E0049E391 /* PdfPreviewViewController.m in Sources */,
+				1E2587141B17FD300087FED1 /* id3Info.mm in Sources */,
 				1E39775C1ACD4BAB0049E391 /* UIImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1876,11 +1888,13 @@
 		1E4707321ACD44470052D2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					/usr/local/include,
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(SRCROOT)/include\"",
 				);
@@ -1894,6 +1908,7 @@
 					"$(PROJECT_DIR)/ReadySHAREDemo/SMB/libs/lib_release",
 					"$(PROJECT_DIR)/ReadySHAREDemo/SMB/libs",
 					"\"$(SRCROOT)/libs/Debug$(EFFECTIVE_PLATFORM_NAME)\"",
+					/usr/local/lib,
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -1903,10 +1918,12 @@
 					"-ltevent",
 					"-lwbclient",
 					"-lMobileVLCKit",
+					"-ltag",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "457ff2b8-f24a-4e9c-8171-a37a454afcae";
+				PROVISIONING_PROFILE = "b0e451a7-7bd1-48ec-91d6-b76fcf19a491";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -1914,11 +1931,13 @@
 		1E4707331ACD44470052D2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					/usr/local/include,
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(SRCROOT)/include\"",
 				);
@@ -1932,6 +1951,7 @@
 					"$(PROJECT_DIR)/ReadySHAREDemo/SMB/libs/lib_release",
 					"$(PROJECT_DIR)/ReadySHAREDemo/SMB/libs",
 					"\"$(SRCROOT)/libs/Release$(EFFECTIVE_PLATFORM_NAME)\"",
+					/usr/local/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-lsmbclient",
@@ -1940,10 +1960,12 @@
 					"-ltevent",
 					"-lwbclient",
 					"-lMobileVLCKit",
+					"-ltag",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "457ff2b8-f24a-4e9c-8171-a37a454afcae";
+				PROVISIONING_PROFILE = "b0e451a7-7bd1-48ec-91d6-b76fcf19a491";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;

@@ -12,8 +12,11 @@
 #import "PlayerEngine.h"
 #import "PlayerMessage.h"
 #import "UIAlertViewBlock.h"
-#import "fileTypes.h"
+//#import "fileTypes.h"
 #import "serializeTool.h"
+#import "audioTag2.h"
+#import "id3Info.h"
+
 
 @interface RootData ()
 @property (nonatomic,strong) NSMutableArray *items;
@@ -334,10 +337,12 @@
     NSMutableString *artist = [ NSMutableString string];
     NSMutableString *title = [ NSMutableString string];
     NSMutableString *lyrics = [ NSMutableString string];
+    NSMutableString *genre = [ NSMutableString string];
+    NSMutableString *year = [ NSMutableString string];
     
+    getID3Info(path.UTF8String, artist, title, album, genre, year);
     
-    UIImage *image = getId3FromAudio( [NSURL fileURLWithPath: path ] , album, artist, title , lyrics);
-    
+    UIImage *image = [UIImage imageWithData: getId3ImageFromAudio([NSURL fileURLWithPath:path]) ];
     
     self.playingTrack = [[TrackInfo alloc]init];
     _playingTrack.title = title;

@@ -12,7 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SDWebImageManager+SMB.h"
 //#import "CoreAnimationEffect.h"
-#import "BOSImageResizeOperation.h"
+//#import "BOSImageResizeOperation.h"
 
 @interface MJPhotoView ()
 {
