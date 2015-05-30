@@ -184,6 +184,7 @@
 		9A0050BA1B0313E7007620A2 /* LocaFileSelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0050B51B0313E7007620A2 /* LocaFileSelectedViewController.m */; };
 		9A0050BB1B0313E7007620A2 /* LocalLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0050B71B0313E7007620A2 /* LocalLibraryViewController.m */; };
 		9A0050BC1B0313E7007620A2 /* LocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0050B91B0313E7007620A2 /* LocalViewController.m */; };
+		9A0055AE1B19C53700C2D71C /* LocalFile in Resources */ = {isa = PBXBuildFile; fileRef = 9A0055AD1B19C53700C2D71C /* LocalFile */; };
 		9A034EB71AFCAF4E00AD5C99 /* CGPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A034E901AFCAF4E00AD5C99 /* CGPDFDocument.m */; };
 		9A034EB81AFCAF4E00AD5C99 /* ReaderConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A034E921AFCAF4E00AD5C99 /* ReaderConstants.m */; };
 		9A034EB91AFCAF4E00AD5C99 /* ReaderContentPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A034E941AFCAF4E00AD5C99 /* ReaderContentPage.m */; };
@@ -583,6 +584,7 @@
 		9A0050B71B0313E7007620A2 /* LocalLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalLibraryViewController.m; sourceTree = "<group>"; };
 		9A0050B81B0313E7007620A2 /* LocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalViewController.h; sourceTree = "<group>"; };
 		9A0050B91B0313E7007620A2 /* LocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalViewController.m; sourceTree = "<group>"; };
+		9A0055AD1B19C53700C2D71C /* LocalFile */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LocalFile; sourceTree = "<group>"; };
 		9A034E8F1AFCAF4E00AD5C99 /* CGPDFDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGPDFDocument.h; path = Reader/Source/CGPDFDocument.h; sourceTree = "<group>"; };
 		9A034E901AFCAF4E00AD5C99 /* CGPDFDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGPDFDocument.m; path = Reader/Source/CGPDFDocument.m; sourceTree = "<group>"; };
 		9A034E911AFCAF4E00AD5C99 /* ReaderConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReaderConstants.h; path = Reader/Source/ReaderConstants.h; sourceTree = "<group>"; };
@@ -1081,6 +1083,7 @@
 		1E4707051ACD44460052D2EF = {
 			isa = PBXGroup;
 			children = (
+				9A0055AD1B19C53700C2D71C /* LocalFile */,
 				1ED6466D1B18573500CC1A67 /* OggPlayer */,
 				1E4707101ACD44470052D2EF /* ReadySHAREDemo */,
 				9A034E8B1AFCAEE100AD5C99 /* Reader */,
@@ -1662,6 +1665,7 @@
 				9A034ED21AFCAF6800AD5C99 /* es.lproj in Resources */,
 				9A1D66A41ADA6B2D00A84B41 /* format_media2.png in Resources */,
 				1E3977AD1ACD4C4C0049E391 /* backIcon.png in Resources */,
+				9A0055AE1B19C53700C2D71C /* LocalFile in Resources */,
 				1E3977CA1ACD4C4C0049E391 /* repeatOne@2x.png in Resources */,
 				1E3977BD1ACD4C4C0049E391 /* playbackDoneButtonHighlight.png in Resources */,
 				9A1D66CA1ADA6B2D00A84B41 /* oper_next_sel.png in Resources */,
