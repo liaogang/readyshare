@@ -4,7 +4,7 @@
 //
 //  Created by Donobono on 2014. 1. 23..
 //
-
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 

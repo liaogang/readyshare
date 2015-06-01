@@ -92,7 +92,8 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
 @implementation FileViewController {
     NSString        *_filePath;
     NSFileHandle    *_fileHandle;
-    long            _downloadedBytes;
+    
+    unsigned long  _downloadedBytes;
     NSDate          *_timestamp;
     
     bool isAddedBySuperView;
@@ -114,7 +115,6 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     _mediaType;
     
     
-    long   _lastDownloadedBytes;
     
     
 #if !(TARGET_IPHONE_SIMULATOR)
