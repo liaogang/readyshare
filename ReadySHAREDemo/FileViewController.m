@@ -93,7 +93,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
     NSString        *_filePath;
     NSFileHandle    *_fileHandle;
     
-    unsigned long  _downloadedBytes;
+    unsigned long  long _downloadedBytes;
     NSDate          *_timestamp;
     
     bool isAddedBySuperView;

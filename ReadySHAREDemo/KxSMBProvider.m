@@ -139,7 +139,7 @@ static KxSMBError errnoToSMBErr(int err)
 @interface KxSMBItemStat ()
 @property(readwrite, nonatomic, strong) NSDate *lastModified;
 @property(readwrite, nonatomic, strong) NSDate *lastAccess;
-@property(readwrite, nonatomic) unsigned long size;
+@property(readwrite, nonatomic) unsigned long long size;
 @property(readwrite, nonatomic) long mode;
 @end
 
@@ -425,7 +425,7 @@ static KxSMBProvider *gSmbProvider;
     KxSMBItemStat *stat = [[KxSMBItemStat alloc] init];
     stat.lastModified = [NSDate dateWithTimeIntervalSince1970: st.st_mtime];
     stat.lastAccess = [NSDate dateWithTimeIntervalSince1970: st.st_atime];
-    stat.size = (unsigned long)st.st_size;
+    stat.size = (unsigned long long)st.st_size;
     stat.mode = st.st_mode;
     return stat;
     
