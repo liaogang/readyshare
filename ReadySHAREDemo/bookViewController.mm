@@ -112,8 +112,8 @@ static NSString * const reuseIdentifier = @"bookCell";
     KxSMBItemFile *file = self.files[[self indexFromIndexPath:indexPath]];
     
     UIActivityIndicatorView *av = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    av.autoresizingMask = ~0 & ~UIViewAutoresizingFlexibleWidth & ~ UIViewAutoresizingFlexibleHeight;
     av.center=self.view.center;
-    av.autoresizingMask = ~0;
     [av startAnimating];
     [self.view addSubview:av];
     

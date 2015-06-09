@@ -31,8 +31,6 @@
 
     serializeToolOpen();
     
-
-
     addObserverForEvent(self , @selector(trackStarted:), EventID_track_started);
     
     
