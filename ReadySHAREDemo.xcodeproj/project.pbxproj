@@ -316,6 +316,7 @@
 		9A8FE5171B19C99B00B10343 /* show@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8FE5051B19C99B00B10343 /* show@2x.png */; };
 		9A8FE5181B19C99B00B10343 /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8FE5061B19C99B00B10343 /* up.png */; };
 		9A8FE5191B19C99B00B10343 /* up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8FE5071B19C99B00B10343 /* up@2x.png */; };
+		9AFE95651B26C9BB00393BC4 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AFE95641B26C9BB00393BC4 /* Icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -757,6 +758,7 @@
 		9A8FE5051B19C99B00B10343 /* show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show@2x.png"; sourceTree = "<group>"; };
 		9A8FE5061B19C99B00B10343 /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
 		9A8FE5071B19C99B00B10343 /* up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up@2x.png"; sourceTree = "<group>"; };
+		9AFE95641B26C9BB00393BC4 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1121,6 +1123,7 @@
 		1E4707051ACD44460052D2EF = {
 			isa = PBXGroup;
 			children = (
+				9AFE95641B26C9BB00393BC4 /* Icon@2x.png */,
 				9A8FE4EE1B19C99B00B10343 /* LocalFile */,
 				1ED6466D1B18573500CC1A67 /* OggPlayer */,
 				1E4707101ACD44470052D2EF /* ReadySHAREDemo */,
@@ -1752,6 +1755,7 @@
 				9A034F081AFCAF7900AD5C99 /* Reader-Print@2x.png in Resources */,
 				1E3977B21ACD4C4C0049E391 /* forwardIcon@2x.png in Resources */,
 				1E3977C51ACD4C4C0049E391 /* ratioIcon.png in Resources */,
+				9AFE95651B26C9BB00393BC4 /* Icon@2x.png in Resources */,
 				9A034EFE1AFCAF7900AD5C99 /* Reader-Button-N@2x.png in Resources */,
 				9A1D66C51ADA6B2D00A84B41 /* music_bg.png in Resources */,
 				1E3977CC1ACD4C4C0049E391 /* resetIcon@2x.png in Resources */,
@@ -2071,8 +2075,8 @@
 					"-ltag",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b0e451a7-7bd1-48ec-91d6-b76fcf19a491";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -2117,8 +2121,8 @@
 					"-ltag",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b0e451a7-7bd1-48ec-91d6-b76fcf19a491";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VALID_ARCHS = "armv7 armv7s";
 			};
