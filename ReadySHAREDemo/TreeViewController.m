@@ -16,8 +16,6 @@
 #import "ipTool.h"
 #import "smbCollectionView.h"
 
-
-
 @interface TreeViewController () <UITableViewDataSource, UITableViewDelegate  >
 @property (nonatomic) BOOL bSelectUpload;
 @property (nonatomic, strong) NSString *_urlLocalFileToUpload;
