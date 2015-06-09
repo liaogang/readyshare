@@ -142,30 +142,37 @@ static void IDZPropertyListener(void* inUserData,
                                               kCFRunLoopCommonModes,
                                               0,
                                               &mQueue);
-        NSAssert(status == noErr, @"Audio queue creation was successful.");
-        AudioQueueSetParameter(mQueue, kAudioQueueParam_Volume, 1.0);
-        status = AudioQueueAddPropertyListener(mQueue, kAudioQueueProperty_IsRunning,
-                                               IDZPropertyListener, (__bridge void*)self);
-        
-        for(int i = 0; i < IDZ_BUFFER_COUNT; ++i)
-        {
-            UInt32 bufferSize = 128 * 1024;
-            status = AudioQueueAllocateBuffer(mQueue, bufferSize, &mBuffers[i]);
-            if(status != noErr)
-            {
-                if(*error)
-                {
-                    *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
-                }
-                AudioQueueDispose(mQueue, true);
-                mQueue = 0;
-                return nil;
-            }
+        //        NSAssert(status == noErr, @"Audio queue creation was successful.");
+        if (status == noErr) {
+            AudioQueueSetParameter(mQueue, kAudioQueueParam_Volume, 1.0);
+            status = AudioQueueAddPropertyListener(mQueue, kAudioQueueProperty_IsRunning,
+                                                   IDZPropertyListener, (__bridge void*)self);
             
+            for(int i = 0; i < IDZ_BUFFER_COUNT; ++i)
+            {
+                UInt32 bufferSize = 128 * 1024;
+                status = AudioQueueAllocateBuffer(mQueue, bufferSize, &mBuffers[i]);
+                if(status != noErr)
+                {
+                    if(*error)
+                    {
+                        *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
+                    }
+                    AudioQueueDispose(mQueue, true);
+                    mQueue = 0;
+                    return nil;
+                }
+                
+            }
+            mState = IDZAudioPlayerStateStopped;
+            mQueueStartTime = 0.0;
+        }
+        else
+        {
+            return nil;
         }
     }
-    mState = IDZAudioPlayerStateStopped;
-    mQueueStartTime = 0.0;
+    
     return self;
 }
 

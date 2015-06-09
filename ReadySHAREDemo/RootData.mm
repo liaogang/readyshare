@@ -253,8 +253,7 @@
     
 }
 
-
--(void)playItemAtIndex:(int)index
+-(void)playItemAtIndex:(int)index callback:(FinishedWithResult)callback
 {
     RootData *r = self;
 
@@ -287,7 +286,11 @@
                 // Verify OK , play.
                 r.playingIndex = index;
                 
-                [self playFileAtPath: fullFileName];
+                BOOL result = [self playFileAtPath: fullFileName];
+                if (result == FALSE) {
+                    NSError *error = [NSError errorWithDomain:@"player.readyshare.com" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Can not open file",nil), NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Bad file format",nil)}];
+                    callback(error);
+                }
             }
             else
             {
@@ -302,7 +305,6 @@
          {
              if ([result isKindOfClass:[NSData class]])
              {
-
                  NSData *data = result;
                  if (data.length == file.stat.size)
                  {
@@ -312,11 +314,19 @@
                      }
                      
                      [RootData shared].playingIndex = index;
-                     [self playFileAtPath: fullFileName];
+                     
+                     BOOL result = [self playFileAtPath: fullFileName];
+                     if (result == FALSE) {
+                         NSError *error = [NSError errorWithDomain:@"player.readyshare.com" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Can not open file",nil), NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Bad file format",nil)}];
+                         callback(error);
+                     }
                  }
                  else
                  {
-                     NSLog(@"Download file error.");
+                     NSLog(@"Download file error");
+                     
+                     NSError *error = [NSError errorWithDomain:@"player.readyshare.com" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Download file error",nil)}];
+                     callback(error);
                  }
              }
              else if([result isKindOfClass:[NSError class]])
@@ -330,9 +340,8 @@
     }
 }
 
--(void)playFileAtPath:(NSString*)path
+-(BOOL)playFileAtPath:(NSString*)path
 {
-    
     NSMutableString *album = [ NSMutableString string];
     NSMutableString *artist = [ NSMutableString string];
     NSMutableString *title = [ NSMutableString string];
@@ -354,8 +363,7 @@
     self.playingFilePath = path;
     
     PlayerEngine *engine = [PlayerEngine shared];
-    [engine playURL: [NSURL fileURLWithPath:path]];
-    
+    return  [engine playURL: [NSURL fileURLWithPath:path]];
 }
 
 -(void)playNext
@@ -364,7 +372,7 @@
     
     if (next != -1)
     {
-        [[RootData shared] playItemAtIndex: next ];
+        [[RootData shared] playItemAtIndex: next callback:nil];
     }
 }
 
@@ -374,7 +382,7 @@
     
     if (next != -1)
     {
-        [[RootData shared] playItemAtIndex: next ];
+        [[RootData shared] playItemAtIndex: next callback:nil];
     }
 }
 

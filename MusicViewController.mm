@@ -298,8 +298,19 @@ void valueToMinSec(double d, int *m , int *s)
     cell.loading.hidden = false;
     [cell.loading startAnimating];
     
+
     
-    [[RootData shared] playItemAtIndex:indexPath.row];
+    [[RootData shared] playItemAtIndex:indexPath.row callback:^(id result) {
+        if ([result isKindOfClass:[NSError class]]) {
+            NSError *error = result;
+            
+            [cell.loading stopAnimating];
+            cell.loading.hidden = YES;
+            
+            [[[UIAlertViewBlock alloc]initWithTitle: error.localizedDescription message:error.localizedFailureReason delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
+            
+        }
+    }];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -56,17 +56,20 @@
         mpFile = fopen([path UTF8String], "r");
         NSAssert(mpFile, @"fopen succeeded.");
         int iReturn = ov_open_callbacks(mpFile, &mOggVorbisFile, NULL, 0, OV_CALLBACKS_NOCLOSE);
-        NSAssert(iReturn >= 0, @"ov_open_callbacks succeeded.");
-        vorbis_info* pInfo = ov_info(&mOggVorbisFile, -1);
-        int bytesPerChannel = IDZ_OGG_VORBIS_WORDSIZE;
-        FillOutASBDForLPCM(mDataFormat,
-                           (Float64)pInfo->rate, // sample rate (fps)
-                           (UInt32)pInfo->channels, // channels per frame
-                           (UInt32)IDZ_BYTES_TO_BITS(bytesPerChannel), // valid bits per channel
-                           (UInt32)IDZ_BYTES_TO_BITS(bytesPerChannel), // total bits per channel
-                           false, // isFloat
-                           false); // isBigEndian
-        
+//        NSAssert(iReturn >= 0, @"ov_open_callbacks succeeded.");
+        if (iReturn >= 0) {
+            vorbis_info* pInfo = ov_info(&mOggVorbisFile, -1);
+            int bytesPerChannel = IDZ_OGG_VORBIS_WORDSIZE;
+            FillOutASBDForLPCM(mDataFormat,
+                               (Float64)pInfo->rate, // sample rate (fps)
+                               (UInt32)pInfo->channels, // channels per frame
+                               (UInt32)IDZ_BYTES_TO_BITS(bytesPerChannel), // valid bits per channel
+                               (UInt32)IDZ_BYTES_TO_BITS(bytesPerChannel), // total bits per channel
+                               false, // isFloat
+                               false); // isBigEndian
+        }
+        else
+            return nil;
     }
     return self;
 }
