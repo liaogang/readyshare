@@ -132,8 +132,6 @@
     [super viewDidLoad];
     
     _items = [[RootData shared]getDataOfCurrMediaTypeVerifyFiltered];
-    
-     self.navigationItem.title = [NSString stringWithFormat: NSLocalizedString(@"%d movies",nil) , _items.count];
 }
 
 
