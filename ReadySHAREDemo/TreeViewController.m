@@ -17,6 +17,7 @@
 #import "smbCollectionView.h"
 
 
+
 @interface TreeViewController () <UITableViewDataSource, UITableViewDelegate  >
 @property (nonatomic) BOOL bSelectUpload;
 @property (nonatomic, strong) NSString *_urlLocalFileToUpload;
@@ -133,6 +134,8 @@
     [super viewDidLoad];
     
     _items = [[RootData shared]getDataOfCurrMediaTypeVerifyFiltered];
+    
+     self.navigationItem.title = [NSString stringWithFormat: NSLocalizedString(@"%d movies",nil) , _items.count];
 }
 
 
@@ -530,6 +533,10 @@
     
     return cell;
 }
+
+
+
+
 
 #pragma mark - Table view delegate
 
