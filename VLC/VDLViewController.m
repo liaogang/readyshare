@@ -80,14 +80,14 @@ CGRect rectRorientation(CGRect r)
 @property (retain, nonatomic) IBOutlet OBSlider *posSlider;
 - (IBAction)posSliderChanged:(id)sender;
 ///xxx:xx显示定位
-@property (retain, nonatomic) IBOutlet UIButton *posTextField;
+@property (retain, nonatomic) IBOutlet UIButton *posTextFieldRight;
+@property (weak, nonatomic) IBOutlet UIButton *posTextFieldLeft;
 
 
 
 
 ///视频输出
-@property (nonatomic, strong) IBOutlet UIView *movieView;
-
+@property (nonatomic, weak) IBOutlet UIView *movieView;
 
 
 
@@ -160,7 +160,8 @@ CGRect rectRorientation(CGRect r)
     void (^animationBlock)() = ^() {
         _btnFullScreen.alpha = alpha;
         _posSlider.alpha = alpha;
-        _posTextField.alpha = alpha;
+        _posTextFieldLeft.alpha = alpha;
+        _posTextFieldRight.alpha = alpha;
         _btnBack.alpha = alpha;
         _btnForward.alpha = alpha;
         _btnPlayandPause.alpha = alpha;
@@ -170,7 +171,8 @@ CGRect rectRorientation(CGRect r)
     void (^completionBlock)(BOOL finished) = ^(BOOL finished) {
         _btnFullScreen.hidden=bControlsHiden;
         _posSlider.hidden=bControlsHiden;
-        _posTextField.hidden=bControlsHiden;
+        _posTextFieldLeft.hidden=bControlsHiden;
+        _posTextFieldRight.hidden=bControlsHiden;
         _btnBack.hidden=bControlsHiden;
         _btnForward.hidden=bControlsHiden;
         _btnPlayandPause.hidden=bControlsHiden;;
@@ -505,7 +507,9 @@ CGRect rectRorientation(CGRect r)
         NSString *time = [_mediaplayer time].stringValue;
         NSString *remainingTime = [_mediaplayer remainingTime].stringValue;
         
-        [_posTextField setTitle:[NSString stringWithFormat:@"%@ : %@",time,remainingTime] forState:UIControlStateNormal];
+        [_posTextFieldLeft setTitle:[NSString stringWithFormat:@"%@",time] forState:UIControlStateNormal];
+        [_posTextFieldRight setTitle:[NSString stringWithFormat:@"%@",remainingTime] forState:UIControlStateNormal];
+        
     }
 }
 
@@ -517,7 +521,8 @@ CGRect rectRorientation(CGRect r)
         _mediaplayer.state ==VLCMediaPlayerStateOpening ||
         _mediaplayer.state ==VLCMediaPlayerStateBuffering )
     {
-        _posTextField.hidden=NO;
+        _posTextFieldLeft.hidden=NO;
+        _posTextFieldRight.hidden=NO;
         _posSlider.hidden=NO;
         [_btnPlayandPause setImage:[UIImage imageNamed:@"pauseIcon"] forState:UIControlStateNormal];
         
@@ -547,7 +552,8 @@ CGRect rectRorientation(CGRect r)
         }
         else
         {
-            _posTextField.hidden=YES;
+            _posTextFieldLeft.hidden=YES;
+            _posTextFieldRight.hidden=YES;
             _posSlider.hidden=YES;
         }
     }
