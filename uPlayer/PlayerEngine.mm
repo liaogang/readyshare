@@ -87,7 +87,7 @@
                 {
                     ProgressInfo *info=[[ProgressInfo alloc]init];
                     info.current =  [self currentTime];
-                    info.total = CMTimeGetSeconds( _player.currentItem.duration );
+                    info.total = [self totalTime];
                     
                     postEvent(EventID_track_progress_changed, info);
                 }
@@ -287,23 +287,46 @@
 
 -(void)seekToTime:(NSTimeInterval)time
 {
-    [_player seekToTime: CMTimeMakeWithSeconds( time , 1) ];
+    if (self.isOgg) {
+        self.oggPlayer.currentTime = time;
+    }
+    else
+        [_player seekToTime: CMTimeMakeWithSeconds( time , 1) ];
 }
 
 -(NSTimeInterval)currentTime
 {
+    if (self.isOgg) {
+        return [self.oggPlayer currentTime];
+    }
+    
    	CMTime time = _player.currentTime;
     return CMTimeGetSeconds(time);
 }
 
 -(NSTimeInterval)totalTime
 {
-    return CMTimeGetSeconds(_player.currentItem.duration);
+    NSTimeInterval result;
+    if (self.isOgg) {
+        result = [self.oggPlayer duration];
+        
+    }
+   else
+    result = CMTimeGetSeconds(_player.currentItem.duration);
+    
+    if (isnan(result) )
+        return 100.;
+    
+    return result;
 }
 
 -(BOOL)playURL:(NSURL *)url pauseAfterInit:(BOOL)pfi
 {
+    [self stop];
+    
     NSString *a = url.absoluteString;
+    
+    
     if ([a.lastPathComponent.pathExtension.lowercaseString isEqualToString:@"ogg"]) {
         self.isOgg = true;
         
@@ -314,30 +337,29 @@
         self.oggPlayer.delegate = self;
         [self.oggPlayer prepareToPlay];
         
-       [self.oggPlayer play];
+        [self.oggPlayer play];
     }
     else
+    {
         self.isOgg = false;
-    
-    
-    
-    
-    AVURLAsset *asset = [AVURLAsset assetWithURL: url];
-    
-    Float64 duration = CMTimeGetSeconds(asset.duration);
-    AVPlayerItem *item = [AVPlayerItem playerItemWithAsset: asset];
-    
-    [_player replaceCurrentItemWithPlayerItem: item ];
-    
-    postEvent(EventID_track_stopped, nil);
-    
-    if (pfi == false)
-        [_player play];
-
-    _playTimeEnded = FALSE;
+        
+        AVURLAsset *asset = [AVURLAsset assetWithURL: url];
+        
+        AVPlayerItem *item = [AVPlayerItem playerItemWithAsset: asset];
+        
+        [_player replaceCurrentItemWithPlayerItem: item ];
+        
+        postEvent(EventID_track_stopped, nil);
+        
+        if (pfi == false)
+            [_player play];
+        
+        _playTimeEnded = FALSE;
+    }
     
     ProgressInfo *info = [[ProgressInfo alloc]init];
-    info.total =  duration;
+    info.total =  [self totalTime];
+    
     postEvent(EventID_track_started, info);
     
     postEvent(EventID_track_state_changed, nil);
