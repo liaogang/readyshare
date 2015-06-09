@@ -224,7 +224,7 @@
 {
     [RootData shared].path = nil;
     
-    UIActivityIndicatorView *av = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView *av = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     av.hidesWhenStopped=YES;
     av.center=self.view.center;
     av.autoresizingMask = ~0;
