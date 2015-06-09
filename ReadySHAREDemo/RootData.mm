@@ -287,10 +287,13 @@
                 r.playingIndex = index;
                 
                 BOOL result = [self playFileAtPath: fullFileName];
-                if (result == FALSE) {
-                    NSError *error = [NSError errorWithDomain:@"player.readyshare.com" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Can not open file",nil), NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Bad file format",nil)}];
-                    callback(error);
+                if (callback) {
+                    if (result == FALSE) {
+                        NSError *error = [NSError errorWithDomain:@"player.readyshare.com" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Can not open file",nil), NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Bad file format",nil)}];
+                        callback(error);
+                    }
                 }
+                
             }
             else
             {
@@ -316,17 +319,21 @@
                      [RootData shared].playingIndex = index;
                      
                      BOOL result = [self playFileAtPath: fullFileName];
-                     if (result == FALSE) {
-                         NSError *error = [NSError errorWithDomain:@"player.readyshare.com" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Can not open file",nil), NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Bad file format",nil)}];
-                         callback(error);
+                     if (callback) {
+                         if (result == FALSE) {
+                             NSError *error = [NSError errorWithDomain:@"player.readyshare.com" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Can not open file",nil), NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"Bad file format",nil)}];
+                             callback(error);
+                         }
                      }
                  }
                  else
                  {
                      NSLog(@"Download file error");
                      
+                     if (callback){
                      NSError *error = [NSError errorWithDomain:@"player.readyshare.com" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Download file error",nil)}];
-                     callback(error);
+                         callback(error);
+                     }
                  }
              }
              else if([result isKindOfClass:[NSError class]])
@@ -334,7 +341,10 @@
                  NSError *error = result;
                  NSLog(@"download smb file error: %@",error);
                  
-                 [[[UIAlertViewBlock alloc]initWithTitle:NSLocalizedString(@"Error downloading smb file", nil) message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
+                 if (callback)
+                     callback(error);
+                 else
+                     [[[UIAlertViewBlock alloc]initWithTitle:NSLocalizedString(@"Error downloading smb file", nil) message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
              }
          }];
     }
