@@ -79,3 +79,7 @@
 
 "%d movies" = "%d 个电影";
 
+"Can not open file" = "无法打开文件";
+"Bad file format" = "文件格式错误";
+"Download file error" = "下载文件错误";
+

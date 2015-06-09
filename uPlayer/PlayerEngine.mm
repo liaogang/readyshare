@@ -332,6 +332,11 @@
         
         NSError *error;
         IDZOggVorbisFileDecoder* decoder = [[IDZOggVorbisFileDecoder alloc] initWithContentsOfURL:url error:&error];
+        
+        if (decoder == nil) {
+            return FALSE;
+        }
+        
         NSLog(@"Ogg Vorbis file duration is %g", decoder.duration);
         self.oggPlayer = [[IDZAQAudioPlayer alloc] initWithDecoder:decoder error:nil];
         self.oggPlayer.delegate = self;
@@ -364,7 +369,7 @@
     
     postEvent(EventID_track_state_changed, nil);
     
-    return 1;
+    return YES;
 }
 
 

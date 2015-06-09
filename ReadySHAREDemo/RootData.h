@@ -61,7 +61,7 @@ enum MediaType
 @property (nonatomic,strong) NSString *playingFilePath;
 @property (nonatomic,strong) TrackInfo *playingTrack;
 @property (nonatomic) enum PlayOrder order;
--(void)playItemAtIndex:(int)index;
+-(void)playItemAtIndex:(int)index callback:(FinishedWithResult)callback;
 -(void)playNext;
 -(void)playPrev;
 @end
