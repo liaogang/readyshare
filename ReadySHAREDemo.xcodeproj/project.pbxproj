@@ -2075,8 +2075,8 @@
 					"-ltag",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "b0e451a7-7bd1-48ec-91d6-b76fcf19a491";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -2121,8 +2121,8 @@
 					"-ltag",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "b0e451a7-7bd1-48ec-91d6-b76fcf19a491";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VALID_ARCHS = "armv7 armv7s";
 			};

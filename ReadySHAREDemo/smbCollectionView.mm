@@ -65,16 +65,11 @@ CGSize szCoverIphone ={260.,300.};
 
 -(void)dealloc
 {
-//    [[SDWebImageManager sharedManager] cancelAll];
-//    clearTempFolder();
 }
 
 -(id)init
 {
     self=[super init];
-//    if (self) {
-//    }
-    
     return self;
 }
 
@@ -199,7 +194,6 @@ CGSize szCoverIphone ={260.,300.};
 {
     Cell2 *weakCell = (Cell2*)cell;
     weakCell.imageV.image = nil;
-    NSLog(@"set nil. %d",indexPath.row);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
