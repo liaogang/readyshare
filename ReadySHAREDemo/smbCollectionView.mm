@@ -65,8 +65,8 @@ CGSize szCoverIphone ={260.,300.};
 
 -(void)dealloc
 {
-    [[SDWebImageManager sharedManager] cancelAll];
-    clearTempFolder();
+//    [[SDWebImageManager sharedManager] cancelAll];
+//    clearTempFolder();
 }
 
 -(id)init
@@ -107,7 +107,6 @@ CGSize szCoverIphone ={260.,300.};
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
     
     [self setPhotoImages: [[RootData shared] getDataOfCurrMediaTypeVerifyFiltered]];
     
