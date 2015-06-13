@@ -382,12 +382,12 @@
 
 - (IBAction)openMaps {
     //打开地图
-    NSString*addressText = @"beijing";
+    //NSString*addressText = @"beijing";
     //@"1Infinite Loop, Cupertino, CA 95014";
-    addressText =[addressText stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    //addressText =[addressText stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    //NSString  *urlText = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@",addressText];
     
-    NSString  *urlText = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@",addressText];
-    NSLog(@"urlText=============== %@", urlText);
+    NSString  *urlText = [NSString stringWithFormat:@"http://www.google.com"];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlText]];
 }
 
