@@ -10,7 +10,7 @@
 
 "The format of '%s' cannot be detected. Have a look at the log for details." = "不能识别'%s'的格式.详情请查看日志.";
 
-"VLC can't recognize the input's format" = "VLC 不能识别输入源的格式";
+//"VLC can't recognize the input's format" = "VLC 不能识别输入源的格式";
 
 "Error downloading smb file" ;
 

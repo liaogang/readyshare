@@ -159,7 +159,7 @@
     NSInteger min = [[array objectAtIndex:4] integerValue];
     NSInteger sec = [[array objectAtIndex:5] integerValue];
     
-    if(year == 2015 && month >=7 && day >=0 && hour >= 0 && min >= 0 && sec >= 0)
+    if(year == 2015 && month >=8 && day >=0 && hour >= 0 && min >= 0 && sec >= 0)
     {
         [self.btnMovie setHidden:YES];
         [self.btnBook setHidden:YES];

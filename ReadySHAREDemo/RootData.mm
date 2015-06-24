@@ -402,6 +402,12 @@ BOOL filterPathByMediaType(NSString *path ,enum MediaType type)
 {
     NSString *pathExtension = path.pathExtension.lowercaseString;
     
+    // Laotan: 对扩展名为单个字符，如.c, .a 文件过滤掉
+    if([pathExtension length] <= 1)
+    {
+        return NO;
+    }
+    
     if (type == MediaTypeMovie)
     {
         NSRange r = [kSupportedFileExtensions rangeOfString:pathExtension];
