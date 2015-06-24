@@ -493,7 +493,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
                     [self closeFiles];
 
     		//提醒用户下载完毕
-    		[MBProgressHUD showSuccess:NSLocalizedString(@"download finished", nil ) toView:self.navigationController.view];
+    		//[MBProgressHUD showSuccess:NSLocalizedString(@"download finished", nil ) toView:self.navigationController.view];
                     [self tryPlay];
 
                     if (_mediaType == video) {
