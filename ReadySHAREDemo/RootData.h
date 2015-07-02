@@ -47,6 +47,7 @@ enum MediaType
 
 
 -(NSString*)generateTempFolder;
+-(NSError*) clearTempFolder;
 
 /** Test if a temp file is exsited and cached in temp folder.
  @return file's full path.

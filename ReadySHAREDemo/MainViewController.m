@@ -130,7 +130,25 @@
     [msg appendFormat:@"%@ %@",@"软件版本",[[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey]];
     [msg appendString:@"\n"];
     
-    [[[UIAlertView alloc]initWithTitle:@"关于" message:msg delegate:nil cancelButtonTitle:@"取消" otherButtonTitles: nil]show];
+    UIAlertView *versionAlert = [[UIAlertView alloc] initWithTitle:@"关于" message:msg delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"清理缓存", nil];
+    versionAlert.tag = 9999;
+    [versionAlert show];
+    //[[[[UIAlertView alloc]initWithTitle:@"关于" message:msg delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"" ] nil]show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 9999)
+    {
+        if(buttonIndex == 0) // 默认“关闭对话框” 功能
+        {
+            NSLog(@"000000");
+        }
+        else if(buttonIndex == 1) // 清理缓存
+        {
+            [[RootData shared] clearTempFolder];
+        }
+    }
 }
 
 

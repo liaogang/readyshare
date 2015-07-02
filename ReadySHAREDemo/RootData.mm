@@ -189,6 +189,11 @@
     return  generateTempFolderName();
 }
 
+-(NSError*) clearTempFolder
+{
+    return clearTempFolder();
+}
+
 -(NSString*)smbFileExistsAtCache:(KxSMBItemFile*)file :(BOOL*)exsit
 {
     NSString *fileName = [@(file.stat.lastModified.timeIntervalSince1970).stringValue  stringByAppendingFormat:@"-%@",file.path.lastPathComponent];
