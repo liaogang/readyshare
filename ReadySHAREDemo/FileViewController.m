@@ -338,7 +338,7 @@ NSString *stringFromTimeInterval(NSTimeInterval t)
         NSFileManager *fm = [[NSFileManager alloc] init];
         
         //Open or Create A folder "Downloads"
-        //folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
+        folder =[folder stringByAppendingPathComponent:@"Downloads"] ;
         
         [fm createDirectoryAtURL:[NSURL fileURLWithPath:folder]
      withIntermediateDirectories:YES attributes:nil error:nil ];
