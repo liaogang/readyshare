@@ -152,7 +152,7 @@
 		1E47071F1ACD44470052D2EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E47071E1ACD44470052D2EF /* Images.xcassets */; };
 		1E4707221ACD44470052D2EF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E4707201ACD44470052D2EF /* LaunchScreen.xib */; };
 		1E47072E1ACD44470052D2EF /* ReadySHAREDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E47072D1ACD44470052D2EF /* ReadySHAREDemoTests.m */; };
-		1E4707391ACD46190052D2EF /* KxSMBProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4707381ACD46190052D2EF /* KxSMBProvider.m */; };
+		1E4707391ACD46190052D2EF /* KxSMBProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4707381ACD46190052D2EF /* KxSMBProvider.m */; settings = {COMPILER_FLAGS = "-x objective-c -fobjc-arc"; }; };
 		1E4707601ACD473A0052D2EF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E47075F1ACD473A0052D2EF /* libz.dylib */; };
 		1E6B81F31AE4E8120078C52B /* musicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6B81F11AE4E8120078C52B /* musicTableViewCell.m */; };
 		1E6B81F41AE4E8120078C52B /* musicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6B81F21AE4E8120078C52B /* musicTableViewCell.xib */; };
@@ -1562,6 +1562,7 @@
 					};
 					1E4707261ACD44470052D2EF = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = YLBH43AG4N;
 						TestTargetID = 1E47070D1ACD44470052D2EF;
 					};
 				};
@@ -1988,8 +1989,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NETGEAR, INC.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: NETGEAR, INC.";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2009,7 +2010,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
+				PROVISIONING_PROFILE = "4f50c9a5-ff1a-421b-81b3-7a8aaaf6b766";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -2032,8 +2033,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NETGEAR, INC.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: NETGEAR, INC.";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2046,7 +2047,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
+				PROVISIONING_PROFILE = "4f50c9a5-ff1a-421b-81b3-7a8aaaf6b766";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -2058,8 +2059,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LIBRARY = "libstdc++";
-				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NETGEAR, INC.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: NETGEAR, INC.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
@@ -2093,8 +2094,8 @@
 					"-ltag",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "4f50c9a5-ff1a-421b-81b3-7a8aaaf6b766";
+				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -2105,8 +2106,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LIBRARY = "libstdc++";
-				CODE_SIGN_IDENTITY = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: dragon flow (V2DSY6KBFJ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NETGEAR, INC.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: NETGEAR, INC.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
@@ -2139,8 +2140,8 @@
 					"-ltag",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1987f36e-5b64-4d0c-816e-c86c0cc3dd13";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "4f50c9a5-ff1a-421b-81b3-7a8aaaf6b766";
+				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = /usr/local/include;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -2150,6 +2151,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2161,6 +2164,7 @@
 				INFOPLIST_FILE = ReadySHAREDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReadySHAREDemo.app/ReadySHAREDemo";
 			};
 			name = Debug;
@@ -2169,6 +2173,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2176,6 +2182,7 @@
 				INFOPLIST_FILE = ReadySHAREDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReadySHAREDemo.app/ReadySHAREDemo";
 			};
 			name = Release;
