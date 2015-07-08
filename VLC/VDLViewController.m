@@ -99,6 +99,8 @@ CGRect rectRorientation(CGRect r)
 @property (retain, nonatomic) IBOutlet UIButton *btnRepeat;
 
 - (IBAction)playandPause:(id)sender;
+
+@property (nonatomic) bool isSeeking;
 @end
 
 @implementation VDLViewController
@@ -444,11 +446,18 @@ CGRect rectRorientation(CGRect r)
     [_mediaplayer setPosition:pos];
 }
 
-
+-(void)setSeekingFalse
+{
+    self.isSeeking = false;
+}
 
 - (IBAction)posSliderChanged:(id)sender {
     
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    self.isSeeking = true;
+    [self performSelector:@selector(setSeekingFalse) withObject:nil afterDelay:1.0];
+    
+    
+    //[NSObject cancelPreviousPerformRequestsWithTarget:self];
     
     UISlider *slider = sender;
     NSLog(@"highlighted: %d",slider.highlighted);
@@ -474,11 +483,7 @@ CGRect rectRorientation(CGRect r)
         [_mediaplayer setPosition: _posSlider.value];
 }
 
-///用户正在拖动
--(BOOL)isUserSliding
-{
-    return _posSlider.state != UIControlStateNormal && _posSlider.highlighted == false;
-}
+
 
 -(void)mediaPlayerTimeChanged:(NSNotification *)aNotification
 {
@@ -499,7 +504,7 @@ CGRect rectRorientation(CGRect r)
 -(void)updatePosUI
 {
     //do not update while user is operating.
-    if(![self isUserSliding])
+    if(!self.isSeeking && _posSlider.highlighted == false && _posSlider.state == UIControlStateNormal )
     {
         [_posSlider setValue: _mediaplayer.position];
         
