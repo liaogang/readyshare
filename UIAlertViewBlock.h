@@ -17,3 +17,4 @@ typedef void(^UIAlertViewCompletedBlock)(UIAlertViewBlock *);
  cancelButtonTitle:(NSString *)cancelButtonTitle cancelledBlock:(UIAlertViewCompletedBlock)cancelledBlock
     okButtonTitles:(NSString *)okButtonTitles  okBlock:(UIAlertViewCompletedBlock)okBlock;
 @end
+
